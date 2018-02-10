@@ -6,15 +6,14 @@
 Welcome to CodeToolchains's documentation!
 ==========================================
 
+目录
+------
+
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :titlesonly:
+   :glob:
 
+   1-TextEdit/index
+   2-VerControl/index
+   3-IDE/index
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
