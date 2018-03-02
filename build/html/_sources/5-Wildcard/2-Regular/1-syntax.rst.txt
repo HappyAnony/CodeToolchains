@@ -1,0 +1,10 @@
+正则表达式语法
+===============
+
+
+参考文档
+
+- `揭开正则表达式的神秘面纱 <http://www.regexlab.com/zh/regref.htm>`_
+- `正则表达式30分钟入门教程 <http://www.jb51.net/tools/zhengze.html#lookaround>`_
+- `正则表达式速查表 <http://jquery.cuishifeng.cn/regexp.html>`_
+

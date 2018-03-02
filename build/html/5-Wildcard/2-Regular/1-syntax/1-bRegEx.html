@@ -1,0 +1,492 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>基本正则表达式 &mdash; CodeToolchains 1.0.0 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../../genindex.html"/>
+        <link rel="search" title="搜索" href="../../../search.html"/>
+    <link rel="top" title="CodeToolchains 1.0.0 文档" href="../../../index.html"/>
+        <link rel="up" title="正则表达式语法" href="index.html"/>
+        <link rel="next" title="扩展正则表达式" href="2-eRegEx.html"/>
+        <link rel="prev" title="正则表达式语法" href="index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> CodeToolchains
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../1-TextEdit/index.html">文本编辑器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2-VerControl/index.html">版本控制器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../3-IDE/index.html">IDE集成开发环境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../4-Linux/index.html">Linux命令工具</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">通配机制</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../1-FileWildcard.html">文件名通配机制</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">正则表达式</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">正则表达式语法</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">基本正则表达式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2-eRegEx.html">扩展正则表达式</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../2-engine/index.html">正则表达式引擎</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../3-tools/index.html">正则表达式工具</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../4-application/index.html">正则表达式应用</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">CodeToolchains</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">通配机制</a> &raquo;</li>
+        
+          <li><a href="../index.html">正则表达式</a> &raquo;</li>
+        
+          <li><a href="index.html">正则表达式语法</a> &raquo;</li>
+        
+      <li>基本正则表达式</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/5-Wildcard/2-Regular/1-syntax/1-bRegEx.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>基本正则表达式<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>字符通配元字符<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">.</span></code>：匹配除<code class="docutils literal"><span class="pre">\n</span></code>之外的任何单个字符。要匹配包括<code class="docutils literal"><span class="pre">\n</span></code>在内的任何字符，请使用像<code class="docutils literal"><span class="pre">(.|\n)</span></code>的模式</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">[]</span></code>：匹配指定集合或范围内的任意单个字符</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">[abc]</span></code>：匹配<code class="docutils literal"><span class="pre">a/b/c</span></code>中的任意一个字符</li>
+<li><code class="docutils literal"><span class="pre">[0-9]</span></code>、<code class="docutils literal"><span class="pre">[[:digit:]]</span></code>：匹配0到9任意单个数字</li>
+<li><code class="docutils literal"><span class="pre">[a-z]</span></code>、<code class="docutils literal"><span class="pre">[[:lower:]]</span></code>：匹配单个小写字母</li>
+<li><code class="docutils literal"><span class="pre">[A-Z]</span></code>、<code class="docutils literal"><span class="pre">[[:upper:]]</span></code>：匹配单个大写字母</li>
+<li><code class="docutils literal"><span class="pre">[[:alpha:]]</span></code>：匹配单个大写或小写字母</li>
+<li><code class="docutils literal"><span class="pre">[[:alnum:]]</span></code>：匹配单个字母或数字</li>
+<li><code class="docutils literal"><span class="pre">[[:space:]]</span></code>：匹配单个空格字符</li>
+<li><code class="docutils literal"><span class="pre">[[:punct:]]</span></code>：匹配单个标点符号</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">[^]</span></code>：匹配指定集合或范围外的任意单个字符</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">[^a-z]</span></code>、<code class="docutils literal"><span class="pre">[^[:lower:]]</span></code>：匹配小写字母之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^A-Z]</span></code>、<code class="docutils literal"><span class="pre">[^[:upper:]]</span></code>：匹配大写字母之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^0-9]</span></code>、<code class="docutils literal"><span class="pre">[^[:digit:]]</span></code>：匹配数字之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^a-z0-9]</span></code>：匹配字母和数字之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^[:alpha:]]</span></code>：匹配字母之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^[:alnum:]]</span></code>：匹配字母和数字之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^[:space:]]</span></code>：匹配空格字符之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^[:punct:]]</span></code>：匹配标点符号之外的单个字符</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">x|y</span></code>：匹配x或y</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">z|food</span></code>：匹配<code class="docutils literal"><span class="pre">z</span></code>或<code class="docutils literal"><span class="pre">food</span></code></li>
+<li><code class="docutils literal"><span class="pre">(z|f)ood</span></code>：匹配<code class="docutils literal"><span class="pre">zood</span></code>或<code class="docutils literal"><span class="pre">food</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\cx</span></code>：匹配由x指明的控制字符；x的值必须为<code class="docutils literal"><span class="pre">A-Z</span></code>或<code class="docutils literal"><span class="pre">a-z</span></code>之一。否则，将<code class="docutils literal"><span class="pre">c</span></code>视为一个原义的<code class="docutils literal"><span class="pre">c</span></code>字符</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\d</span></code>：匹配一个数字字符，等价于<code class="docutils literal"><span class="pre">[0-9]</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\D</span></code>：匹配一个非数字字符，等价于<code class="docutils literal"><span class="pre">[^0-9]</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\f</span></code>：匹配一个换页符，等价于<code class="docutils literal"><span class="pre">\x0c</span></code>和<code class="docutils literal"><span class="pre">\cL</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\n</span></code>：匹配一个换行符，等价于<code class="docutils literal"><span class="pre">\x0a</span></code>和<code class="docutils literal"><span class="pre">\cJ</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\r</span></code>：匹配一个回车符，等价于<code class="docutils literal"><span class="pre">\x0d</span></code>和<code class="docutils literal"><span class="pre">\cM</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\t</span></code>：匹配一个制表符，等价于<code class="docutils literal"><span class="pre">\x09</span></code>和<code class="docutils literal"><span class="pre">\cI</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\v</span></code>：匹配一个垂直制表符，等价于<code class="docutils literal"><span class="pre">\x0b</span></code>和<code class="docutils literal"><span class="pre">\cK</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\s</span></code>：匹配任何不可见字符，包括空格、制表符、换页符等等，等价于<code class="docutils literal"><span class="pre">[\f\n\r\t\v]</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\S</span></code>：匹配任何可见字符，等价于<code class="docutils literal"><span class="pre">[^\f\n\r\t\v]</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\w</span></code>：匹配包括下划线的任何单词字符，类似但不等价于<code class="docutils literal"><span class="pre">[A-Za-z0-9_]</span></code>，这里的<code class="docutils literal"><span class="pre">单词</span></code>字符使用<code class="docutils literal"><span class="pre">Unicode字符集</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\W</span></code>：匹配任何非单词字符</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\xn</span></code>：匹配n，其中n为十六进制转义值。十六进制转义值必须为确定的两个数字长</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">\x41</span></code>：匹配<code class="docutils literal"><span class="pre">A</span></code></li>
+<li><code class="docutils literal"><span class="pre">\x041</span></code>：等价于<code class="docutils literal"><span class="pre">\x04&amp;1</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\un</span></code>：匹配n，其中n是一个用四个十六进制数字表示的Unicode字符</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">\u00A9</span></code>：匹配版权符号<code class="docutils literal"><span class="pre">&amp;copy</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\n</span></code>：标识一个八进制转义值或一个向后引用。如果<code class="docutils literal"><span class="pre">\n</span></code>之前至少存在n个获取的子表达式(即至少存在n个分组)，则n为向后引用。否则，如果n为八进制数字<code class="docutils literal"><span class="pre">0-7</span></code>，则n为一个八进制转义值</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\nm</span></code>：标识一个八进制转义值或一个向后引用。如果<code class="docutils literal"><span class="pre">\nm</span></code>之前至少存在nm个获取的子表达式(即至少存在nm个分组)，则nm为向后引用。如果<code class="docutils literal"><span class="pre">\nm</span></code>之前至少存在n个获取的子表达式，则n为一个后跟文字m的向后引用。如果前面的条件都不满足，若n和m均为八进制数字0-7，则nm将匹配八进制转义值nm。</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\nml</span></code>：如果n为八进制数字0-7，且m和l均为八进制数字0-7，则匹配八进制转义值nml。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>次数通配元字符<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>作用对象：作用于紧挨着元字符的前面普通单字符、被元字符匹配到的单字符或字符串</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">*</span></code>：匹配前面的子表达式出现任意次</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">zo*</span></code>匹配<code class="docutils literal"><span class="pre">z</span></code>以及<code class="docutils literal"><span class="pre">zoo</span></code>；等价于<code class="docutils literal"><span class="pre">{0,}</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\+</span></code>：匹配前面的子表达式出现一次或多次</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">zo\+</span></code>匹配<code class="docutils literal"><span class="pre">zo</span></code>以及<code class="docutils literal"><span class="pre">zoo</span></code>，但不能匹配<code class="docutils literal"><span class="pre">z</span></code>；等价于<code class="docutils literal"><span class="pre">\{1,\}</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\?</span></code>：匹配前面的子表达式出现零次或一次</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">do(es)\?</span></code>匹配<code class="docutils literal"><span class="pre">does</span></code>或<code class="docutils literal"><span class="pre">does</span></code>中的<code class="docutils literal"><span class="pre">do</span></code>；等价于<code class="docutils literal"><span class="pre">\{0,1\}</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\{n\}</span></code>：n是一个非负整数，匹配前面的子表达式出现n次</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">o\{2\}</span></code>不能匹配<code class="docutils literal"><span class="pre">Bob</span></code>中的<code class="docutils literal"><span class="pre">o</span></code>，但是能匹配<code class="docutils literal"><span class="pre">food</span></code>中的两个<code class="docutils literal"><span class="pre">o</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\{n,\}</span></code>：n是一个非负整数，匹配前面的子表达式至少出现n次</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">o\{2,\}</span></code>不能匹配<code class="docutils literal"><span class="pre">Bob</span></code>中的<code class="docutils literal"><span class="pre">o</span></code>，但能匹配<code class="docutils literal"><span class="pre">foooood</span></code>中的所有<code class="docutils literal"><span class="pre">o</span></code>。<code class="docutils literal"><span class="pre">o\{1,\}</span></code>等价于<code class="docutils literal"><span class="pre">o+</span></code>。<code class="docutils literal"><span class="pre">o\{0,\}</span></code>则等价于<code class="docutils literal"><span class="pre">o*</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\{n,m\}</span></code>：m和n均为非负整数，其中n&lt;=m。匹配前面的子表达式至少出现n次至多出现m次</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">o\{1,3\}</span></code>匹配<code class="docutils literal"><span class="pre">fooooood</span></code>中的前三个<code class="docutils literal"><span class="pre">o</span></code>。<code class="docutils literal"><span class="pre">o\{0,1\}</span></code>等价于<code class="docutils literal"><span class="pre">o\?</span></code>请注意逗号和两个数之间不能有空格</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">注意：</p>
+<blockquote>
+<div><ul class="simple">
+<li>当<code class="docutils literal"><span class="pre">?</span></code>紧跟在任何一个其他限制符<code class="docutils literal"><span class="pre">*、\+、\?、\{n\}、\{n,\}、\{n,m\}</span></code>后面时，匹配模式是非贪婪的。非贪婪模式尽可能少的匹配所搜索的字符串，而默认的贪婪模式则尽可能多的匹配所搜索的字符串。例如，对于字符串<code class="docutils literal"><span class="pre">oooo</span></code>，<code class="docutils literal"><span class="pre">o\+?</span></code>将匹配单个<code class="docutils literal"><span class="pre">o</span></code>，而<code class="docutils literal"><span class="pre">o\+</span></code>将匹配所有<code class="docutils literal"><span class="pre">o</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>位置锚定元字符<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>作用对象：作用于紧挨着元字符的前面或后面普通单字符、被元字符匹配到的单字符或字符串</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">^</span></code>：锚定输入字符串的开始位置(即锚定行首)。如果设置了<code class="docutils literal"><span class="pre">RegExp</span></code>对象的<code class="docutils literal"><span class="pre">Multiline</span></code>多行匹配属性，<code class="docutils literal"><span class="pre">^</span></code>也锚定<code class="docutils literal"><span class="pre">\n</span></code>或<code class="docutils literal"><span class="pre">\r</span></code>之后的位置</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">$</span></code>：锚定输入字符串的结束位置(即锚定行尾)。如果设置了<code class="docutils literal"><span class="pre">RegExp</span></code>对象的<code class="docutils literal"><span class="pre">Multiline</span></code>多行匹配属性，<code class="docutils literal"><span class="pre">$</span></code>也锚定<code class="docutils literal"><span class="pre">\n</span></code>或<code class="docutils literal"><span class="pre">\r</span></code>之前的位置</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">^$</span></code>表示空白行</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\b</span></code>：锚定一个单词边界(首部或尾部)，也就是指单词和空格间的位置</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">er\b</span></code>可以匹配<code class="docutils literal"><span class="pre">never</span></code>中的<code class="docutils literal"><span class="pre">er</span></code>，但不能匹配<code class="docutils literal"><span class="pre">verb</span></code>中的<code class="docutils literal"><span class="pre">er</span></code></li>
+<li><code class="docutils literal"><span class="pre">\ber\b</span></code>只能匹配<code class="docutils literal"><span class="pre">er</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\B</span></code>：锚定非单词边界，即不是首部也不是尾部</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">er\B</span></code>能匹配<code class="docutils literal"><span class="pre">verb</span></code>中的<code class="docutils literal"><span class="pre">er</span></code>，但不能匹配<code class="docutils literal"><span class="pre">never</span></code>中的<code class="docutils literal"><span class="pre">er</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\&lt;</span></code>：锚定单词(word)首部</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\&gt;</span></code>：锚定单词(word)尾部</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">\&lt;the\&gt;</span></code>能够匹配字符串<code class="docutils literal"><span class="pre">for</span> <span class="pre">the</span> <span class="pre">wise</span></code>中的<code class="docutils literal"><span class="pre">the</span></code>，但是不能匹配字符串<code class="docutils literal"><span class="pre">otherwise</span></code>中的<code class="docutils literal"><span class="pre">the</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>分组引用元字符<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>作用对象：被pattern匹配到的字符集合(pattern是由字符通配元字符、次数通配元字符、位置锚定元字符组合而成)</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">\(pattern\)</span></code>：匹配pattern并获取这一匹配。并将匹配到的字符保存到一个临时区域<code class="docutils literal"><span class="pre">Matches集合</span></code>或<code class="docutils literal"><span class="pre">VBScript中的SubMatches集合</span></code>(一个正则表达式中最多可以保存9个)</p>
+<blockquote>
+<div><ul class="simple">
+<li>在shell环境中可以使用<code class="docutils literal"><span class="pre">\1</span></code>到 <code class="docutils literal"><span class="pre">\9</span></code>基于分组字符串的位置对分组字符串整体依次进行引用(依次引用前面被自左往右的第1到第9个左括号以及与之对应的右括号中的模式匹配到的内容)</li>
+<li>在JavaScript环境中可以使用<code class="docutils literal"><span class="pre">$0</span></code>到<code class="docutils literal"><span class="pre">$9</span></code>基于分组字符串的位置对分组字符串整体依次进行引用(依次引用前面被自左往右的第1到第9个左括号以及与之对应的右括号中的模式匹配到的内容)</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\(?:pattern\)</span></code>：匹配pattern但不获取匹配结果，也就是说这是一个非获取匹配，不对匹配到的内容做临时存储供以后使用。这在使用或字符<code class="docutils literal"><span class="pre">(|)</span></code>来组合一个模式时很有用</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">industr\(?:y|ies\)</span></code>就是一个比<code class="docutils literal"><span class="pre">industry|industries</span></code>更简略的表达式</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\(?=pattern\)</span></code>：正向肯定预查，在任何匹配pattern的字符串开始处匹配查找字符串。这是一个非获取匹配，不对匹配到的内容做临时存储供以后使用</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">Windows\(?=95|98|NT|2000\)</span></code>能匹配<code class="docutils literal"><span class="pre">Windows2000</span></code>中的<code class="docutils literal"><span class="pre">Windows</span></code>，但不能匹配<code class="docutils literal"><span class="pre">Windows3.1</span></code>中的<code class="docutils literal"><span class="pre">Windows</span></code>。预查不消耗字符，也就是说，在一个匹配发生后，立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\(?!pattern\)</span></code>：正向否定预查，在任何不匹配pattern的字符串开始处匹配查找字符串。这是一个非获取匹配，不对匹配到的内容做临时存储供以后使用</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">Windows\(?!95|98|NT|2000\)</span></code>能匹配<code class="docutils literal"><span class="pre">Windows3.1</span></code>中的<code class="docutils literal"><span class="pre">Windows</span></code>，但不能匹配<code class="docutils literal"><span class="pre">Windows2000</span></code>中的<code class="docutils literal"><span class="pre">Windows</span></code>。预查不消耗字符，也就是说，在一个匹配发生后，立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\(?&lt;=pattern\)</span></code>：反向肯定预查，与正向肯定预查类拟，只是方向相反</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">\(?&lt;=95|98|NT|2000\)Windows</span></code>能匹配<code class="docutils literal"><span class="pre">2000Windows</span></code>中的<code class="docutils literal"><span class="pre">Windows</span></code>，但不能匹配<code class="docutils literal"><span class="pre">3.1Windows</span></code>中的<code class="docutils literal"><span class="pre">Windows</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">\(?&lt;!pattern\)</span></code>：反向否定预查，与正向否定预查类拟，只是方向相反</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">\(?&lt;!95|98|NT|2000\)Windows</span></code>能匹配<code class="docutils literal"><span class="pre">3.1Windows</span></code>中的<code class="docutils literal"><span class="pre">Windows</span></code>，但不能匹配<code class="docutils literal"><span class="pre">2000Windows</span></code>中的<code class="docutils literal"><span class="pre">Windows</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="2-eRegEx.html" class="btn btn-neutral float-right" title="扩展正则表达式" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="正则表达式语法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, HappyAnony.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
