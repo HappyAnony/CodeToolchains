@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Linux命令工具 &mdash; CodeToolchains 1.0.0 文档</title>
+  <title>命令帮助 &mdash; CodeToolchains 1.0.0 文档</title>
   
 
   
@@ -36,8 +36,9 @@
               href="../genindex.html"/>
         <link rel="search" title="搜索" href="../search.html"/>
     <link rel="top" title="CodeToolchains 1.0.0 文档" href="../index.html"/>
-        <link rel="next" title="命令帮助" href="help.html"/>
-        <link rel="prev" title="IDE集成开发环境" href="../3-IDE/index.html"/> 
+        <link rel="up" title="Linux命令工具" href="index.html"/>
+        <link rel="next" title="文本处理工具" href="1-TextProcess/index.html"/>
+        <link rel="prev" title="Linux命令工具" href="index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -94,8 +95,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../1-TextEdit/index.html">文本编辑器</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2-VerControl/index.html">版本控制器</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../3-IDE/index.html">IDE集成开发环境</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Linux命令工具</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="help.html">命令帮助</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux命令工具</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">命令帮助</a></li>
 <li class="toctree-l2"><a class="reference internal" href="1-TextProcess/index.html">文本处理工具</a></li>
 </ul>
 </li>
@@ -144,13 +145,15 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Linux命令工具</li>
+          <li><a href="index.html">Linux命令工具</a> &raquo;</li>
+        
+      <li>命令帮助</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/4-Linux/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/4-Linux/help.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -163,26 +166,35 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="linux">
-<h1>Linux命令工具<a class="headerlink" href="#linux" title="永久链接至标题">¶</a></h1>
-<p>参考文档</p>
+  <div class="section" id="id1">
+<h1>命令帮助<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>在linux终端，面对命令不知道怎么用，或不记得命令的拼写及参数时，我们需要求助于系统的帮助文档；linux系统内置的帮助文档很详细，通常能解决我们的问题，我们需要掌握如何正确的去使用它们</p>
 <ul class="simple">
-<li><a class="reference external" href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/index.html">linux工具快速教程</a></li>
+<li><code class="docutils literal"><span class="pre">whatis</span></code></li>
+<li><code class="docutils literal"><span class="pre">which</span></code></li>
+<li><code class="docutils literal"><span class="pre">whereis</span></code></li>
+<li><code class="docutils literal"><span class="pre">info</span></code></li>
+<li><code class="docutils literal"><span class="pre">man</span></code></li>
 </ul>
-<div class="section" id="id2">
-<h2>目录<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="help.html">命令帮助</a></li>
-<li class="toctree-l1"><a class="reference internal" href="1-TextProcess/index.html">文本处理工具</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="1-TextProcess/1-FileSearch/index.html">文件查找</a></li>
-<li class="toctree-l2"><a class="reference internal" href="1-TextProcess/2-TextSearch/index.html">内容查找</a></li>
-<li class="toctree-l2"><a class="reference internal" href="1-TextProcess/3-TextEdit/index.html">内容编辑</a></li>
+<p>查看命令说明</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">whatis</span> <span class="pre">COMMAND</span></code>：显示命令所处的man分类页面</li>
+<li><code class="docutils literal"><span class="pre">whatis</span> <span class="pre">-w</span> <span class="pre">&quot;ca*&quot;</span></code>：显示通配符匹配到的命令所处man分类页面</li>
+<li><code class="docutils literal"><span class="pre">info</span> <span class="pre">COMMAND</span></code>：显示命令的较详细说明文档</li>
+<li><code class="docutils literal"><span class="pre">man</span> <span class="pre">COMMAND</span></code>：显示命令的最详细说明文档</li>
 </ul>
-</li>
+<p>在man的帮助手册中，将帮助文档分为了9个类别，有的关键字可能存在多个类别中， 我们就需要指定特定的类别来查看(常用的是分类1和分类3)</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">1</span></code>：用户可以操作的命令或者是可执行文件</li>
+<li><code class="docutils literal"><span class="pre">2</span></code>：系统核心可调用的函数与工具等</li>
+<li><code class="docutils literal"><span class="pre">3</span></code>：一些常用的函数与数据库</li>
+<li><code class="docutils literal"><span class="pre">4</span></code>：设备文件的说明</li>
+<li><code class="docutils literal"><span class="pre">5</span></code>：设置文件或者某些文件的格式</li>
+<li><code class="docutils literal"><span class="pre">6</span></code>：游戏</li>
+<li><code class="docutils literal"><span class="pre">7</span></code>：惯例与协议等。例如Linux标准文件系统、网络协议、ASCⅡ，码等说明内容</li>
+<li><code class="docutils literal"><span class="pre">8</span></code>：系统管理员可用的管理条令</li>
+<li><code class="docutils literal"><span class="pre">9</span></code>：与内核有关的文件</li>
 </ul>
-</div>
-</div>
 </div>
 
 
@@ -195,10 +207,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="help.html" class="btn btn-neutral float-right" title="命令帮助" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="1-TextProcess/index.html" class="btn btn-neutral float-right" title="文本处理工具" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../3-IDE/index.html" class="btn btn-neutral" title="IDE集成开发环境" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Linux命令工具" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
