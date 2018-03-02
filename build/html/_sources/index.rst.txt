@@ -16,4 +16,6 @@ Welcome to CodeToolchains's documentation!
    1-TextEdit/index
    2-VerControl/index
    3-IDE/index
+   4-Linux/index
+   5-Wildcard/index
 
