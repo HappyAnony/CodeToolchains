@@ -9,6 +9,8 @@
    :titlesonly:
    :glob:
 
+   FHS
+   0-FileManage/index
    1-FileSearch/index
    2-TextSearch/index
    3-TextEdit/index

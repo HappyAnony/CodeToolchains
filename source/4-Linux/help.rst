@@ -14,7 +14,12 @@
 - \ ``whatis COMMAND``\ ：显示命令所处的man分类页面
 - \ ``whatis -w "ca*"``\ ：显示通配符匹配到的命令所处man分类页面
 - \ ``info COMMAND``\ ：显示命令的较详细说明文档
-- \ ``man COMMAND``\ ：显示命令的最详细说明文档
+- \ ``man COMMAND``\ ：显示命令的man说明文档
+- \ ``man 3 COMMAND``\ ：显示命令的第3类man说明文档
+- \ ``man -k keyword``\ ：根据部分关键字来查询命令的说明文档
+
+	- \ ``man -k GNOME config| grep 1``\ ：查找GNOME的config配置工具命令
+- 
 
 在man的帮助手册中，将帮助文档分为了9个类别，有的关键字可能存在多个类别中， 我们就需要指定特定的类别来查看(常用的是分类1和分类3)
 
@@ -27,3 +32,8 @@
 - \ ``7``\ ：惯例与协议等。例如Linux标准文件系统、网络协议、ASCⅡ，码等说明内容
 - \ ``8``\ ：系统管理员可用的管理条令
 - \ ``9``\ ：与内核有关的文件
+
+查看命令的路径
+
+- \ ``which COMMAND``\ ：查看COMMAND的binary文件所在路径
+- \ ``whereis COMMAND``\ ：查看COMMAND的执行搜索路径
