@@ -37,4 +37,4 @@
 查看命令的路径
 
 - \ ``which COMMAND``\ ：查看COMMAND的binary文件所在路径
-- \ ``whereis COMMAND``\ ：查看COMMAND的执行搜索路径
+- \ ``whereis COMMAND``\ ：查看COMMAND的binary文件、source文件、man帮助文档所在路径
