@@ -3,4 +3,4 @@
 
 # 阅读方式
 >
-- [Read the Docs](http://codetoolchains.readthedocs.io/en/latest/)
+- [Read the Docs](http://codetoolchains.readthedocs.io/en/latest/index.html)
