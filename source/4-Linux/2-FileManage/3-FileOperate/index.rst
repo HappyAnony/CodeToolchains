@@ -10,3 +10,4 @@
 
    1-File/index
    2-Dir/index
+   3-link/index

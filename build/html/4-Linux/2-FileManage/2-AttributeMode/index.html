@@ -186,6 +186,157 @@
             
   <div class="section" id="id1">
 <h1>文件属性模型<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>使用<code class="docutils literal"><span class="pre">ls</span> <span class="pre">-l</span> <span class="pre">/path/to/FileName</span></code>命令可以调用目录的可执行权限查看指定文件的属性模型</p>
+<div class="figure">
+<img alt="../../../_images/11.png" src="../../../_images/11.png" />
+</div>
+<p>该属性模型依次可划分为以下几段</p>
+<ul class="simple">
+<li><a class="reference external" href="#filetype">文件类型</a></li>
+<li><a class="reference external" href="#filemode">文件权限模型</a></li>
+<li><a class="reference external" href="#filelink">文件硬链接次数</a></li>
+<li><a class="reference external" href="#fileowner">文件所有者模型</a></li>
+<li><a class="reference external" href="#filesize">文件大小</a></li>
+<li><a class="reference external" href="#filetimestamp">文件时间戳</a></li>
+<li><a class="reference external" href="#filename">文件名</a></li>
+</ul>
+<p>我们知道文件都有文件名与数据，这在Linux上被分成两个部分</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">用户数据(user</span> <span class="pre">data)</span></code>：即文件数据块(data block)，数据块是记录文件真实内容的地方，存放在磁盘的有效数据区</li>
+<li><code class="docutils literal"><span class="pre">元数据(metadata)</span></code>：即文件的附加属性，如inode索引号，文件名，文件时间戳，权限模型，大小，类型，所有者等信息，这些信息存放在磁盘的元数据区。在Linux中，元数据中的inode号(inode是文件元数据的一部分但其并不包含文件名，inode号即索引节点号)才是文件的唯一标识而非文件名。文件名仅是为了方便人们的记忆和使用，系统或程序通过inode号寻找正确的文件数据块。其逻辑图如下所示</li>
+</ul>
+<div class="figure">
+<img alt="../../../_images/2.png" src="../../../_images/2.png" />
+</div>
+<p>使用<code class="docutils literal"><span class="pre">ls</span> <span class="pre">-l</span></code>命令查看的文件所有属性都存放在文件的metadata元数据区，我们可以通过<code class="docutils literal"><span class="pre">stat</span></code>命令来查看一个指定文件的所有元数据属性</p>
+<div class="figure">
+<img alt="../../../_images/4.png" src="../../../_images/4.png" />
+</div>
+<div class="section" id="x00">
+<span id="filetype"></span><h2>0x00 文件类型<a class="headerlink" href="#x00" title="永久链接至标题">¶</a></h2>
+<p>linux中一切皆文件，其文件类型有：</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="17%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">文件类型</th>
+<th class="head">标识符</th>
+<th class="head">相关说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference external" href="#file">普通文件</a></td>
+<td>-/f</td>
+<td>文本文件</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="#dir">目录文件</a></td>
+<td>d</td>
+<td>路径映射</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="#symbol">硬链接文件</a></td>
+<td>-/d/f</td>
+<td>文件名别名</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="#soft">软链接文件</a></td>
+<td>l</td>
+<td>快捷方式</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="#device">字符设备文件</a></td>
+<td>c</td>
+<td>线性串行设备</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="#device">块设备文件</a></td>
+<td>b</td>
+<td>随机并行设备</td>
+</tr>
+<tr class="row-even"><td>命名管道文件</td>
+<td>p/fi/fo</td>
+<td>实现本机进程间通信</td>
+</tr>
+<tr class="row-odd"><td>套接字文件</td>
+<td>s</td>
+<td>实现跨机进程间通信</td>
+</tr>
+</tbody>
+</table>
+<p>我们可以通过<code class="docutils literal"><span class="pre">file</span></code>命令查看指定文件的文件类型</p>
+<div class="figure">
+<img alt="../../../_images/6.png" src="../../../_images/6.png" />
+</div>
+<p id="file">普通文件基本上都是文本文件，在磁盘块中存放的是文本内容</p>
+<p id="dir">目录文件是一种特殊的文件，它是一种<strong>路径映射</strong>。它在磁盘块中存放的是该目录下所有文件的文件名以及对应inode号构成的索引表。系统就是通过该路径映射找到文本文件并对其进行读写操作</p>
+<p id="sslink">linux的文件系统是一种遵循<code class="docutils literal"><span class="pre">FHS标准</span></code>的层次化根文件系统,每次操作文件时都需要从根开始进行索引查找，这大大降低了系统文件访问效率。为了提高效率就出现了<code class="docutils literal"><span class="pre">buffer缓冲元数据</span></code>和<code class="docutils literal"><span class="pre">cache缓存文本数据</span></code>。除此之外为两个文件之间建立链接也是一种提高文件访问效率的方法。链接为Linux 系统解决了文件的共享使用，还带来了隐藏文件路径、增加权限安全及节省存储等好处</p>
+<p id="symbol">硬链接文件具有以下特点：</p>
+<ul class="simple">
+<li>硬链接文件和源文件不能跨分区，跨文件系统</li>
+<li>硬链接文件和源文件是指向同一个inode的不同文件名，即硬链接文件是源文件的一个别名</li>
+<li>不能对目录创建硬链接，避免循环引用</li>
+<li>硬链接需要对文件本身进行引用，所以它会改变源文件被链接的次数</li>
+</ul>
+<p id="soft">软链接文件也可叫做符号链接,具有以下特点：</p>
+<ul class="simple">
+<li>符号链接文件和源文件是可以跨分区</li>
+<li>符号链接文件和源文件是指向不同inode的不同文件名，可以理解为快捷方式</li>
+<li>符号链接文件的inode号对应的用户数据块存放的内容是被链接源文件的路径(即源文件文件名)，使用<code class="docutils literal"><span class="pre">ls</span> <span class="pre">-l</span></code>命令显示的符号链接的大小指的是路径字符串的长度</li>
+<li>可以对目录创建符号链接</li>
+<li>符号链接只是引用文件路径，不会对文件本身进行引用，所以它不会改变源文件被链接的次数</li>
+</ul>
+<p>硬链接和软链接的访问机制如图所示</p>
+<div class="figure">
+<img alt="../../../_images/3.png" src="../../../_images/3.png" />
+</div>
+<p>关于硬链接和软链接的详解可参考<a class="reference external" href="https://www.ibm.com/developerworks/cn/linux/l-cn-hardandsymb-links/index.html">理解Linux的硬链接与软链接</a></p>
+<p id="device">连接到系统上的设备都会被内核通过设备驱动识别并映射成<code class="docutils literal"><span class="pre">/dev</span></code>目录下的一个设备文件，通过该设备文件对设备进行访问等操作。设备文件可以分为：</p>
+<ul class="simple">
+<li><strong>字符设备</strong>：它是线性串行设备，遵循时序逻辑，一次存取一个字符，例如：键盘等</li>
+<li><strong>块设备</strong>：它是随机并行设备，不遵循时序，多线程进行，例如：硬盘等</li>
+</ul>
+</div>
+<div class="section" id="x01">
+<span id="filemode"></span><h2>0x01 文件权限模型<a class="headerlink" href="#x01" title="永久链接至标题">¶</a></h2>
+<p>权限模型是用来实现系统资源的分配，该模型的基本思想就是在文件系统的基础上为每一个文件标注其所有者及其访问权限。权限模型的作用对象是文件</p>
+</div>
+<div class="section" id="x02">
+<span id="filelink"></span><h2>0x02 文件硬链接次数<a class="headerlink" href="#x02" title="永久链接至标题">¶</a></h2>
+<p>关于文件硬链接次数可参考<a class="reference external" href="#sslink">链接文件</a></p>
+<p>也可参考<a class="reference external" href="https://www.ibm.com/developerworks/cn/linux/l-cn-hardandsymb-links/index.html">理解Linux的硬链接与软链接</a></p>
+</div>
+<div class="section" id="x03">
+<span id="fileowner"></span><h2>0x03 文件所有者模型<a class="headerlink" href="#x03" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="x04">
+<span id="filesize"></span><h2>0x04 文件大小<a class="headerlink" href="#x04" title="永久链接至标题">¶</a></h2>
+<p>ls命令默认显示的文件大小的单位都是字节，当文件过大时不便于人们读取；我们在使用ls命令时可以加上<code class="docutils literal"><span class="pre">-h</span></code>选项将文件大小转换为人们易于理解阅读的方式：文件大小以<strong>M</strong>、<strong>G</strong>的方式显示，没有后缀的是以B字节为单位的</p>
+</div>
+<div class="section" id="x05">
+<span id="filetimestamp"></span><h2>0x05 文件时间戳<a class="headerlink" href="#x05" title="永久链接至标题">¶</a></h2>
+<p>一个文件的元数据区中存放文件的三种时间戳</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">access</span> <span class="pre">time(atime)</span></code>：访问时间</li>
+<li><code class="docutils literal"><span class="pre">modify</span> <span class="pre">time(mtime)</span></code>：修改时间(修改<code class="docutils literal"><span class="pre">用户数据(user</span> <span class="pre">data)</span></code>的时间)</li>
+<li><code class="docutils literal"><span class="pre">change</span> <span class="pre">time(ctime)</span></code>：改变时间(修改<code class="docutils literal"><span class="pre">元数据(metadata)</span></code>的时间)</li>
+</ul>
+<p>我们可以通过<code class="docutils literal"><span class="pre">stat</span></code>命令查看这三种时间戳</p>
+<div class="figure">
+<img alt="../../../_images/5.png" src="../../../_images/5.png" />
+</div>
+<p>ls命令显示的文件时间戳只是文件的<strong>ctime改变时间</strong></p>
+</div>
+<div class="section" id="x06">
+<span id="filename"></span><h2>0x06 文件名<a class="headerlink" href="#x06" title="永久链接至标题">¶</a></h2>
+<p>ls命令默认不能显示以<code class="docutils literal"><span class="pre">.</span></code>开头的文件，这些文件被称为隐藏文件，如果想要查看这类文件，需要在使用ls命令时加上<code class="docutils literal"><span class="pre">-a</span></code>选项</p>
+</div>
+<div class="section" id="x07">
+<h2>0x07 命令汇总<a class="headerlink" href="#x07" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li>ls</li>
+<li>stat</li>
+<li>file</li>
+</ul>
+</div>
 </div>
 
 
