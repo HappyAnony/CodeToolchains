@@ -96,7 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../2-VerControl/index.html">版本控制器</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../3-IDE/index.html">IDE集成开发环境</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Linux命令工具</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../1-CmdHelp/index.html">命令帮助</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../1-CmdHelp/index.html">命令概述</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html">文件管理</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../1-FHS/index.html">FHS根文件系统</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">文件属性模型</a></li>
@@ -114,6 +114,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../11-SecurityManage/index.html">安全管理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../12-KernelManage/index.html">内核管理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../13-DevelopTools/index.html">开发工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../14-ShellCode/index.html">shell编程</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../5-Wildcard/index.html">通配机制</a></li>
@@ -279,7 +280,7 @@
 <img alt="../../../_images/6.png" src="../../../_images/6.png" />
 </div>
 <p id="pfile">普通文件基本上都是文本文件，在磁盘块中存放的是文本内容</p>
-<p id="dir">目录文件是一种特殊的文件，它是一种<strong>路径映射</strong>。它在磁盘块中存放的是该目录下所有文件的文件名以及对应inode号构成的索引表。系统就是通过该路径映射找到文本文件并对其进行读写操作</p>
+<p id="dir">目录文件是一种特殊的文件，它是一种<strong>路径映射</strong>。它在磁盘块中存放的数据是该目录下所有文件的文件名以及对应inode号构成的索引表。系统就是通过该路径映射找到文本文件并对其进行读写操作</p>
 <p id="sslink">linux的文件系统是一种遵循<code class="docutils literal"><span class="pre">FHS标准</span></code>的层次化根文件系统,每次操作文件时都需要从根开始进行索引查找，这大大降低了系统文件访问效率。为了提高效率就出现了<code class="docutils literal"><span class="pre">buffer缓冲元数据</span></code>和<code class="docutils literal"><span class="pre">cache缓存文本数据</span></code>。除此之外为两个文件之间建立链接也是一种提高文件访问效率的方法。链接为Linux 系统解决了文件的共享使用，还带来了隐藏文件路径、增加权限安全及节省存储等好处</p>
 <p id="symbol">硬链接文件具有以下特点：</p>
 <ul class="simple">
