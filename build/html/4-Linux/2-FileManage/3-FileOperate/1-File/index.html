@@ -202,6 +202,14 @@
 <li><a class="reference external" href="#findl">find</a></li>
 <li><a class="reference external" href="#locatel">locate</a></li>
 <li><a class="reference external" href="#linkl">ln</a></li>
+<li><a class="reference external" href="#gzipl">gzip</a></li>
+<li><a class="reference external" href="#gunzipl">gunzip</a></li>
+<li><a class="reference external" href="#bzip2l">bzip2</a></li>
+<li><a class="reference external" href="#bunzip2l">bunzip2</a></li>
+<li><a class="reference external" href="#xzl">xz</a></li>
+<li><a class="reference external" href="#unxzl">unxz</a></li>
+<li><a class="reference external" href="#zipl">zip</a></li>
+<li><a class="reference external" href="#unzipl">unzip</a></li>
 </ul>
 <p>普通文件的基本操作有</p>
 <ul class="simple">
@@ -445,9 +453,87 @@
 </div>
 <div class="section" id="x06">
 <span id="compress"></span><h2>0x06 文件压缩<a class="headerlink" href="#x06" title="永久链接至标题">¶</a></h2>
+<p>注意：下面压缩工具中``gzip``、<code class="docutils literal"><span class="pre">bzip2</span></code>、<code class="docutils literal"><span class="pre">xz</span></code>只能压缩文件，不能压缩目录；<code class="docutils literal"><span class="pre">zip</span></code>工具既可以用来压缩文件又可以用来压缩目录</p>
+<p id="gzipl"><code class="docutils literal"><span class="pre">gzip</span></code>压缩工具</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># gzip工具的压缩文件后缀为.gz</span>
+<span class="c1"># gzip工具压缩完成后会把原文件给删除，保留压缩文件</span>
+<span class="nv">$gzip</span> -6 <span class="m">1</span>.txt                   <span class="c1"># 指定压缩比1-9，默认的为6，压缩比越大，压缩文件越小</span>
+<span class="nv">$gzip</span> -c <span class="m">1</span>.txt &gt;&gt; foo.gz         <span class="c1"># -c选项将压缩内容重定向至指定的压缩文件，这样可以实现压缩后保留源文件</span>
+<span class="nv">$gzip</span> -c <span class="m">1</span>.txt <span class="m">2</span>.txt &gt; foo.gz    <span class="c1"># 同时压缩多个文件输出到指定压缩文件</span>
+<span class="nv">$cat</span> <span class="m">1</span>.txt <span class="m">2</span>.txt <span class="p">|</span> gzip &gt; foo.gz <span class="c1"># 实现功能和上面一样，但是压缩效果要好</span>
+<span class="nv">$zcat</span> foo.gz                     <span class="c1">#查看.gz压缩文件中的内容,它会创建一个临时目录将压缩文件解压并提供访问查看，类似于cat查看普通文件内容一样</span>
+</pre></div>
+</div>
+<p id="bzip2l"><code class="docutils literal"><span class="pre">bzip2</span></code>压缩工具</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># bzip2工具的压缩文件后缀为.bz2</span>
+<span class="c1"># 对于大文件的压缩，bzip2的压缩效果比gzip要好</span>
+<span class="c1"># bzip2工具压缩完成后会把原文件给删除，保留压缩文件</span>
+<span class="nv">$bzip2</span> -k <span class="m">1</span>.txt                    <span class="c1"># 压缩后保留原文件，不会删除</span>
+<span class="nv">$bzip2</span> -6 <span class="m">1</span>.txt                    <span class="c1"># 指定压缩比1-9，默认的为6，压缩比越大，压缩文件越小</span>
+<span class="nv">$bzip2</span> -c <span class="m">1</span>.txt &gt;&gt; foo.bz2         <span class="c1"># -c选项将压缩内容重定向至指定的压缩文件，这样可以实现压缩后保留源文件</span>
+<span class="nv">$bzip2</span> -c <span class="m">1</span>.txt <span class="m">2</span>.txt &gt; foo.bz2    <span class="c1"># 同时压缩多个文件输出到指定压缩文件</span>
+<span class="nv">$cat</span> <span class="m">1</span>.txt <span class="m">2</span>.txt <span class="p">|</span> bzip2 &gt; foo.bz2 <span class="c1"># 实现功能和上面一样，但是压缩效果要好</span>
+<span class="nv">$bzcat</span> foo.bz2                     <span class="c1">#查看.bz2压缩文件中的内容,它会创建一个临时目录将压缩文件解压并提供访问查看，类似于cat查看普通文件内容一样</span>
+</pre></div>
+</div>
+<p id="xzl"><code class="docutils literal"><span class="pre">xz</span></code>压缩工具</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># xz工具的压缩文件后缀为.xz</span>
+<span class="c1"># 该工具的压缩效果是最好的</span>
+<span class="c1"># xz工具压缩完成后会把原文件给删除，保留压缩文件</span>
+<span class="nv">$xz</span> -k <span class="m">1</span>.txt                    <span class="c1"># 压缩后保留原文件，不会删除</span>
+<span class="nv">$xz</span> -6 <span class="m">1</span>.txt                    <span class="c1"># 指定压缩比1-9，默认的为6，压缩比越大，压缩文件越小</span>
+<span class="nv">$xz</span> -c <span class="m">1</span>.txt &gt;&gt; foo.xz         <span class="c1"># -c选项将压缩内容重定向至指定的压缩文件，这样可以实现压缩后保留源文件</span>
+<span class="nv">$xz</span> -c <span class="m">1</span>.txt <span class="m">2</span>.txt &gt; foo.xz    <span class="c1"># 同时压缩多个文件输出到指定压缩文件</span>
+<span class="nv">$cat</span> <span class="m">1</span>.txt <span class="m">2</span>.txt <span class="p">|</span> xz &gt; foo.xz <span class="c1"># 实现功能和上面一样，但是压缩效果要好</span>
+<span class="nv">$xzcat</span> foo.xz                     <span class="c1">#查看.xz压缩文件中的内容,它会创建一个临时目录将压缩文件解压并提供访问查看，类似于cat查看普通文件内容一样</span>
+</pre></div>
+</div>
+<p id="zipl"><code class="docutils literal"><span class="pre">zip</span></code>压缩工具：在这里只介绍如何压缩文件</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 该工具的压缩文件后缀为.zip</span>
+<span class="c1"># 该工具属于归档压缩工具(先对文件进行归档然后进行压缩)，所有不会在压缩或者解压时删除原文件</span>
+<span class="nv">$zip</span> message.zip message       <span class="c1"># 将message文件压缩成message.zip文件。需要指定压缩文件名</span>
+<span class="nv">$zip</span> -6 message.zip message    <span class="c1"># 指定压缩比1-9，默认的为6，压缩比越大，压缩文件越小</span>
+<span class="nv">$find</span> . -name <span class="s2">&quot;*.[ch]&quot;</span> -print <span class="p">|</span> zip <span class="nb">source</span> -@  <span class="c1"># 将当前目录下所有.c和.h源文件归档压缩；-@选项使zip不再从命令行中获取待压缩文件路径，而是从标准输入或管道中获取</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="x07">
 <span id="expand"></span><h2>0x07 文件解压<a class="headerlink" href="#x07" title="永久链接至标题">¶</a></h2>
+<p>此处的文件解压工具与上述的压缩工具一一对应</p>
+<p id="gunzipl"><code class="docutils literal"><span class="pre">gunzip</span></code>是<code class="docutils literal"><span class="pre">gzip压缩工具</span></code>的解压工具，只解压<code class="docutils literal"><span class="pre">.gz</span></code>压缩文件</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 解压缩后会把压缩文件删除，保留原文件</span>
+<span class="nv">$gunzip</span> <span class="m">1</span>.txt.gz
+<span class="nv">$gunzip</span> -c <span class="m">1</span>.txt.gz &gt; <span class="m">2</span>.txt         <span class="c1"># -c选项将解压内容重定向至指定文件，这样可以实现解压后保留源压缩文件</span>
+<span class="nv">$gzip</span> -d <span class="m">1</span>.txt.gz                   <span class="c1"># 类似于gunzip</span>
+<span class="nv">$gzip</span> -cd old.gz <span class="p">|</span> gzip &gt; new.gz    <span class="c1"># 解压压缩文件然后压缩到另一压缩文件中，源压缩文件不变</span>
+<span class="nv">$gzip</span> -d old.gz <span class="p">|</span> gzip &gt; new.gz     <span class="c1"># 解压压缩文件然后压缩到另一压缩文件中，源压缩文件会删除，保留解压后原文件</span>
+</pre></div>
+</div>
+<p id="bunzip2l"><code class="docutils literal"><span class="pre">bunzip2</span></code>是<code class="docutils literal"><span class="pre">bzip2压缩工具</span></code>的解压工具，只解压<code class="docutils literal"><span class="pre">.bz2</span></code>压缩文件</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 解压缩后会把压缩文件删除，保留原文件</span>
+<span class="nv">$bunzip2</span> <span class="m">1</span>.txt.bz2
+<span class="nv">$bunzip2</span> -k <span class="m">1</span>.txt.bz2                 <span class="c1"># 解压后不会删除压缩文件</span>
+<span class="nv">$bunzip2</span> -c <span class="m">1</span>.txt.bz2 &gt; <span class="m">2</span>.txt         <span class="c1"># -c选项将解压内容重定向至指定文件，这样可以实现解压后保留源压缩文件</span>
+<span class="nv">$bzip2</span> -d <span class="m">1</span>.txt.bz2                   <span class="c1"># 类似于bunzip2</span>
+<span class="nv">$bzip2</span> -cd old.bz2 <span class="p">|</span> gzip &gt; new.bz2   <span class="c1"># 解压压缩文件然后压缩到另一压缩文件中，源压缩文件不变</span>
+<span class="nv">$bzip2</span> -d old.bz2 <span class="p">|</span> gzip &gt; new.bz2    <span class="c1"># 解压压缩文件然后压缩到另一压缩文件中，源压缩文件会删除，保留解压后原文件</span>
+</pre></div>
+</div>
+<p id="unxzl"><code class="docutils literal"><span class="pre">unxz</span></code>是<code class="docutils literal"><span class="pre">xz压缩工具</span></code>的解压工具，只解压<code class="docutils literal"><span class="pre">.xz</span></code>压缩文件</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 解压缩后会把压缩文件删除，保留原文件</span>
+<span class="nv">$unxz</span> <span class="m">1</span>.txt.xz
+<span class="nv">$unxz</span> -k <span class="m">1</span>.txt.xz                 <span class="c1"># 解压后不会删除压缩文件</span>
+<span class="nv">$unxz</span> -c <span class="m">1</span>.txt.xz &gt; <span class="m">2</span>.txt         <span class="c1"># -c选项将解压内容重定向至指定文件，这样可以实现解压后保留源压缩文件</span>
+<span class="nv">$xz</span> -d <span class="m">1</span>.txt.xz                   <span class="c1"># 类似于unxz</span>
+<span class="nv">$xz</span> -cd old.xz <span class="p">|</span> gzip &gt; new.xz    <span class="c1"># 解压压缩文件然后压缩到另一压缩文件中，源压缩文件不变</span>
+<span class="nv">$xz</span> -d old.xz <span class="p">|</span> gzip &gt; new.xz     <span class="c1"># 解压压缩文件然后压缩到另一压缩文件中，源压缩文件会删除，保留解压后原文件</span>
+</pre></div>
+</div>
+<p id="unzipl"><code class="docutils literal"><span class="pre">unzip</span></code>是<code class="docutils literal"><span class="pre">zip压缩工具</span></code>的解压工具，只解压<code class="docutils literal"><span class="pre">.zip压缩文件</span></code></p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 该工具属于归档压缩工具(先对文件进行归档然后进行压缩)，所有不会在压缩或者解压时删除原文件</span>
+<span class="nv">$unzip</span> message.zip
+</pre></div>
+</div>
 </div>
 </div>
 

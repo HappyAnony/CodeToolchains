@@ -194,6 +194,20 @@
   <div class="section" id="id1">
 <h1>目录文件<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
 <p>命令汇总</p>
+<ul class="simple">
+<li><a class="reference external" href="#mkdirl">mkdir</a></li>
+<li><a class="reference external" href="#rml">rm</a></li>
+<li><a class="reference external" href="#movel">mv</a></li>
+<li><a class="reference external" href="#copyl">cp</a></li>
+<li><a class="reference external" href="#findl">find</a></li>
+<li><a class="reference external" href="#findl">locate</a></li>
+<li><a class="reference external" href="#linkl">ln</a></li>
+<li><a class="reference external" href="#cdl">cd</a></li>
+<li><a class="reference external" href="#cdl">pwd</a></li>
+<li><a class="reference external" href="#tarl">tar</a></li>
+<li><a class="reference external" href="#zipl">zip</a></li>
+<li><a class="reference external" href="#unzipl">unzip</a></li>
+</ul>
 <p>目录文件的基本操作有</p>
 <ul class="simple">
 <li><a class="reference external" href="#dcreat">目录创建</a></li>
@@ -209,33 +223,122 @@
 </ul>
 <div class="section" id="x00">
 <span id="dcreat"></span><h2>0x00 目录创建<a class="headerlink" href="#x00" title="永久链接至标题">¶</a></h2>
+<p id="mkdirl">我们通常使用<code class="docutils literal"><span class="pre">mkdir命令</span></code>来创建目录</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$mkdir</span> <span class="nb">test</span>                <span class="c1"># 如果目录存在将会提示错误</span>
+<span class="nv">$mkdir</span> -pv test/docker     <span class="c1"># -p表示如果父目录不存在则先创建父目录再创建子目录，父目录存在也不会提示错误；-v表示显示创建的过程</span>
+<span class="nv">$mkdir</span> -m<span class="o">=</span><span class="m">777</span> <span class="nb">test</span>         <span class="c1"># 指定创建目录的权限模型为777</span>
+
+<span class="c1"># 创建级联目录</span>
+<span class="nv">$mkdir</span> -pv baklog/<span class="o">{</span>bin/<span class="o">{</span>test,docker<span class="o">}</span>,lib,log/<span class="o">{</span>cep,dod,testlog<span class="o">}}</span>  <span class="c1"># 同一级目录名放在同一个大括号里，目录名用逗号分隔，但是之前不能留有空白</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="x01">
 <span id="ddel"></span><h2>0x01 目录删除<a class="headerlink" href="#x01" title="永久链接至标题">¶</a></h2>
+<p id="rml">目录删除使用<code class="docutils literal"><span class="pre">rm</span></code>命令</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$rm</span> -rf <span class="nb">test</span>            <span class="c1"># 强制删除test目录以及其子目录或文件</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="x02">
 <span id="dmove"></span><h2>0x02 目录移动<a class="headerlink" href="#x02" title="永久链接至标题">¶</a></h2>
+<p id="movel">目录移动使用<code class="docutils literal"><span class="pre">move</span></code>命令，可参考<a class="reference external" href="../1-File/index.html#mvl">文件移动mv</a></p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$mv</span> baklog/ <span class="nb">test</span>       <span class="c1"># 将baklog目录以及子目录或文件移到到test目录下，此处可以添加-r选项，可以不添加，默认是递归移动</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="x03">
 <span id="dcopy"></span><h2>0x03 目录复制<a class="headerlink" href="#x03" title="永久链接至标题">¶</a></h2>
+<p id="copyl">目录移动使用<code class="docutils literal"><span class="pre">cp</span></code>命令，可参考<a class="reference external" href="../1-File/index.html#cpl">文件移动cp</a></p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$cp</span> -r baklog/ bak    <span class="c1"># 将baklog目录下子目录或者文件复制到bak目录下，此处需要使用-r选项才能实现递归复制</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="x04">
 <span id="dfilefind"></span><h2>0x04 目录查找<a class="headerlink" href="#x04" title="永久链接至标题">¶</a></h2>
+<p id="findl">目录查找使用<code class="docutils literal"><span class="pre">find</span></code>命令和<code class="docutils literal"><span class="pre">locate</span></code>命令，可参考<a class="reference external" href="../1-File/index.html#findl">文件查找find</a>和<a class="reference external" href="../1-File/index.html#locatel">文件查找locate</a></p>
 </div>
 <div class="section" id="x05">
 <span id="dlink"></span><h2>0x05 目录链接<a class="headerlink" href="#x05" title="永久链接至标题">¶</a></h2>
+<p id="linkl">目录只能创建软链接，不能创建硬链接，同样使用<code class="docutils literal"><span class="pre">ln</span></code>命令，可参考<a class="reference external" href="../1-File/index.html#linkl">文件链接ln</a></p>
 </div>
 <div class="section" id="x06">
 <span id="dchange"></span><h2>0x06 目录切换<a class="headerlink" href="#x06" title="永久链接至标题">¶</a></h2>
+<p id="cdl">我们可以通过<code class="docutils literal"><span class="pre">cd</span></code>命令实现目录的切换</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$cd</span> <span class="nb">test</span>           <span class="c1"># 切换到test目录下</span>
+<span class="nv">$cd</span> -              <span class="c1"># 切换到上一工作目录</span>
+<span class="nv">$cd</span> ~              <span class="c1"># 切换到家目录</span>
+<span class="nv">$cd</span> ..             <span class="c1"># 切换到上级父目录</span>
+<span class="nv">$cd</span> ../../         <span class="c1"># 切换到父目录的父目录</span>
+<span class="nv">$pwd</span>               <span class="c1"># 显示当前路径</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="x07">
 <span id="darchive"></span><h2>0x07 目录归档<a class="headerlink" href="#x07" title="永久链接至标题">¶</a></h2>
+<p id="tarl">我们知道<code class="docutils literal"><span class="pre">gzip</span></code>、<code class="docutils literal"><span class="pre">bzip2</span></code>、<code class="docutils literal"><span class="pre">xz</span></code>三个压缩工具只能对文件进行压缩，不能对目录进行压缩；此时我们可以通过<code class="docutils literal"><span class="pre">tar</span></code>工具将目录进行归档打包成一个文件，便于这三个压缩工具对目录进行压缩</p>
+<p><code class="docutils literal"><span class="pre">tar</span></code>命令的使用语法为：<code class="docutils literal"><span class="pre">tar</span> <span class="pre">[OPTION...]</span> <span class="pre">[FILE]...</span></code>，其中常用的OPTIONS有</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">-c</span></code>：创建归档</li>
+<li><code class="docutils literal"><span class="pre">-f</span></code>：指定归档后的文件名。归档后的文件名必须跟在该选项后面</li>
+<li><code class="docutils literal"><span class="pre">-x</span></code>：展开归档</li>
+<li><code class="docutils literal"><span class="pre">-v</span></code>：显示命令执行的过程</li>
+<li><code class="docutils literal"><span class="pre">-t</span></code>：不展开而直接查看被归档的文件</li>
+<li><code class="docutils literal"><span class="pre">-z</span></code>：使用gzip压缩</li>
+<li><code class="docutils literal"><span class="pre">-j</span></code>：使用bzip2压缩</li>
+<li><code class="docutils literal"><span class="pre">-J</span></code>：使用xz压缩</li>
+</ul>
+<p>常见用法有</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 该工具属于归档压缩工具(先对文件进行归档然后进行压缩)，所有不会在压缩或者解压时删除原文件</span>
+
+<span class="nv">$tar</span> -cf archive.tar foo bar     <span class="c1"># 将foo和bar进行归档成archive.tar文件(foo和bar可以是目录或者文件)</span>
+<span class="nv">$tar</span> -tvf archive.tar            <span class="c1"># 不展开archive归档文件直接列出其中的文件列表</span>
+<span class="nv">$tar</span> -xf archive.tar             <span class="c1"># 展开archive归档文件</span>
+<span class="nv">$tar</span> -zcf archive.tar.gz FILE    <span class="c1"># 将FILE目录或文件先进行归档，然后使用gzip将其压缩成.gz压缩文件</span>
+<span class="nv">$tar</span> -jcf archive.tar.bz2 FILE   <span class="c1"># 将FILE目录或文件先进行归档，然后使用bzip2将其压缩成.bz压缩文件</span>
+<span class="nv">$tar</span> -Jcf archive.tar.xz FILE    <span class="c1"># 将FILE目录或文件先进行归档，然后使用xz将其压缩成.xz压缩文件</span>
+<span class="nv">$tar</span> -zxf archive.tar.gz         <span class="c1"># 将指定的.gz压缩文件先使用gzip -d解压缩，然后将归档文件展开成对应的原文件或目录</span>
+<span class="nv">$tar</span> -jxf archive.tar.bz2        <span class="c1"># 将指定的.bz2压缩文件先使用bzip2 -d解压缩，然后将归档文件展开成对应的原文件或目录</span>
+<span class="nv">$tar</span> -Jxf archive.tar.xz         <span class="c1"># 将指定的.xz压缩文件先使用xz -d解压缩，然后将归档文件展开成对应的原文件或目录</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="x08">
 <span id="dcompress"></span><h2>0x08 目录压缩<a class="headerlink" href="#x08" title="永久链接至标题">¶</a></h2>
+<p id="zipl">此处目录压缩有两种方法</p>
+<ul class="simple">
+<li>使用<code class="docutils literal"><span class="pre">zip</span></code>压缩工具</li>
+<li>使用<code class="docutils literal"><span class="pre">tar</span></code>归档工具</li>
+</ul>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 使用tar压缩目录</span>
+<span class="c1"># 该工具属于归档压缩工具(先对文件进行归档然后进行压缩)，所有不会在压缩或者解压时删除原文件</span>
+<span class="nv">$tar</span> -zcf archive.tar.gz FILE    <span class="c1"># 将FILE目录或文件先进行归档，然后使用gzip将其压缩成.gz压缩文件</span>
+<span class="nv">$tar</span> -jcf archive.tar.bz2 FILE   <span class="c1"># 将FILE目录或文件先进行归档，然后使用bzip2将其压缩成.bz压缩文件</span>
+<span class="nv">$tar</span> -Jcf archive.tar.xz FILE    <span class="c1"># 将FILE目录或文件先进行归档，然后使用xz将其压缩成.xz压缩文件</span>
+
+<span class="c1"># 使用zip压缩目录</span>
+<span class="c1"># 该工具属于归档压缩工具(先对文件进行归档然后进行压缩)，所有不会在压缩或者解压时删除原文件</span>
+<span class="c1"># 当.zip文件存在时，归档压缩模式类似于文件打开的追加模式，存在的文件则会覆盖，不存在的则会新建添加</span>
+<span class="nv">$zip</span> pam.d.zip pam.d/*           <span class="c1"># 将pam.d目录下所有目录或文件先归档然后压缩成pam.d.zip文件，不包括pam.d目录名，同时不会进行目录递归</span>
+<span class="nv">$zip</span> pam.d.zip pam.d/            <span class="c1"># 只将pam.d目录名进行归档然后压缩成pam.d.zip文件，不包括其下的子目录和文件</span>
+<span class="nv">$zip</span> -r pam.d.zip pam.d/         <span class="c1"># 将pam.d目录名以及其所有子目录或者文件先归档然后压缩成pam.d.zip文件，此时会进行目录递归</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="x09">
 <span id="dexpand"></span><h2>0x09 目录解压<a class="headerlink" href="#x09" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">tar</span></code>工具只能解压<code class="docutils literal"><span class="pre">.gz</span></code>、<code class="docutils literal"><span class="pre">.bz2</span></code>、<code class="docutils literal"><span class="pre">.xz</span></code>格式的压缩文件</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 该工具属于归档压缩工具(先对文件进行归档然后进行压缩)，所有不会在压缩或者解压时删除原文件</span>
+<span class="nv">$tar</span> -zxf archive.tar.gz         <span class="c1"># 将指定的.gz压缩文件先使用gzip -d解压缩，然后将归档文件展开成对应的原文件或目录</span>
+<span class="nv">$tar</span> -jxf archive.tar.bz2        <span class="c1"># 将指定的.bz2压缩文件先使用bzip2 -d解压缩，然后将归档文件展开成对应的原文件或目录</span>
+<span class="nv">$tar</span> -Jxf archive.tar.xz         <span class="c1"># 将指定的.xz压缩文件先使用xz -d解压缩，然后将归档文件展开成对应的原文件或目录</span>
+</pre></div>
+</div>
+<p id="unzipl"><code class="docutils literal"><span class="pre">.zip</span></code>压缩文件只能使用<code class="docutils literal"><span class="pre">unzip</span></code>工具实现解压</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 该工具属于归档压缩工具(先对文件进行归档然后进行压缩)，所有不会在压缩或者解压时删除原文件</span>
+<span class="nv">$unzip</span> message.zip
+</pre></div>
+</div>
 </div>
 </div>
 
