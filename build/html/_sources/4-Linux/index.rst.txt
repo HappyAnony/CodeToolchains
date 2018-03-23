@@ -26,4 +26,6 @@ Linux命令工具
    11-SecurityManage/index
    12-KernelManage/index
    13-DevelopTools/index
+   15-others/index
+   16-ThirdTools/index
    14-ShellCode/index

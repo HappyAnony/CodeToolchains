@@ -15,19 +15,9 @@ index = "index.rst"
 
 # 目录结构
 dir_tree = {
-	"1-CmdHelp": "命令帮助",
-	"2-FileManage": "文件管理",
-	"3-TextProcess": "文本处理",
-	"4-UserManage": "用户管理",
-	"5-PackageManage": "软件包管理",
-	"6-ProcessManage": "进程管理",
-	"7-SystemManage": "系统管理",
-	"8-NetManage": "网络管理",
-	"9-ServiceMange": "服务管理",
-	"10-DiskManage": "磁盘管理",
-	"11-SecurityManage": "安全管理",
-	"12-KernelManage": "内核管理",
-	"13-DevelopTools": "开发工具"
+	"1-txtlook": "文本查看",
+	"2-txtfind": "文件查找",
+	"3-txtedit": "文本编辑"
 }
 
 

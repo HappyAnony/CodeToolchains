@@ -1,0 +1,325 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>文本查找 &mdash; CodeToolchains 1.0.0 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../../genindex.html"/>
+        <link rel="search" title="搜索" href="../../../search.html"/>
+    <link rel="top" title="CodeToolchains 1.0.0 文档" href="../../../index.html"/>
+        <link rel="up" title="文本处理" href="../index.html"/>
+        <link rel="next" title="文本编辑" href="../3-txtedit/index.html"/>
+        <link rel="prev" title="文本查看" href="../1-txtlook/index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> CodeToolchains
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../1-TextEdit/index.html">文本编辑器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2-VerControl/index.html">版本控制器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../3-IDE/index.html">IDE集成开发环境</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Linux命令工具</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../1-CmdHelp/index.html">简要概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../2-FileManage/index.html">文件管理</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">文本处理</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../1-txtlook/index.html">文本查看</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">文本查找</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../3-txtedit/index.html">文本编辑</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../4-UserManage/index.html">用户管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../5-PackageManage/index.html">软件包管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../6-ProcessManage/index.html">进程管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../7-SystemManage/index.html">系统管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../8-NetManage/index.html">网络管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../9-ServiceMange/index.html">服务管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../10-DiskManage/index.html">磁盘管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../11-SecurityManage/index.html">安全管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../12-KernelManage/index.html">内核管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../13-DevelopTools/index.html">开发工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../15-others/index.html">其它工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../16-ThirdTools/index.html">第三方工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../14-ShellCode/index.html">shell编程</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../5-Wildcard/index.html">通配机制</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">CodeToolchains</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Linux命令工具</a> &raquo;</li>
+        
+          <li><a href="../index.html">文本处理</a> &raquo;</li>
+        
+      <li>文本查找</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/4-Linux/3-TextProcess/2-txtfind/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>文本查找<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>命令汇总</p>
+<ul class="simple">
+<li><a class="reference external" href="#grepl">grep</a></li>
+<li><a class="reference external" href="#egrepl">egrep</a></li>
+<li><a class="reference external" href="#fgrepl">fgrep</a></li>
+<li><a class="reference external" href="#awkl">awk</a></li>
+<li><a class="reference external" href="#cutl">cut</a></li>
+</ul>
+<div class="section" id="x00-grep">
+<span id="grepl"></span><h2>0x00 grep<a class="headerlink" href="#x00-grep" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="x01-egrep">
+<span id="egrepl"></span><h2>0x01 egrep<a class="headerlink" href="#x01-egrep" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="x02-fgrep">
+<span id="fgrepl"></span><h2>0x02 fgrep<a class="headerlink" href="#x02-fgrep" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="x03-awk">
+<span id="awkl"></span><h2>0x03 awk<a class="headerlink" href="#x03-awk" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="x04-cut">
+<span id="cutl"></span><h2>0x04 cut<a class="headerlink" href="#x04-cut" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">cut</span></code>命令会根据指定的分隔符对每行文本内容进行切片，并显示出每行需要的切片</p>
+<p>命令常用选项有：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">-d</span></code>：后面紧跟字符，将该字符指定为行分隔符；默认是以<code class="docutils literal"><span class="pre">tab</span></code>键为分隔符</li>
+<li><code class="docutils literal"><span class="pre">-f</span></code>：后面紧跟数字，以字段为单位显示文本每行内容；一般和<code class="docutils literal"><span class="pre">-d</span></code>选项指定分隔符一起使用</li>
+<li><code class="docutils literal"><span class="pre">-b</span></code>：后面紧跟数字，以字节为单位显示文本每行内容，不需要指定分隔符</li>
+<li><code class="docutils literal"><span class="pre">-c</span></code>：后面紧跟数字，以字符为单位显示文本每行内容，不需要指定分隔符</li>
+<li><code class="docutils literal"><span class="pre">--complement</span></code>：显示文本每行没有被<code class="docutils literal"><span class="pre">-b</span></code>、<code class="docutils literal"><span class="pre">-c</span></code>、<code class="docutils literal"><span class="pre">-f</span></code>选项匹配到的内容</li>
+<li><code class="docutils literal"><span class="pre">-s</span></code>：不显示没有被<code class="docutils literal"><span class="pre">-f</span></code>选项匹配到的行，和<code class="docutils literal"><span class="pre">-f</span></code>选项一起使用</li>
+</ul>
+<p><code class="docutils literal"><span class="pre">-b</span></code>、<code class="docutils literal"><span class="pre">-c</span></code>、<code class="docutils literal"><span class="pre">-f</span></code>选项后面数字都支持以下形式：</p>
+<ul>
+<li><p class="first">一个字段、字节或字符使用一个数字即可</p>
+</li>
+<li><p class="first">多个离散字段、字节或字符使用<code class="docutils literal"><span class="pre">,</span></code>分隔多个数字</p>
+</li>
+<li><p class="first">多个连续字段、字节或字符使用<code class="docutils literal"><span class="pre">-</span></code>连接两个数字</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">N-</span></code>表示第N个字段、字节或字符到结尾</li>
+<li><code class="docutils literal"><span class="pre">-M</span></code>表示第1到第M个字段、字节或字符</li>
+<li><code class="docutils literal"><span class="pre">N-M</span></code>表示第N到第M个字段、字节或字符</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$cut</span> -f2 <span class="m">1</span>.txt               <span class="c1"># 默认以tab为分隔符</span>
+<span class="nv">$cut</span> -f2 -s <span class="m">1</span>.txt            <span class="c1"># 如果没有第2字段，则不打印该行内容</span>
+<span class="nv">$cut</span> -d: -f1 /etc/passwd     <span class="c1"># 以:分隔/etc/passwd每行内容，打印每行分隔后的第一个字段</span>
+<span class="nv">$cut</span> -c1-5 /etc/passwd       <span class="c1"># 打印每行第1到第5个字符</span>
+<span class="nv">$cut</span> -b-2 /etc/passwd        <span class="c1"># 打印每行前2个字节内容</span>
+<span class="nv">$cut</span> -c1 --complement <span class="m">1</span>.txt  <span class="c1"># 打印每行除第1个字符之外的所有字符</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../3-txtedit/index.html" class="btn btn-neutral float-right" title="文本编辑" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../1-txtlook/index.html" class="btn btn-neutral" title="文本查看" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, HappyAnony.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

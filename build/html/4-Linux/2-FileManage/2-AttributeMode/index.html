@@ -96,7 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../2-VerControl/index.html">版本控制器</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../3-IDE/index.html">IDE集成开发环境</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Linux命令工具</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../1-CmdHelp/index.html">命令概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../1-CmdHelp/index.html">简要概述</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html">文件管理</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../1-FHS/index.html">FHS根文件系统</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">文件属性模型</a></li>
@@ -114,6 +114,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../11-SecurityManage/index.html">安全管理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../12-KernelManage/index.html">内核管理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../13-DevelopTools/index.html">开发工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../15-others/index.html">其它工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../16-ThirdTools/index.html">第三方工具</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../14-ShellCode/index.html">shell编程</a></li>
 </ul>
 </li>
@@ -201,7 +203,12 @@
 </ul>
 <p id="lsl">使用<code class="docutils literal"><span class="pre">ls</span> <span class="pre">-l</span> <span class="pre">/path/to/FileName</span></code>命令可以调用目录的可执行权限查看指定文件的属性模型</p>
 <div class="figure">
-<img alt="../../../_images/11.png" src="../../../_images/11.png" />
+<img alt="../../../_images/12.png" src="../../../_images/12.png" />
+</div>
+<p><code class="docutils literal"><span class="pre">ls</span></code>命令还有其它选项：</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$ls</span> -t       <span class="c1"># 按照时间戳排序显示文件</span>
+<span class="nv">$ls</span> -rt      <span class="c1"># 按照时间戳逆序显示文件</span>
+</pre></div>
 </div>
 <p>该属性模型依次可划分为以下几段</p>
 <ul class="simple">
@@ -216,11 +223,12 @@
 <p>我们知道文件都有文件名与数据，这在Linux上被分成两个部分</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">用户数据(user</span> <span class="pre">data)</span></code>：即文件数据块(data block)，数据块是记录文件真实内容的地方，存放在磁盘的有效数据区</li>
-<li><code class="docutils literal"><span class="pre">元数据(metadata)</span></code>：即文件的附加属性，如inode索引号，文件名，文件时间戳，权限模型，大小，类型，所有者等信息，这些信息存放在磁盘的元数据区。在Linux中，元数据中的inode号(inode是文件元数据的一部分但其并不包含文件名，inode号即索引节点号)才是文件的唯一标识而非文件名。文件名仅是为了方便人们的记忆和使用，系统或程序通过inode号寻找正确的文件数据块。其逻辑图如下所示</li>
+<li><code class="docutils literal"><span class="pre">元数据(metadata)</span></code>：即文件的附加属性，如inode索引号，文件名，文件时间戳，权限模型，大小，类型，所有者等信息，这些信息存放在磁盘的元数据区。在Linux中，元数据中的inode号(inode是文件元数据的一部分但其并不包含文件名，inode号即索引节点号)才是文件的唯一标识而非文件名。文件名仅是为了方便人们的记忆和使用，系统或程序通过inode号寻找正确的文件数据块。当磁盘块对应的inode没有被任何一个文件名引用(即硬链接数为0)，系统认为该磁盘块处于未使用空闲状态，将会标记该磁盘块为空闲从而回收该磁盘空间。其逻辑图如下所示</li>
 </ul>
 <div class="figure">
-<img alt="../../../_images/2.png" src="../../../_images/2.png" />
+<img alt="../../../_images/21.png" src="../../../_images/21.png" />
 </div>
+<p>电脑能够识别的是数字，存储在元数据区的不是文件名而是索引结点号<code class="docutils literal"><span class="pre">index</span> <span class="pre">node</span></code>；计算机通过<code class="docutils literal"><span class="pre">名称解析(name</span> <span class="pre">resoling)</span></code>将识别的索引结点号解析成人类易读的文件名；将文件名转化成索引号存储，便于计算机识别。</p>
 <p id="statl">使用<code class="docutils literal"><span class="pre">ls</span> <span class="pre">-l</span></code>命令查看的文件所有属性都存放在文件的metadata元数据区，我们可以通过<code class="docutils literal"><span class="pre">stat</span></code>命令来查看一个指定文件的所有元数据属性</p>
 <div class="figure">
 <img alt="../../../_images/4.png" src="../../../_images/4.png" />
@@ -301,6 +309,7 @@
 <div class="figure">
 <img alt="../../../_images/3.png" src="../../../_images/3.png" />
 </div>
+<p>删除软链接不会对源文件造成影响，因为它删除的只是源文件的路径映射；但是如果删除的硬链接是最后一个，那么对应的inode区就没有文件名引用，inode对应的磁盘空间将会被回收</p>
 <p>关于硬链接和软链接的详解可参考<a class="reference external" href="https://www.ibm.com/developerworks/cn/linux/l-cn-hardandsymb-links/index.html">理解Linux的硬链接与软链接</a></p>
 <p id="device">连接到系统上的设备都会被内核通过设备驱动识别并映射成<code class="docutils literal"><span class="pre">/dev</span></code>目录下的一个设备文件，通过该设备文件对设备进行访问等操作。设备文件可以分为：</p>
 <ul class="simple">
