@@ -151,6 +151,7 @@
 - \ ``-z``\ ：使用gzip压缩
 - \ ``-j``\ ：使用bzip2压缩
 - \ ``-J``\ ：使用xz压缩
+- \ ``-C``\ ：指定解压缩后文件的存放路径
 
 常见用法有
 
@@ -209,6 +210,7 @@
 	$tar -zxf archive.tar.gz         # 将指定的.gz压缩文件先使用gzip -d解压缩，然后将归档文件展开成对应的原文件或目录
 	$tar -jxf archive.tar.bz2        # 将指定的.bz2压缩文件先使用bzip2 -d解压缩，然后将归档文件展开成对应的原文件或目录
 	$tar -Jxf archive.tar.xz         # 将指定的.xz压缩文件先使用xz -d解压缩，然后将归档文件展开成对应的原文件或目录
+	$tar -zxf archive.tar.gz -C tet/ # 解压缩到tet目录下
 
 .. _unzipl:
 
@@ -217,7 +219,8 @@
 .. code-block:: sh
 
 	# 该工具属于归档压缩工具(先对文件进行归档然后进行压缩)，所有不会在压缩或者解压时删除原文件
-	$unzip message.zip
+	$unzip message.zip          # 解压缩到当前目录下
+	$unzip message.zip -d test/ # 解压缩到test目录下
 
 
 .. _look:

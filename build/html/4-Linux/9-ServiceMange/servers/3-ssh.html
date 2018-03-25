@@ -1,0 +1,315 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ssh服务器搭建 &mdash; CodeToolchains 1.0.0 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../../genindex.html"/>
+        <link rel="search" title="搜索" href="../../../search.html"/>
+    <link rel="top" title="CodeToolchains 1.0.0 文档" href="../../../index.html"/>
+        <link rel="up" title="服务器搭建" href="index.html"/>
+        <link rel="next" title="磁盘管理" href="../../10-DiskManage/index.html"/>
+        <link rel="prev" title="nfs服务器" href="2-nfs.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> CodeToolchains
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../1-TextEdit/index.html">文本编辑器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2-VerControl/index.html">版本控制器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../3-IDE/index.html">IDE集成开发环境</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Linux命令工具</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../1-CmdHelp/index.html">简要概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../2-FileManage/index.html">文件管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../3-TextProcess/index.html">文本处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4-UserManage/index.html">用户管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../5-PackageManage/index.html">软件包管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../6-ProcessManage/index.html">进程管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../7-SystemManage/index.html">系统管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../8-NetManage/index.html">网络管理</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">服务管理</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">服务器搭建</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="1-ftp.html">ftp服务器</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2-nfs.html">nfs服务器</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">ssh服务器搭建</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../10-DiskManage/index.html">磁盘管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../11-SecurityManage/index.html">安全管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../12-KernelManage/index.html">内核管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../13-DevelopTools/index.html">开发工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../15-others/index.html">其它工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../16-ThirdTools/index.html">第三方工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../14-ShellCode/index.html">shell编程</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../5-Wildcard/index.html">通配机制</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">CodeToolchains</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Linux命令工具</a> &raquo;</li>
+        
+          <li><a href="../index.html">服务管理</a> &raquo;</li>
+        
+          <li><a href="index.html">服务器搭建</a> &raquo;</li>
+        
+      <li>ssh服务器搭建</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/4-Linux/9-ServiceMange/servers/3-ssh.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ssh">
+<h1>ssh服务器搭建<a class="headerlink" href="#ssh" title="永久链接至标题">¶</a></h1>
+<p><code class="docutils literal"><span class="pre">ssh服务器</span></code>的主要功能就是：远程登录全权操作主机</p>
+<p><code class="docutils literal"><span class="pre">ssh服务器的搭建</span></code>我们这里选择使用<code class="docutils literal"><span class="pre">openssh-server</span></code>工具</p>
+<p>其搭建基本流程是：</p>
+<ul>
+<li><p class="first"><a class="reference external" href="#sshl">server工具安装</a></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="#sshubuntu">Ubuntu系列安装</a></li>
+<li><a class="reference external" href="#sshcentos">CentOS系列安装</a></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference external" href="#sshclient">远程登陆</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="#sshoperation">连接操作</a></p>
+</li>
+</ul>
+<div class="section" id="x00-server">
+<span id="sshl"></span><h2>0x00 server工具安装<a class="headerlink" href="#x00-server" title="永久链接至标题">¶</a></h2>
+<p>不同linux发行版的安装方式不同</p>
+<p id="sshubuntu">Debian/Ubuntu系列安装方式</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># apt-get安装</span>
+<span class="nv">$sudo</span> apt-get install openssh-server
+</pre></div>
+</div>
+<p id="sshcentos">RedHat/Fedra/CentOs系列安装方式</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># yum安装</span>
+<span class="nv">$yum</span> install openssh-server
+</pre></div>
+</div>
+</div>
+<div class="section" id="x01">
+<span id="sshclient"></span><h2>0x01 远程登陆<a class="headerlink" href="#x01" title="永久链接至标题">¶</a></h2>
+<p>登录方式很简单：<code class="docutils literal"><span class="pre">ssh</span> <span class="pre">UserName&#64;ServerIp</span></code></p>
+<div class="figure">
+<img alt="../../../_images/71.png" src="../../../_images/71.png" />
+</div>
+</div>
+<div class="section" id="x02">
+<span id="sshoperation"></span><h2>0x02 连接操作<a class="headerlink" href="#x02" title="永久链接至标题">¶</a></h2>
+<p>ssh远程登录后所能做的操作包括远程主机支持的所有本地操作</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../10-DiskManage/index.html" class="btn btn-neutral float-right" title="磁盘管理" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="2-nfs.html" class="btn btn-neutral" title="nfs服务器" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, HappyAnony.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

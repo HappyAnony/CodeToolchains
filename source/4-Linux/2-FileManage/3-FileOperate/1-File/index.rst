@@ -401,4 +401,5 @@
 .. code-block:: sh
 
 	# 该工具属于归档压缩工具(先对文件进行归档然后进行压缩)，所有不会在压缩或者解压时删除原文件
-	$unzip message.zip
+	$unzip message.zip          # 解压缩到当前目录下
+	$unzip message.zip -d test/ # 解压缩到test目录下

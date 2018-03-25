@@ -540,7 +540,8 @@
 </div>
 <p id="unzipl"><code class="docutils literal"><span class="pre">unzip</span></code>是<code class="docutils literal"><span class="pre">zip压缩工具</span></code>的解压工具，只解压<code class="docutils literal"><span class="pre">.zip压缩文件</span></code></p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 该工具属于归档压缩工具(先对文件进行归档然后进行压缩)，所有不会在压缩或者解压时删除原文件</span>
-<span class="nv">$unzip</span> message.zip
+<span class="nv">$unzip</span> message.zip          <span class="c1"># 解压缩到当前目录下</span>
+<span class="nv">$unzip</span> message.zip -d test/ <span class="c1"># 解压缩到test目录下</span>
 </pre></div>
 </div>
 </div>

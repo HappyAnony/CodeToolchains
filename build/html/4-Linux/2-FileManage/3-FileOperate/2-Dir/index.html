@@ -291,6 +291,7 @@
 <li><code class="docutils literal"><span class="pre">-z</span></code>：使用gzip压缩</li>
 <li><code class="docutils literal"><span class="pre">-j</span></code>：使用bzip2压缩</li>
 <li><code class="docutils literal"><span class="pre">-J</span></code>：使用xz压缩</li>
+<li><code class="docutils literal"><span class="pre">-C</span></code>：指定解压缩后文件的存放路径</li>
 </ul>
 <p>常见用法有</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 该工具属于归档压缩工具(先对文件进行归档然后进行压缩)，所有不会在压缩或者解压时删除原文件</span>
@@ -336,11 +337,13 @@
 <span class="nv">$tar</span> -zxf archive.tar.gz         <span class="c1"># 将指定的.gz压缩文件先使用gzip -d解压缩，然后将归档文件展开成对应的原文件或目录</span>
 <span class="nv">$tar</span> -jxf archive.tar.bz2        <span class="c1"># 将指定的.bz2压缩文件先使用bzip2 -d解压缩，然后将归档文件展开成对应的原文件或目录</span>
 <span class="nv">$tar</span> -Jxf archive.tar.xz         <span class="c1"># 将指定的.xz压缩文件先使用xz -d解压缩，然后将归档文件展开成对应的原文件或目录</span>
+<span class="nv">$tar</span> -zxf archive.tar.gz -C tet/ <span class="c1"># 解压缩到tet目录下</span>
 </pre></div>
 </div>
 <p id="unzipl"><code class="docutils literal"><span class="pre">.zip</span></code>压缩文件只能使用<code class="docutils literal"><span class="pre">unzip</span></code>工具实现解压</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 该工具属于归档压缩工具(先对文件进行归档然后进行压缩)，所有不会在压缩或者解压时删除原文件</span>
-<span class="nv">$unzip</span> message.zip
+<span class="nv">$unzip</span> message.zip          <span class="c1"># 解压缩到当前目录下</span>
+<span class="nv">$unzip</span> message.zip -d test/ <span class="c1"># 解压缩到test目录下</span>
 </pre></div>
 </div>
 </div>

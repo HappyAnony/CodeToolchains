@@ -182,6 +182,76 @@
             
   <div class="section" id="id1">
 <h1>进程管理<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>命令汇总</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">who</span></code></li>
+</ul>
+<div class="section" id="who">
+<h2>who<a class="headerlink" href="#who" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">who</span></code>命令可以用来查看当前在线用户的情况</p>
+<div class="figure">
+<img alt="../../_images/13.png" src="../../_images/13.png" />
+</div>
+<p>每个字段的意义分别是：</p>
+<ul class="simple">
+<li>登陆的用户名</li>
+<li>使用的设备终端</li>
+<li>登陆系统的时间</li>
+</ul>
+<p>在linux中我们的终端设备有：</p>
+<ul>
+<li><p class="first">pts设备终端</p>
+</li>
+<li><p class="first">tty设备终端</p>
+<blockquote>
+<div><ul class="simple">
+<li>tty1~tty6：表示文字界面，在shell下敲<code class="docutils literal"><span class="pre">ctrl+alt+[F1-F6]</span></code>即可进入对应的文字界面</li>
+<li>tty7：表示图像界面，在shell下敲<code class="docutils literal"><span class="pre">ctrl+alt+F7</span></code>即可进入图形界面</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="ps">
+<h2>ps<a class="headerlink" href="#ps" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">ps</span></code>命令是用来查看整个系统内部运行进程的相关信息</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$ps</span> -a        <span class="c1"># 列出当前登录终端的进程信息</span>
+<span class="nv">$ps</span> -au       <span class="c1"># 列出当前登录终端以及对应用户的信息</span>
+<span class="nv">$ps</span> -aux      <span class="c1"># 列出当前没有对应终端的进程信息，没有终端就意味着不能和用户进行交互</span>
+
+<span class="c1"># ps命令的显示结果一般都很杂乱，不容易找到我们需要的信息，所以ps命令一般通过管道和grep一起使用</span>
+<span class="nv">$ps</span> -aux <span class="p">|</span> grep -e <span class="s2">&quot;^root.*httpd</span>$<span class="s2">&quot;</span> <span class="c1"># 查找进程属主为root，进程名为httpd的进程相关信息</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="kill">
+<h2>kill<a class="headerlink" href="#kill" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">kill</span></code>命令是通过发送信号来杀死运行进程的</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$kill</span> -l            <span class="c1"># 查看当前系统下可以使用的信号</span>
+<span class="nv">$kill</span> -SIGKILL <span class="m">5179</span> <span class="c1"># 使用SIGKILL信号杀死进程号为5179的进程</span>
+<span class="nv">$kill</span> -9 <span class="m">4968</span>       <span class="c1"># 使用SIGKILL信号杀死进程号为4968的进程，-9对应SIGKILL信号</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="env">
+<h2>env<a class="headerlink" href="#env" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">env</span></code>命令是用来查看当前进程的环境变量</p>
+<div class="figure">
+<img alt="../../_images/22.png" src="../../_images/22.png" />
+</div>
+<p>如上图所示，linux下环境变量的格式是：<code class="docutils literal"><span class="pre">key=value</span></code></p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">key</span></code>一般都是大写的变量</li>
+<li><code class="docutils literal"><span class="pre">value</span></code>值可以有多个，每个值之间使用<code class="docutils literal"><span class="pre">:</span></code>分隔</li>
+</ul>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$env</span> <span class="p">|</span> grep PATH  $获取当前进程的PATH环境变量
+</pre></div>
+</div>
+</div>
+<div class="section" id="top">
+<h2>top<a class="headerlink" href="#top" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">top</span></code>命令可以实时刷新进程的状态信息，类似于windows下面的任务管理器</p>
+</div>
 </div>
 
 
