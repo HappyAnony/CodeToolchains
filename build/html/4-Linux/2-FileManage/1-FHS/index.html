@@ -115,11 +115,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../../12-KernelManage/index.html">内核管理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../13-DevelopTools/index.html">开发工具</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../15-others/index.html">其它工具</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../16-ThirdTools/index.html">第三方工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../16-ThirdTools/index.html">常见操作</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../14-ShellCode/index.html">shell编程</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../5-Wildcard/index.html">通配机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../6-DataBase/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../7-WebArch/index.html">网站架构</a></li>
 </ul>
 
             
@@ -244,6 +246,20 @@
 <li><p class="first"><code class="docutils literal"><span class="pre">zer0</span></code>：该设备文件存储的全部是0</p>
 </li>
 <li><p class="first"><code class="docutils literal"><span class="pre">null</span></code>：存储到该设备文件中的数据都会自动消失</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">console</span></code>：物理终端控制台，集成在芯片中，系统刚启动时或启动过程中进行交互的终端</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">ttys#</span></code>：串行终端，使用串口连接的终端，#代表数字</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">tty#</span></code>：虚拟终端，附加在物理终端上可以任意切换，系统启动完成后进行交互的终端，#代表数字</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">Ctrl+Alt+F1~F6</span></code>快捷键可以启动或者说切换到虚拟终端<code class="docutils literal"><span class="pre">tty1~tty6</span></code></li>
+<li><code class="docutils literal"><span class="pre">Ctrl+Alt+F7</span></code>快捷键可以启动图形终端</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">pts/#</span></code>：伪终端，远程连接或图形界面下打开的命令接口，#代表数字</p>
 </li>
 </ul>
 </div></blockquote>

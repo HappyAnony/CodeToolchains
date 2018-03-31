@@ -115,11 +115,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../../12-KernelManage/index.html">内核管理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../13-DevelopTools/index.html">开发工具</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../15-others/index.html">其它工具</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../16-ThirdTools/index.html">第三方工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../16-ThirdTools/index.html">常见操作</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../14-ShellCode/index.html">shell编程</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../5-Wildcard/index.html">通配机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../6-DataBase/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../7-WebArch/index.html">网站架构</a></li>
 </ul>
 
             
@@ -191,26 +193,34 @@
 <h1>文本查找<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
 <p>命令汇总</p>
 <ul class="simple">
+<li><a class="reference external" href="#cutl">cut</a></li>
 <li><a class="reference external" href="#grepl">grep</a></li>
 <li><a class="reference external" href="#egrepl">egrep</a></li>
-<li><a class="reference external" href="#fgrepl">fgrep</a></li>
-<li><a class="reference external" href="#awkl">awk</a></li>
-<li><a class="reference external" href="#cutl">cut</a></li>
+<li><dl class="first docutils">
+<dt><a class="reference external" href="#awkl">awk</a></dt>
+<dd><ul class="first last">
+<li><a class="reference external" href="#optionsl">awk选项</a></li>
+<li><dl class="first docutils">
+<dt><a class="reference external" href="#programl">awk程序</a></dt>
+<dd><ul class="first last">
+<li><a class="reference external" href="#patternl">awk匹配模式</a></li>
+<li><a class="reference external" href="#awkvarl">awk动作之变量</a></li>
+<li><a class="reference external" href="#awkoperal">awk动作之操作符</a></li>
+<li><a class="reference external" href="#awkctrl">awk动作之控制流</a></li>
+<li><a class="reference external" href="#awkfuncl">awk动作之函数</a></li>
 </ul>
-<div class="section" id="x00-grep">
-<span id="grepl"></span><h2>0x00 grep<a class="headerlink" href="#x00-grep" title="永久链接至标题">¶</a></h2>
-</div>
-<div class="section" id="x01-egrep">
-<span id="egrepl"></span><h2>0x01 egrep<a class="headerlink" href="#x01-egrep" title="永久链接至标题">¶</a></h2>
-</div>
-<div class="section" id="x02-fgrep">
-<span id="fgrepl"></span><h2>0x02 fgrep<a class="headerlink" href="#x02-fgrep" title="永久链接至标题">¶</a></h2>
-</div>
-<div class="section" id="x03-awk">
-<span id="awkl"></span><h2>0x03 awk<a class="headerlink" href="#x03-awk" title="永久链接至标题">¶</a></h2>
-</div>
-<div class="section" id="x04-cut">
-<span id="cutl"></span><h2>0x04 cut<a class="headerlink" href="#x04-cut" title="永久链接至标题">¶</a></h2>
+</dd>
+</dl>
+</li>
+<li><a class="reference external" href="#awkappl">awk应用</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>这些工具可以称之为文本过滤器，它们会根据用户指定的文本模式对目标文件或目标字节流进行逐行搜索匹配，并输出匹配文本模式的整行信息或特定字段</p>
+<div class="section" id="x01-cut">
+<span id="cutl"></span><h2>0x01 cut<a class="headerlink" href="#x01-cut" title="永久链接至标题">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">cut</span></code>命令会根据指定的分隔符对每行文本内容进行切片，并显示出每行需要的切片</p>
 <p>命令常用选项有：</p>
 <ul class="simple">
@@ -244,6 +254,275 @@
 <span class="nv">$cut</span> -b-2 /etc/passwd        <span class="c1"># 打印每行前2个字节内容</span>
 <span class="nv">$cut</span> -c1 --complement <span class="m">1</span>.txt  <span class="c1"># 打印每行除第1个字符之外的所有字符</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="x01-grep">
+<span id="grepl"></span><h2>0x01 grep<a class="headerlink" href="#x01-grep" title="永久链接至标题">¶</a></h2>
+<p>参考文档</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.cnblogs.com/f-ck-need-u/p/7462706.html">grep命令中文手册</a></li>
+</ul>
+<p>man文档关于grep命令的介绍是：<code class="docutils literal"><span class="pre">global</span> <span class="pre">search</span> <span class="pre">basic</span> <span class="pre">regular</span> <span class="pre">expression（RE）and</span> <span class="pre">print</span> <span class="pre">out</span> <span class="pre">the</span> <span class="pre">line</span></code>，即基本正则表达式搜索，输出整行信息。它可接收文件或字节流作为搜索对象</p>
+<p><code class="docutils literal"><span class="pre">grep</span></code>命令使用的语法格式：<code class="docutils literal"><span class="pre">grep</span> <span class="pre">[OPTIONS]</span> <span class="pre">PATTERN</span> <span class="pre">[FILE...]</span></code></p>
+<ul>
+<li><p class="first">OPTIONS常用选项</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">--color[=WHEN]</span></code>：将匹配到文本模式的信息以指定的颜色显示出来。默认auto值是红色</li>
+<li><code class="docutils literal"><span class="pre">-v</span></code>：反向匹配，显示不能被模式匹配到的行</li>
+<li><code class="docutils literal"><span class="pre">-o</span></code>：仅显示被模式匹配到的字串，而非整行</li>
+<li><code class="docutils literal"><span class="pre">-c</span></code>：统计文件中包含文本的次数</li>
+<li><code class="docutils literal"><span class="pre">-n</span></code>：打印文本匹配的行号</li>
+<li><code class="docutils literal"><span class="pre">-I</span></code>：只打印文件名</li>
+<li><code class="docutils literal"><span class="pre">-r</span></code>：多级目录中对文本递归搜索，不包括符号链接文件</li>
+<li><code class="docutils literal"><span class="pre">-R</span></code>：多级目录中对文本递归搜索，包括符号链接文件</li>
+<li><code class="docutils literal"><span class="pre">-i</span></code>：不区分大小写，ignore-case</li>
+<li><code class="docutils literal"><span class="pre">-E</span></code>：默认只支持基本正则表达式，如果想使用扩展正则表达式需要用-E选项</li>
+<li><code class="docutils literal"><span class="pre">-A</span> <span class="pre">num</span></code>：不仅显示匹配到的行，还显示模式下面的num行</li>
+<li><code class="docutils literal"><span class="pre">-B</span> <span class="pre">num</span></code>：不仅显示匹配到的行，还显示模式上面的num行</li>
+<li><code class="docutils literal"><span class="pre">-C</span> <span class="pre">num</span></code>：不仅显示匹配到的行，前后各显示num行</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">PATTERN：查找匹配模式</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="../../../5-Wildcard/2-Regular/1-syntax/1-bRegEx.html">基本正则表达式BRE</a>使用<code class="docutils literal"><span class="pre">-e</span></code>选项，但是由于基本正则是默认支持的，所有可以省略</li>
+<li>如果想要支持<a class="reference external" href="../../../5-Wildcard/2-Regular/1-syntax/2-eRegEx.html">扩展正则表达式ERE</a>，则需要在PATTERN之前加上<code class="docutils literal"><span class="pre">-E</span></code>选项</li>
+<li>如果想要支持<a class="reference external" href="../../../5-Wildcard/2-Regular/2-engine/3-perl.html">Perl正则表达式PCRE</a>，则需要在PATTERN之前加上<code class="docutils literal"><span class="pre">-P</span></code>选项</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">FILE：查找匹配对象</p>
+<blockquote>
+<div><ul class="simple">
+<li>可以是文件名</li>
+<li>也可以是管道送过来的字节流</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>注意</strong>：<code class="docutils literal"><span class="pre">PATTERN</span></code>中一旦使用正则表达式的元字符(<code class="docutils literal"><span class="pre">^</span></code>,<code class="docutils literal"><span class="pre">$</span></code>等)作为文本模式，就需要用引号括起来：</p>
+<ul class="simple">
+<li>单引号，表示强引用，不允许做变量替换</li>
+<li>双引号，表示弱引用，允许做变量替换</li>
+</ul>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$grep</span> -R -n <span class="s2">&quot;class&quot;</span> .               <span class="c1"># 多级目录中对class文本进行递归搜索，打印所在文件，行号以及整行内容</span>
+<span class="nv">$grep</span> -e <span class="s2">&quot;class&quot;</span> -e <span class="s2">&quot;vitural&quot;</span> file  <span class="c1"># 匹配多个模式</span>
+<span class="nv">$grep</span> -rnP <span class="s2">&quot;\xE4\xB8\xAD\xE6\x96\x87|\xD6\xD0\xCE\xC4&quot;</span> . <span class="c1"># 使用perl正则在多级目录中递归搜索utf-8编码和gb2312编码分别是E4B8ADE69687和D6D0CEC4的中文</span>
+<span class="nv">$cat</span> LOG.* <span class="p">|</span> tr a-z A-Z <span class="p">|</span> grep <span class="s2">&quot;FROM&quot;</span> <span class="p">|</span> grep <span class="s2">&quot;WHERE&quot;</span> &gt; b <span class="c1"># 将日志中的所有带where条件的sql查找查找出来</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="x02-egrep">
+<span id="egrepl"></span><h2>0x02 egrep<a class="headerlink" href="#x02-egrep" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">egrep</span></code>命令的使用方法和<code class="docutils literal"><span class="pre">grep</span></code>命令完全一样，唯一区别就是：<code class="docutils literal"><span class="pre">egrep</span></code>命令使用扩展正则表达式作为默认文本模式，相当于<code class="docutils literal"><span class="pre">grep</span> <span class="pre">-E</span></code></p>
+</div>
+<div class="section" id="x03-awk">
+<span id="awkl"></span><h2>0x03 awk<a class="headerlink" href="#x03-awk" title="永久链接至标题">¶</a></h2>
+<p>参考文档</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.cnblogs.com/f-ck-need-u/p/7509812.html#blog6">awk知识点全回顾</a></li>
+</ul>
+<p>awk是一个报告生成工具(过滤显示工具)，它的工作机制是：使用指定的分隔符将读取的每一行数据进行切割，然后根据PATTERN文本模式匹配每一行内容，最后执行action动作处理匹配到的行内容</p>
+<p>awk的分支有</p>
+<ul class="simple">
+<li>awk：早期使用</li>
+<li>nawk(new awk)：付费使用</li>
+<li>gawk(GNU awk)：linux平台使用，在linux上awk只是gawk的一个符号链接</li>
+</ul>
+<div class="figure">
+<img alt="../../../_images/13.png" src="../../../_images/13.png" />
+</div>
+<p><code class="docutils literal"><span class="pre">awk</span></code>命令的语法格式有两种：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">awk</span> <span class="pre">[OPTIONS]</span> <span class="pre">-f</span> <span class="pre">program-file</span> <span class="pre">[</span> <span class="pre">--</span> <span class="pre">]</span> <span class="pre">FILE</span> <span class="pre">...</span></code></li>
+<li><code class="docutils literal"><span class="pre">awk</span> <span class="pre">[OPTIONS]</span> <span class="pre">[</span> <span class="pre">--</span> <span class="pre">]</span> <span class="pre">program</span> <span class="pre">FILE</span> <span class="pre">...</span></code></li>
+</ul>
+<p>两种语法大同小异，<code class="docutils literal"><span class="pre">program-file</span></code>只是文件内容为<code class="docutils literal"><span class="pre">program</span></code>的文件名而已。其中<code class="docutils literal"><span class="pre">FILE</span></code>是<code class="docutils literal"><span class="pre">awk</span></code>命令的操作对象，可以是以空格分隔的多个文件名，也可以是管道传送过来的字符流，至于<code class="docutils literal"><span class="pre">OPTIONS</span></code>和<code class="docutils literal"><span class="pre">program</span></code>需要详细说明下</p>
+<div class="section" id="x0300-options">
+<span id="optionsl"></span><h3>0x0300 OPTIONS<a class="headerlink" href="#x0300-options" title="永久链接至标题">¶</a></h3>
+<p>常用选项有：</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">-F</span></code>：指定输入行的字段分隔符，也可以通过设置内置变量”FS”实现，默认字段分隔符为空白符，也可通过正则表达式指定分隔符</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">-F</span> <span class="pre">&quot;</span> <span class="pre">&quot;</span></code>：默认的，会压缩所有前导空白，包括制表符和空格</li>
+<li><code class="docutils literal"><span class="pre">-F</span> <span class="pre">&quot;</span> <span class="pre">:&quot;</span></code>：当空格后跟一个冒号时作为分隔符。会压缩前导空格，但不会匹配制表符，更不会压缩制表符</li>
+<li><code class="docutils literal"><span class="pre">-F</span> <span class="pre">&quot;[</span> <span class="pre">]&quot;</span></code>：只表示一个空格，不压缩任何空白</li>
+<li><code class="docutils literal"><span class="pre">-F</span> <span class="pre">&quot;|&quot;</span></code>：指定竖线作为分隔符</li>
+<li><code class="docutils literal"><span class="pre">-F</span> <span class="pre">&quot;,[</span> <span class="pre">\t]*|[</span> <span class="pre">\t]+&quot;</span></code>：逗号后跟0或多个空白，或者只有1或多个空白时作为分隔符</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="x0301-program">
+<span id="programl"></span><h3>0x0301 program<a class="headerlink" href="#x0301-program" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">program</span></code>是<code class="docutils literal"><span class="pre">awk</span></code>的重中之重，称为awk的程序，它的格式为：<code class="docutils literal"><span class="pre">'BEGIN{ACTIONS}PATTERN{ACTIONS}END{ACTIONS}'</span></code>，注意此处有单引号，由此得出awk详细的执行流程是：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">awk</span></code>读取第一个文件第一行之前执行<code class="docutils literal"><span class="pre">BEGIN</span></code>后面的<code class="docutils literal"><span class="pre">ACTIONS</span></code>程序，该程序通常用于输出一个标题，或者初始化一些格式、变量等</li>
+<li><code class="docutils literal"><span class="pre">awk</span></code>每读取文件的一行内容就使用<code class="docutils literal"><span class="pre">BEGIN</span></code>或<code class="docutils literal"><span class="pre">OPTIONS</span></code>中定义的输入字段分隔符和输入行分隔符对行内容进行段分隔和行分隔，然后将该行内容与<code class="docutils literal"><span class="pre">PATTERN</span></code>文本模式进行匹配比较，如果行内容能够匹配上则执行<code class="docutils literal"><span class="pre">PATTERN</span></code>后面的<code class="docutils literal"><span class="pre">ACTIONS</span></code>程序</li>
+<li><code class="docutils literal"><span class="pre">awk</span></code>处理完最后一个文件的最后一行后执行<code class="docutils literal"><span class="pre">END</span></code>后面的<code class="docutils literal"><span class="pre">ACTIONS</span></code>程序，该程序通常用于最后的总结性输出</li>
+</ul>
+<p>在<code class="docutils literal"><span class="pre">program</span></code>中</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">BEGIN{ACTIONS}</span></code>字段不用提供输入流，<code class="docutils literal"><span class="pre">BEGIN</span></code>是固定字样，类似于类中的构造函数入口，<code class="docutils literal"><span class="pre">ACTIONS</span></code>是构造函数的函数体，其语法和<code class="docutils literal"><span class="pre">PATTERN</span></code>对应的<code class="docutils literal"><span class="pre">ACTIONS</span></code>语法一致，功能主要是初始化</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">PATTERN{ACTIONS}</span></code>是核心字段，称之为<code class="docutils literal"><span class="pre">主输入循环(main</span> <span class="pre">input</span> <span class="pre">loop)</span></code>，在进入主输入循环之前，可以不用提供输入流，但进入主输入循环后，必须提供输入流。</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">PATTERN</span></code>称之为文本模式，类似于类中特定函数方法的调用入口，只有满足该文本模式的内容，才能调用其对应的执行函数体</li>
+<li><code class="docutils literal"><span class="pre">ACTIONS</span></code>称之为执行动作，类似于上述函数方法的函数体，只有满足前面的文本模式的内容，才能调用该函数体</li>
+<li>其中<code class="docutils literal"><span class="pre">PATTERN</span></code>或<code class="docutils literal"><span class="pre">ACTIONS</span></code>二者可省一：省略<code class="docutils literal"><span class="pre">PATTERN</span></code>时表示对所有输入流都执行<code class="docutils literal"><span class="pre">ACTIONS</span></code>，省略<code class="docutils literal"><span class="pre">ACTIONS</span></code>表示对符合条件的输入流都执行默认的<code class="docutils literal"><span class="pre">print动作</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">END{ACTIONS}</span></code>字段不用提供输入流，<code class="docutils literal"><span class="pre">END</span></code>是固定字样，类似于类中的析构函数入口，<code class="docutils literal"><span class="pre">ACTIONS</span></code>是析构函数的函数体，其语法和<code class="docutils literal"><span class="pre">PATTERN</span></code>对应的<code class="docutils literal"><span class="pre">ACTIONS</span></code>语法一致，功能主要是收尾处理</p>
+</li>
+</ul>
+<p>由上述可知，我们需要关注的只有<code class="docutils literal"><span class="pre">PATTERN</span></code>文本模式以及<code class="docutils literal"><span class="pre">BEGIN/PATTERN/END</span></code>对应的<code class="docutils literal"><span class="pre">ACTIONS</span></code>执行动作</p>
+<p id="patternl"><code class="docutils literal"><span class="pre">PATTERN</span></code>：文本模式，用来过滤输入流，只有匹配文本模式的输入流才能执行<code class="docutils literal"><span class="pre">PATTERN</span></code>对应的<code class="docutils literal"><span class="pre">ACTIONS</span></code>工作，文本模式的形式有以下几种：</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">/regexp/</span></code>：正则匹配模式，<code class="docutils literal"><span class="pre">regexp</span></code>为正则表达式，需要使用<code class="docutils literal"><span class="pre">//</span></code>将其括起来，有两种匹配表达式：</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">/regexp/</span></code>：表示当前行内容能被<code class="docutils literal"><span class="pre">regexp</span></code>匹配则为真</li>
+<li><code class="docutils literal"><span class="pre">!/regexp/</span></code>：表示当前行内容不能被<code class="docutils literal"><span class="pre">regexp</span></code>匹配就为真</li>
+<li>例如：<code class="docutils literal"><span class="pre">awk</span> <span class="pre">-F</span> <span class="pre">:</span> <span class="pre">'/^root\&gt;/{print</span> <span class="pre">$1,$7}'</span> <span class="pre">/etc/passwd</span></code>打印/etc/passwd文件中以root开头的行</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">expression</span></code>：表达式匹配模式，<code class="docutils literal"><span class="pre">expression</span></code>是由操作符合左右数组合而成，<code class="docutils literal"><span class="pre">expression</span></code>不需要加斜线，且<code class="docutils literal"><span class="pre">expression</span></code>中操作符、左右数之间没有空格</p>
+<blockquote>
+<div><ul>
+<li><p class="first">支持的操作符有：</p>
+<blockquote>
+<div><ul>
+<li><p class="first">比较操作符有：</p>
+<blockquote>
+<div><ul class="simple">
+<li>数值比较：<code class="docutils literal"><span class="pre">&lt;、&lt;=、==、!=、&gt;=、&gt;</span></code></li>
+<li>正则匹配：<code class="docutils literal"><span class="pre">~</span></code>表示能被右数<code class="docutils literal"><span class="pre">/regexp/</span></code>匹配模式匹配，如<code class="docutils literal"><span class="pre">$7~/bash$/</span></code></li>
+<li>正则反匹配：<code class="docutils literal"><span class="pre">!~</span></code>表示不能被右数<code class="docutils literal"><span class="pre">/regexp/</span></code>匹配模式匹配，如<code class="docutils literal"><span class="pre">$7!~/bash$/</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">算术操作符有：<code class="docutils literal"><span class="pre">+、-、*、/、%、^(取幂)、**(取幂，非POSIX标准，不可移植)</span></code></p>
+</li>
+<li><p class="first">逻辑操作符有：<code class="docutils literal"><span class="pre">&amp;&amp;、||、!</span></code>，如<code class="docutils literal"><span class="pre">$4</span> <span class="pre">==</span> <span class="pre">&quot;Asia&quot;</span> <span class="pre">&amp;&amp;</span> <span class="pre">$3</span> <span class="pre">&gt;</span> <span class="pre">500</span></code>，<code class="docutils literal"><span class="pre">!</span> <span class="pre">(NR</span> <span class="pre">&gt;</span> <span class="pre">1</span> <span class="pre">&amp;&amp;</span> <span class="pre">NF</span> <span class="pre">&gt;</span> <span class="pre">3)</span></code></p>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">操作符左数可以是</p>
+<blockquote>
+<div><ul class="simple">
+<li>使用<a class="reference external" href="#siteargl">位置参数</a>：<code class="docutils literal"><span class="pre">$0</span></code>表示整行、<code class="docutils literal"><span class="pre">$1~$n</span></code>分别表示被输入字段分隔符分隔号的<code class="docutils literal"><span class="pre">第1字段</span></code>和<code class="docutils literal"><span class="pre">第n字段</span></code></li>
+<li>使用<a class="reference external" href="#builtinl">内置变量</a></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">操作符右数可以是</p>
+<blockquote>
+<div><ul class="simple">
+<li>如果左数是数值，则操作符一般是数值比较，右数一般也是数值</li>
+<li>如果左数是字符串，则操作符一般是正则匹配，右数一般是<code class="docutils literal"><span class="pre">/regexp/</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">例如：<code class="docutils literal"><span class="pre">awk</span> <span class="pre">-F</span> <span class="pre">:</span> <span class="pre">'$7~/bash$/{print</span> <span class="pre">$1}'</span> <span class="pre">/etc/passwd</span></code>打印/etc/passwd文件中第7段是以bash结尾的行的第1段</p>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">地址定界模式，该模式有两种形式</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">/regexp1/,/regexp2/</span></code>：第一次被<code class="docutils literal"><span class="pre">regexp1</span></code>匹配到的行开始到第一次被<code class="docutils literal"><span class="pre">regexp2</span></code>匹配到的行结束，这些内容都可以执行<code class="docutils literal"><span class="pre">PATTERN</span></code>后面的<code class="docutils literal"><span class="pre">ACTIONS</span></code>动作</li>
+<li><code class="docutils literal"><span class="pre">expression1,expression2</span></code>：第一次满足<code class="docutils literal"><span class="pre">expression1</span></code>的行开始到第一次满足<code class="docutils literal"><span class="pre">expression2</span></code>的行结束，这些内容都可以执行<code class="docutils literal"><span class="pre">PATTERN</span></code>后面的<code class="docutils literal"><span class="pre">ACTIONS</span></code>动作</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>需要注意的是：<code class="docutils literal"><span class="pre">regexp</span></code>正则表达式可以被赋值给一个变量，然后引用该变量来匹配数据</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">reg</span><span class="o">=</span><span class="s2">&quot;^[0-9]+</span>$<span class="s2">&quot;</span>
+<span class="nv">$2</span>~reg
+</pre></div>
+</div>
+<p id="awkvarl"><code class="docutils literal"><span class="pre">awk</span></code>中支持的变量有以下几类</p>
+<ul>
+<li><p class="first">普通变量：也可以称为自定义变量</p>
+<blockquote>
+<div><ul class="simple">
+<li>如果要赋值字符串给自定义变量，则应该使用双引号将其括起来：<code class="docutils literal"><span class="pre">reg=&quot;^[0-9]+$&quot;</span></code></li>
+<li>如果要赋值数值给自定义变量，则不需要使用双引号：<code class="docutils literal"><span class="pre">reg=9</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">字段变量：每行内容被输入字段分隔符分隔形成的变量</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">$0</span></code>：表示整行内容</li>
+<li><code class="docutils literal"><span class="pre">$1~$n</span></code>：表示每行使用分隔符分隔后的第一字段~第n字典</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">内置变量：该变量可分为两类</p>
+<blockquote>
+<div><ul>
+<li><p class="first">awk内部自动修改的变量</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">ARGV</span></code>：命令行参数数组，从0开始计数直到ARGC-1</li>
+<li><code class="docutils literal"><span class="pre">ARGC</span></code>：ARGV数组元素的个数</li>
+<li><code class="docutils literal"><span class="pre">FILENAME</span></code>：当前处理的文件名</li>
+<li><code class="docutils literal"><span class="pre">FNR</span></code>：当前处理文件的记录号(行号)(file record num)</li>
+<li><code class="docutils literal"><span class="pre">NR</span></code>：已处理的总记录数(总行数)，多个文件时不重置(record num)</li>
+<li><code class="docutils literal"><span class="pre">NF</span></code>：当前行使用分隔符分隔完后的字段总数(field num)</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">awk内部不会改动的系统变量，完全需要手动修改，这类一般都有默认值</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">FS</span></code>：输入字段分隔符，默认为空白(field separate)</li>
+<li><code class="docutils literal"><span class="pre">OFS</span></code>：输出字段分隔符，默认为空白(output field separate)</li>
+<li><code class="docutils literal"><span class="pre">RS</span></code>：输入流记录(行)分隔符，默认为<code class="docutils literal"><span class="pre">\n</span></code>，该变量只取变量值的第一个字符(record separate)</li>
+<li><code class="docutils literal"><span class="pre">ORS</span></code>：输出流记录(行)分隔符，默认为<code class="docutils literal"><span class="pre">\n</span></code>，该变量只取变量值的第一个字符(output record separate)</li>
+<li><code class="docutils literal"><span class="pre">OFMT</span></code>：printf输出数值转换成字符串输出时的格式，默认为<code class="docutils literal"><span class="pre">%.6g</span></code></li>
+<li><code class="docutils literal"><span class="pre">CONVFMT</span></code>：printf输出数值转换成字符串输出时的格式，会被OFMT覆盖，默认为<code class="docutils literal"><span class="pre">%.6g</span></code></li>
+<li><code class="docutils literal"><span class="pre">RLENGTH</span></code>：被match函数匹配的字符串的长度</li>
+<li><code class="docutils literal"><span class="pre">RSTART</span></code>：被match函数匹配的字符串的开始位置</li>
+<li><code class="docutils literal"><span class="pre">SUBSEP</span></code>：下标分隔符，默认为<code class="docutils literal"><span class="pre">\034</span></code>，ASCII中<code class="docutils literal"><span class="pre">034</span></code>代表的是双引号<code class="docutils literal"><span class="pre">&quot;</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p id="awkoperal"><code class="docutils literal"><span class="pre">awk</span></code>支持的运算符有</p>
+<ul>
+<li><p class="first">比较操作符：</p>
+<blockquote>
+<div><ul class="simple">
+<li>数值比较：<code class="docutils literal"><span class="pre">&lt;、&lt;=、==、!=、&gt;=、&gt;</span></code></li>
+<li>正则匹配：<code class="docutils literal"><span class="pre">~</span></code>表示能被右数<code class="docutils literal"><span class="pre">/regexp/</span></code>匹配模式匹配，如<code class="docutils literal"><span class="pre">$7~/bash$/</span></code></li>
+<li>正则反匹配：<code class="docutils literal"><span class="pre">!~</span></code>表示不能被右数<code class="docutils literal"><span class="pre">/regexp/</span></code>匹配模式匹配，如<code class="docutils literal"><span class="pre">$7!~/bash$/</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">算术操作符：<code class="docutils literal"><span class="pre">+、-、*、/、%、^(取幂)、**(取幂，非POSIX标准，不可移植)</span></code></p>
+</li>
+<li><p class="first">赋值操作符：<code class="docutils literal"><span class="pre">++、--、+=、-=、*=、/=、%=、^=、**=</span></code>awk支持复合赋值，例如<code class="docutils literal"><span class="pre">FS</span> <span class="pre">=</span> <span class="pre">OFS</span> <span class="pre">=</span> <span class="pre">&quot;\t&quot;</span></code>表示输入字段分隔符和输出字段分隔符都被赋值为制表符</p>
+</li>
+<li><p class="first">逻辑操作符：<code class="docutils literal"><span class="pre">&amp;&amp;、||、!</span></code>，如<code class="docutils literal"><span class="pre">$4</span> <span class="pre">==</span> <span class="pre">&quot;Asia&quot;</span> <span class="pre">&amp;&amp;</span> <span class="pre">$3</span> <span class="pre">&gt;</span> <span class="pre">500</span></code>，<code class="docutils literal"><span class="pre">!</span> <span class="pre">(NR</span> <span class="pre">&gt;</span> <span class="pre">1</span> <span class="pre">&amp;&amp;</span> <span class="pre">NF</span> <span class="pre">&gt;</span> <span class="pre">3)</span></code></p>
+</li>
+</ul>
+</div>
+<div class="section" id="x0302">
+<span id="awkfuncl"></span><span id="awkctrl"></span><h3>0x0302 应用实例<a class="headerlink" href="#x0302" title="永久链接至标题">¶</a></h3>
 </div>
 </div>
 </div>

@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>基本操作 &mdash; CodeToolchains 1.0.0 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../../genindex.html"/>
+        <link rel="search" title="搜索" href="../../../search.html"/>
+    <link rel="top" title="CodeToolchains 1.0.0 文档" href="../../../index.html"/>
+        <link rel="up" title="进程管理" href="../index.html"/>
+        <link rel="next" title="IPC进程通信" href="../2-IPC/index.html"/>
+        <link rel="prev" title="进程管理" href="../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> CodeToolchains
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../1-TextEdit/index.html">文本编辑器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2-VerControl/index.html">版本控制器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../3-IDE/index.html">IDE集成开发环境</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Linux命令工具</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../1-CmdHelp/index.html">简要概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../2-FileManage/index.html">文件管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../3-TextProcess/index.html">文本处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4-UserManage/index.html">用户管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../5-PackageManage/index.html">软件包管理</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">进程管理</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">基本操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../2-IPC/index.html">IPC进程通信</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../7-SystemManage/index.html">系统管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../8-NetManage/index.html">网络管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../9-ServiceMange/index.html">服务管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../10-DiskManage/index.html">磁盘管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../11-SecurityManage/index.html">安全管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../12-KernelManage/index.html">内核管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../13-DevelopTools/index.html">开发工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../15-others/index.html">其它工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../16-ThirdTools/index.html">常见操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../14-ShellCode/index.html">shell编程</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../5-Wildcard/index.html">通配机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../6-DataBase/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../7-WebArch/index.html">网站架构</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">CodeToolchains</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Linux命令工具</a> &raquo;</li>
+        
+          <li><a href="../index.html">进程管理</a> &raquo;</li>
+        
+      <li>基本操作</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/4-Linux/6-ProcessManage/1-BasicOperate/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>基本操作<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>命令汇总</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">who</span></code></li>
+</ul>
+<div class="section" id="who">
+<h2>who<a class="headerlink" href="#who" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">who</span></code>命令可以用来查看当前在线用户的情况</p>
+<div class="figure">
+<img alt="../../../_images/14.png" src="../../../_images/14.png" />
+</div>
+<p>每个字段的意义分别是：</p>
+<ul class="simple">
+<li>登陆的用户名</li>
+<li>使用的设备终端</li>
+<li>登陆系统的时间</li>
+</ul>
+<p>在linux中我们的终端设备有：</p>
+<ul>
+<li><p class="first">pts设备终端</p>
+</li>
+<li><p class="first">tty设备终端</p>
+<blockquote>
+<div><ul class="simple">
+<li>tty1~tty6：表示文字界面，在shell下敲<code class="docutils literal"><span class="pre">ctrl+alt+[F1-F6]</span></code>即可进入对应的文字界面</li>
+<li>tty7：表示图像界面，在shell下敲<code class="docutils literal"><span class="pre">ctrl+alt+F7</span></code>即可进入图形界面</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="ps">
+<h2>ps<a class="headerlink" href="#ps" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">ps</span></code>命令是用来查看整个系统内部运行进程的相关信息</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$ps</span> -a        <span class="c1"># 列出当前登录终端的进程信息</span>
+<span class="nv">$ps</span> -au       <span class="c1"># 列出当前登录终端以及对应用户的信息</span>
+<span class="nv">$ps</span> -aux      <span class="c1"># 列出当前没有对应终端的进程信息，没有终端就意味着不能和用户进行交互</span>
+
+<span class="c1"># ps命令的显示结果一般都很杂乱，不容易找到我们需要的信息，所以ps命令一般通过管道和grep一起使用</span>
+<span class="nv">$ps</span> -aux <span class="p">|</span> grep -e <span class="s2">&quot;^root.*httpd</span>$<span class="s2">&quot;</span> <span class="c1"># 查找进程属主为root，进程名为httpd的进程相关信息</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="kill">
+<h2>kill<a class="headerlink" href="#kill" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">kill</span></code>命令是通过发送信号来杀死运行进程的</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$kill</span> -l            <span class="c1"># 查看当前系统下可以使用的信号</span>
+<span class="nv">$kill</span> -SIGKILL <span class="m">5179</span> <span class="c1"># 使用SIGKILL信号杀死进程号为5179的进程</span>
+<span class="nv">$kill</span> -9 <span class="m">4968</span>       <span class="c1"># 使用SIGKILL信号杀死进程号为4968的进程，-9对应SIGKILL信号</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="env">
+<h2>env<a class="headerlink" href="#env" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">env</span></code>命令是用来查看当前进程的环境变量</p>
+<div class="figure">
+<img alt="../../../_images/22.png" src="../../../_images/22.png" />
+</div>
+<p>如上图所示，linux下环境变量的格式是：<code class="docutils literal"><span class="pre">key=value</span></code></p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">key</span></code>一般都是大写的变量</li>
+<li><code class="docutils literal"><span class="pre">value</span></code>值可以有多个，每个值之间使用<code class="docutils literal"><span class="pre">:</span></code>分隔</li>
+</ul>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$env</span> <span class="p">|</span> grep PATH  $获取当前进程的PATH环境变量
+</pre></div>
+</div>
+</div>
+<div class="section" id="top">
+<h2>top<a class="headerlink" href="#top" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">top</span></code>命令可以实时刷新进程的状态信息，类似于windows下面的任务管理器</p>
+<p>init进程是内核启动后，在用户空间中启动的第一个进程，由此进程生成其他需要的子进程，例如：用于交互启动其他用户程序进程的shell进程就是init进程的子进程。但凡涉及到用户空间中的进程，内核将不再管理，直接由init进程来管理</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../2-IPC/index.html" class="btn btn-neutral float-right" title="IPC进程通信" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="进程管理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, HappyAnony.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

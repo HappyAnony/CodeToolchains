@@ -11,3 +11,4 @@
    1-ftp
    2-nfs
    3-ssh
+   4-samba

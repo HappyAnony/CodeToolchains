@@ -109,11 +109,13 @@
 <li class="toctree-l2"><a class="reference internal" href="12-KernelManage/index.html">内核管理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="13-DevelopTools/index.html">开发工具</a></li>
 <li class="toctree-l2"><a class="reference internal" href="15-others/index.html">其它工具</a></li>
-<li class="toctree-l2"><a class="reference internal" href="16-ThirdTools/index.html">第三方工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="16-ThirdTools/index.html">常见操作</a></li>
 <li class="toctree-l2"><a class="reference internal" href="14-ShellCode/index.html">shell编程</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../5-Wildcard/index.html">通配机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6-DataBase/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7-WebArch/index.html">网站架构</a></li>
 </ul>
 
             
@@ -179,12 +181,29 @@
             
   <div class="section" id="linux">
 <h1>Linux命令工具<a class="headerlink" href="#linux" title="永久链接至标题">¶</a></h1>
+<p>Linux的哲学思想是：</p>
+<ul class="simple">
+<li>一切皆文件</li>
+<li>组合目的单一的小程序完成复杂的任务</li>
+<li>尽量避免跟用户交互</li>
+<li>使用文本文件保存配置信息</li>
+<li>提供机制，而非策略</li>
+<li>缓存为王，缓存是为了平衡各部件之间速度不协调，提高计算机性能的重要组件</li>
+</ul>
 <p>参考文档</p>
 <ul class="simple">
 <li><a class="reference external" href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/index.html">linux工具快速教程</a></li>
+<li><a class="reference external" href="http://www.cnblogs.com/f-ck-need-u/p/7048359.html">Linux回炉复习系列文章总目录</a></li>
 </ul>
-<div class="section" id="id2">
-<h2>目录<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>本系列文档中，所有关于命令的使用介绍都遵循以下逻辑</p>
+<ul class="simple">
+<li>命令功能</li>
+<li>语法格式</li>
+<li>格式详解</li>
+<li>应用实例</li>
+</ul>
+<div class="section" id="id3">
+<h2>目录<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="1-CmdHelp/index.html">简要概述</a><ul>
@@ -210,7 +229,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="4-UserManage/index.html">用户管理</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5-PackageManage/index.html">软件包管理</a></li>
-<li class="toctree-l1"><a class="reference internal" href="6-ProcessManage/index.html">进程管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6-ProcessManage/index.html">进程管理</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="6-ProcessManage/1-BasicOperate/index.html">基本操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6-ProcessManage/2-IPC/index.html">IPC进程通信</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="7-SystemManage/index.html">系统管理</a></li>
 <li class="toctree-l1"><a class="reference internal" href="8-NetManage/index.html">网络管理</a></li>
 <li class="toctree-l1"><a class="reference internal" href="9-ServiceMange/index.html">服务管理</a><ul>
@@ -218,6 +241,7 @@
 <li class="toctree-l3"><a class="reference internal" href="9-ServiceMange/servers/1-ftp.html">ftp服务器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="9-ServiceMange/servers/2-nfs.html">nfs服务器</a></li>
 <li class="toctree-l3"><a class="reference internal" href="9-ServiceMange/servers/3-ssh.html">ssh服务器搭建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="9-ServiceMange/servers/4-samba.html">samba服务器搭建</a></li>
 </ul>
 </li>
 </ul>
@@ -227,7 +251,7 @@
 <li class="toctree-l1"><a class="reference internal" href="12-KernelManage/index.html">内核管理</a></li>
 <li class="toctree-l1"><a class="reference internal" href="13-DevelopTools/index.html">开发工具</a></li>
 <li class="toctree-l1"><a class="reference internal" href="15-others/index.html">其它工具</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-ThirdTools/index.html">第三方工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-ThirdTools/index.html">常见操作</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14-ShellCode/index.html">shell编程</a></li>
 </ul>
 </div>

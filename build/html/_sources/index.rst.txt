@@ -6,6 +6,8 @@
 Welcome to CodeToolchains's documentation!
 ==========================================
 
+本手册的定位是实用指南，不求大而全，但求小而精！
+
 目录
 ------
 
@@ -18,4 +20,6 @@ Welcome to CodeToolchains's documentation!
    3-IDE/index
    4-Linux/index
    5-Wildcard/index
+   6-DataBase/index
+   7-WebArch/index
 
