@@ -418,7 +418,7 @@
 <li><p class="first">操作符左数可以是</p>
 <blockquote>
 <div><ul class="simple">
-<li>使用<a class="reference external" href="#siteargl">位置参数</a>：<code class="docutils literal"><span class="pre">$0</span></code>表示整行、<code class="docutils literal"><span class="pre">$1~$n</span></code>分别表示被输入字段分隔符分隔号的<code class="docutils literal"><span class="pre">第1字段</span></code>和<code class="docutils literal"><span class="pre">第n字段</span></code></li>
+<li>使用<a class="reference external" href="#siteargl">字段变量</a>：<code class="docutils literal"><span class="pre">$0</span></code>表示整行、<code class="docutils literal"><span class="pre">$1~$n</span></code>分别表示被输入字段分隔符分隔号的<code class="docutils literal"><span class="pre">第1字段</span></code>和<code class="docutils literal"><span class="pre">第n字段</span></code></li>
 <li>使用<a class="reference external" href="#builtinl">内置变量</a></li>
 </ul>
 </div></blockquote>
@@ -460,6 +460,8 @@
 </ul>
 </div></blockquote>
 </li>
+</ul>
+<ul id="siteargl">
 <li><p class="first">字段变量：每行内容被输入字段分隔符分隔形成的变量</p>
 <blockquote>
 <div><ul class="simple">
@@ -468,6 +470,8 @@
 </ul>
 </div></blockquote>
 </li>
+</ul>
+<ul id="builtinl">
 <li><p class="first">内置变量：该变量可分为两类</p>
 <blockquote>
 <div><ul>
@@ -495,6 +499,52 @@
 <li><code class="docutils literal"><span class="pre">RLENGTH</span></code>：被match函数匹配的字符串的长度</li>
 <li><code class="docutils literal"><span class="pre">RSTART</span></code>：被match函数匹配的字符串的开始位置</li>
 <li><code class="docutils literal"><span class="pre">SUBSEP</span></code>：下标分隔符，默认为<code class="docutils literal"><span class="pre">\034</span></code>，ASCII中<code class="docutils literal"><span class="pre">034</span></code>代表的是双引号<code class="docutils literal"><span class="pre">&quot;</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">数组变量：<code class="docutils literal"><span class="pre">awk数组</span></code>和<code class="docutils literal"><span class="pre">shell数组</span></code>类似，都支持<code class="docutils literal"><span class="pre">数值index</span></code>的普通数组和<code class="docutils literal"><span class="pre">字符串index</span></code>的关联数组，其实<code class="docutils literal"><span class="pre">数值index</span></code>仍然会转换成<code class="docutils literal"><span class="pre">字符串index</span></code>，所以awk的数组类型都是关联数组</p>
+<blockquote>
+<div><ul>
+<li><p class="first">数组格式：<code class="docutils literal"><span class="pre">array_name[index]</span></code></p>
+</li>
+<li><p class="first">数组访问</p>
+<blockquote>
+<div><ul>
+<li><p class="first">获取数组元素</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">array_name[&quot;var&quot;]</span></code>：index为var的数组元素，若该数组元素没有定义，则会定义一个新的数组元素<code class="docutils literal"><span class="pre">array_name[&quot;&quot;]</span></code></li>
+<li><code class="docutils literal"><span class="pre">array_name[var]</span></code>：index为变量var的值的数组元素，若该数组元素没有定义，则会定义一个新的数组元素<code class="docutils literal"><span class="pre">array_name[&quot;&quot;]</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">判断数组元素是否存在</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">if</span> <span class="pre">(&quot;var&quot;</span> <span class="pre">in</span> <span class="pre">array_name)</span></code>：判断数组<code class="docutils literal"><span class="pre">array_name</span></code>中是否有<code class="docutils literal"><span class="pre">var下标</span></code>对应的数组元素。如果有，它会返回1，否则返回0</li>
+<li><code class="docutils literal"><span class="pre">if</span> <span class="pre">(array_name[&quot;var&quot;]</span> <span class="pre">!=</span> <span class="pre">&quot;&quot;)</span></code>：判断数组变量的值是否为空也可判断该数组元素是否存在，但当该元素不存在时，会创建它，一般不采用这种方式来判定</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">循环遍历数组：<code class="docutils literal"><span class="pre">for</span> <span class="pre">(i</span> <span class="pre">in</span> <span class="pre">array_name){do</span> <span class="pre">something</span> <span class="pre">about</span> <span class="pre">array_name[i]}</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li>变量<code class="docutils literal"><span class="pre">i</span></code>用来遍历数组的<code class="docutils literal"><span class="pre">index</span></code>，<code class="docutils literal"><span class="pre">array_name</span></code>是数组名</li>
+<li>这种方法是以遍历index的方式来遍历数组。由于index的顺序随机，所以遍历时顺序也是随机的</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">删除数组元素或数组</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">delete</span> <span class="pre">array_name[&quot;var&quot;]</span></code>：删除<code class="docutils literal"><span class="pre">array_name</span></code>中下标为<code class="docutils literal"><span class="pre">var</span></code>的元素</li>
+<li><code class="docutils literal"><span class="pre">delete</span> <span class="pre">array_name</span></code>：删除数组<code class="docutils literal"><span class="pre">array_name</span></code></li>
+</ul>
+</div></blockquote>
+</li>
 </ul>
 </div></blockquote>
 </li>
