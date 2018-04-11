@@ -204,7 +204,8 @@
 <dt><a class="reference external" href="#programl">awk程序</a></dt>
 <dd><ul class="first last">
 <li><a class="reference external" href="#patternl">awk匹配模式</a></li>
-<li><a class="reference external" href="#awkvarl">awk动作之变量</a></li>
+<li><a class="reference external" href="#awkvarl">awk动作之变量类型</a></li>
+<li><a class="reference external" href="#awkvartl">awk动作之变量传递</a></li>
 <li><a class="reference external" href="#awkoperal">awk动作之操作符</a></li>
 <li><a class="reference external" href="#awkctrl">awk动作之控制流</a></li>
 <li><a class="reference external" href="#awkfuncl">awk动作之函数</a></li>
@@ -339,12 +340,12 @@
 <li><code class="docutils literal"><span class="pre">awk</span> <span class="pre">[OPTIONS]</span> <span class="pre">-f</span> <span class="pre">program-file</span> <span class="pre">[</span> <span class="pre">--</span> <span class="pre">]</span> <span class="pre">FILE</span> <span class="pre">...</span></code></li>
 <li><code class="docutils literal"><span class="pre">awk</span> <span class="pre">[OPTIONS]</span> <span class="pre">[</span> <span class="pre">--</span> <span class="pre">]</span> <span class="pre">program</span> <span class="pre">FILE</span> <span class="pre">...</span></code></li>
 </ul>
-<p>两种语法大同小异，<code class="docutils literal"><span class="pre">program-file</span></code>只是文件内容为<code class="docutils literal"><span class="pre">program</span></code>的文件名而已。其中<code class="docutils literal"><span class="pre">FILE</span></code>是<code class="docutils literal"><span class="pre">awk</span></code>命令的操作对象，可以是以空格分隔的多个文件名，也可以是管道传送过来的字符流，至于<code class="docutils literal"><span class="pre">OPTIONS</span></code>和<code class="docutils literal"><span class="pre">program</span></code>需要详细说明下</p>
+<p>两种语法大同小异，<code class="docutils literal"><span class="pre">program-file</span></code>只是文件内容为<code class="docutils literal"><span class="pre">program</span></code>的文件名而已。其中<code class="docutils literal"><span class="pre">FILE</span></code>是<code class="docutils literal"><span class="pre">awk</span></code>命令的操作对象，可以是以空格分隔的多个文件名，也可以是管道传送过来的字符流，甚至可以是赋值变量等；至于<code class="docutils literal"><span class="pre">OPTIONS</span></code>和<code class="docutils literal"><span class="pre">program</span></code>需要详细说明下</p>
 <div class="section" id="x0300-options">
 <span id="optionsl"></span><h3>0x0300 OPTIONS<a class="headerlink" href="#x0300-options" title="永久链接至标题">¶</a></h3>
 <p>常用选项有：</p>
 <ul>
-<li><p class="first"><code class="docutils literal"><span class="pre">-F</span></code>：指定输入行的字段分隔符，也可以通过设置内置变量”FS”实现，默认字段分隔符为空白符，也可通过正则表达式指定分隔符</p>
+<li><p class="first"><code class="docutils literal"><span class="pre">-F</span></code>：指定输入行的字段分隔符，也可以通过设置内置变量<code class="docutils literal"><span class="pre">FS</span></code>实现，默认字段分隔符为空白符，也可通过正则表达式指定分隔符</p>
 <blockquote>
 <div><ul class="simple">
 <li><code class="docutils literal"><span class="pre">-F</span> <span class="pre">&quot;</span> <span class="pre">&quot;</span></code>：默认的，会压缩所有前导空白，包括制表符和空格</li>
@@ -361,9 +362,9 @@
 <span id="programl"></span><h3>0x0301 program<a class="headerlink" href="#x0301-program" title="永久链接至标题">¶</a></h3>
 <p><code class="docutils literal"><span class="pre">program</span></code>是<code class="docutils literal"><span class="pre">awk</span></code>的重中之重，称为awk的程序，它的格式为：<code class="docutils literal"><span class="pre">'BEGIN{ACTIONS}PATTERN{ACTIONS}END{ACTIONS}'</span></code>，注意此处有单引号，由此得出awk详细的执行流程是：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">awk</span></code>读取第一个文件第一行之前执行<code class="docutils literal"><span class="pre">BEGIN</span></code>后面的<code class="docutils literal"><span class="pre">ACTIONS</span></code>程序，该程序通常用于输出一个标题，或者初始化一些格式、变量等</li>
-<li><code class="docutils literal"><span class="pre">awk</span></code>每读取文件的一行内容就使用<code class="docutils literal"><span class="pre">BEGIN</span></code>或<code class="docutils literal"><span class="pre">OPTIONS</span></code>中定义的输入字段分隔符和输入行分隔符对行内容进行段分隔和行分隔，然后将该行内容与<code class="docutils literal"><span class="pre">PATTERN</span></code>文本模式进行匹配比较，如果行内容能够匹配上则执行<code class="docutils literal"><span class="pre">PATTERN</span></code>后面的<code class="docutils literal"><span class="pre">ACTIONS</span></code>程序</li>
-<li><code class="docutils literal"><span class="pre">awk</span></code>处理完最后一个文件的最后一行后执行<code class="docutils literal"><span class="pre">END</span></code>后面的<code class="docutils literal"><span class="pre">ACTIONS</span></code>程序，该程序通常用于最后的总结性输出</li>
+<li><code class="docutils literal"><span class="pre">awk</span></code>读取<code class="docutils literal"><span class="pre">program</span></code>后面第一个文件第一行之前执行<code class="docutils literal"><span class="pre">BEGIN</span></code>后面的<code class="docutils literal"><span class="pre">ACTIONS</span></code>程序，该程序通常用于输出一个标题，或者初始化一些格式、变量等</li>
+<li><code class="docutils literal"><span class="pre">awk</span></code>每读取<code class="docutils literal"><span class="pre">program</span></code>后面文件的一行内容就使用<code class="docutils literal"><span class="pre">BEGIN</span></code>或<code class="docutils literal"><span class="pre">OPTIONS</span></code>中定义的输入字段分隔符和输入行分隔符对行内容进行段分隔和行分隔，然后将该行内容与<code class="docutils literal"><span class="pre">PATTERN</span></code>文本模式进行匹配比较，如果行内容能够匹配上则执行<code class="docutils literal"><span class="pre">PATTERN</span></code>后面的<code class="docutils literal"><span class="pre">ACTIONS</span></code>程序</li>
+<li><code class="docutils literal"><span class="pre">awk</span></code>处理完<code class="docutils literal"><span class="pre">program</span></code>后面最后一个文件的最后一行后执行<code class="docutils literal"><span class="pre">END</span></code>后面的<code class="docutils literal"><span class="pre">ACTIONS</span></code>程序，该程序通常用于最后的总结性输出</li>
 </ul>
 <p>在<code class="docutils literal"><span class="pre">program</span></code>中</p>
 <ul>
@@ -382,7 +383,9 @@
 </li>
 </ul>
 <p>由上述可知，我们需要关注的只有<code class="docutils literal"><span class="pre">PATTERN</span></code>文本模式以及<code class="docutils literal"><span class="pre">BEGIN/PATTERN/END</span></code>对应的<code class="docutils literal"><span class="pre">ACTIONS</span></code>执行动作</p>
-<p id="patternl"><code class="docutils literal"><span class="pre">PATTERN</span></code>：文本模式，用来过滤输入流，只有匹配文本模式的输入流才能执行<code class="docutils literal"><span class="pre">PATTERN</span></code>对应的<code class="docutils literal"><span class="pre">ACTIONS</span></code>工作，文本模式的形式有以下几种：</p>
+<div class="section" id="pattern">
+<span id="patternl"></span><h4><code class="docutils literal"><span class="pre">PATTERN</span></code>模式<a class="headerlink" href="#pattern" title="永久链接至标题">¶</a></h4>
+<p>也称为文本模式，用来过滤输入流，只有匹配文本模式的输入流才能执行<code class="docutils literal"><span class="pre">PATTERN</span></code>对应的<code class="docutils literal"><span class="pre">ACTIONS</span></code>工作，文本模式的形式有以下几种</p>
 <ul>
 <li><p class="first"><code class="docutils literal"><span class="pre">/regexp/</span></code>：正则匹配模式，<code class="docutils literal"><span class="pre">regexp</span></code>为正则表达式，需要使用<code class="docutils literal"><span class="pre">//</span></code>将其括起来，有两种匹配表达式：</p>
 <blockquote>
@@ -450,13 +453,23 @@
 <span class="nv">$2</span>~reg
 </pre></div>
 </div>
-<p id="awkvarl"><code class="docutils literal"><span class="pre">awk</span></code>中支持的变量有以下几类</p>
+<p id="awkvarl"><code class="docutils literal"><span class="pre">awk</span></code>不需声明变量数据类型，它内置字符串类型和数值类型</p>
+</div>
+<div class="section" id="actions">
+<h4><code class="docutils literal"><span class="pre">ACTIONS</span></code>支持的变量有以下几类<a class="headerlink" href="#actions" title="永久链接至标题">¶</a></h4>
 <ul>
 <li><p class="first">普通变量：也可以称为自定义变量</p>
 <blockquote>
+<div><ul>
+<li><p class="first">如果要赋值字符串给自定义变量，则应该使用双引号将其括起来：<code class="docutils literal"><span class="pre">reg=&quot;^[0-9]+$&quot;</span></code></p>
+<blockquote>
 <div><ul class="simple">
-<li>如果要赋值字符串给自定义变量，则应该使用双引号将其括起来：<code class="docutils literal"><span class="pre">reg=&quot;^[0-9]+$&quot;</span></code></li>
-<li>如果要赋值数值给自定义变量，则不需要使用双引号：<code class="docutils literal"><span class="pre">reg=9</span></code></li>
+<li><code class="docutils literal"><span class="pre">name</span> <span class="pre">=</span> <span class="pre">&quot;abc&quot;</span> <span class="pre">&quot;bcd&quot;</span></code>等价于<code class="docutils literal"><span class="pre">name=&quot;abcbcd&quot;</span></code>,可以将空格理解为awk的拼接字符，因为awk会忽略任何不被引号包围的空白</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">如果要赋值数值给自定义变量，则不需要使用双引号：<code class="docutils literal"><span class="pre">reg=9</span></code></p>
+</li>
 </ul>
 </div></blockquote>
 </li>
@@ -492,8 +505,8 @@
 <div><ul class="simple">
 <li><code class="docutils literal"><span class="pre">FS</span></code>：输入字段分隔符，默认为空白(field separate)</li>
 <li><code class="docutils literal"><span class="pre">OFS</span></code>：输出字段分隔符，默认为空白(output field separate)</li>
-<li><code class="docutils literal"><span class="pre">RS</span></code>：输入流记录(行)分隔符，默认为<code class="docutils literal"><span class="pre">\n</span></code>，该变量只取变量值的第一个字符(record separate)</li>
-<li><code class="docutils literal"><span class="pre">ORS</span></code>：输出流记录(行)分隔符，默认为<code class="docutils literal"><span class="pre">\n</span></code>，该变量只取变量值的第一个字符(output record separate)</li>
+<li><code class="docutils literal"><span class="pre">RS</span></code>：输入流记录(行)分隔符，默认为<code class="docutils literal"><span class="pre">\n</span></code>，该变量只取变量值的第一个字符(record separate)，若设置为<code class="docutils literal"><span class="pre">\t\t</span></code>，则第二个<code class="docutils literal"><span class="pre">\t</span></code>被忽略</li>
+<li><code class="docutils literal"><span class="pre">ORS</span></code>：输出流记录(行)分隔符，默认为<code class="docutils literal"><span class="pre">\n</span></code>，该变量可识别多字符(output record separate)</li>
 <li><code class="docutils literal"><span class="pre">OFMT</span></code>：printf输出数值转换成字符串输出时的格式，默认为<code class="docutils literal"><span class="pre">%.6g</span></code></li>
 <li><code class="docutils literal"><span class="pre">CONVFMT</span></code>：printf输出数值转换成字符串输出时的格式，会被OFMT覆盖，默认为<code class="docutils literal"><span class="pre">%.6g</span></code></li>
 <li><code class="docutils literal"><span class="pre">RLENGTH</span></code>：被match函数匹配的字符串的长度</li>
@@ -552,7 +565,69 @@
 </div></blockquote>
 </li>
 </ul>
-<p id="awkoperal"><code class="docutils literal"><span class="pre">awk</span></code>支持的运算符有</p>
+</div>
+<div class="section" id="awkvartl">
+<span id="id15"></span><h4><code class="docutils literal"><span class="pre">ACTIONS</span></code>接收变量的途径有<a class="headerlink" href="#awkvartl" title="永久链接至标题">¶</a></h4>
+<p>此处所说的变量主要是指外界变量，例如：<code class="docutils literal"><span class="pre">shell中的变量</span></code>、<code class="docutils literal"><span class="pre">shell中命令执行的结果</span></code>、<code class="docutils literal"><span class="pre">开始执行awk前应该初始化的变量</span></code>等</p>
+<ol class="arabic simple">
+<li><strong>将待传递变量当作文件名被awk解析</strong></li>
+</ol>
+<p>变量赋值语句定义位置：<code class="docutils literal"><span class="pre">program</span></code>之后</p>
+<p>该种定义方式的特点是：变量不可在<code class="docutils literal"><span class="pre">BEGIN</span></code>中使用，因为它是被当做文件解析的，只有在需要读取主输入文件的时候才会被解析，也就是说执行完<code class="docutils literal"><span class="pre">BEGIN</span></code>后才会来解析赋值变量</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>awk <span class="s1">&#39;BEGIN{}PATTERN{print var1,var2,var3}&#39;</span> <span class="nv">var1</span><span class="o">=</span>value1 <span class="nv">var2</span><span class="o">=</span>value2 file1 <span class="nv">var3</span><span class="o">=</span>value3 <span class="nv">var1</span><span class="o">=</span>value4 file2
+</pre></div>
+</div>
+<p>在上面的语句中</p>
+<ul class="simple">
+<li>当awk执行完BEGIN程序后，准备读取主输入，于是开始解析program后的输入文件</li>
+<li>解析时发现，var1和var2都是赋值语句，于是当成变量处理</li>
+<li>当读取到file1时，发现只有一个参数，则当作输入文件，于是开始处理该文件。在处理file1时，var1和var2都是有效的，但var3还未赋值，因此var3无效</li>
+<li>当处理完file1后，继续解析下一个主输入文件，此时var3被赋值，并开始处理file2</li>
+<li>在处理file2时，var1、var2和var3都是有效的，但var1被新值覆盖</li>
+</ul>
+<p>此外，还可以将shell命令的结果赋值给这些预定义变量。如下展示了几种变量定义的方式：</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;Ma longshuai&quot;</span>
+awk <span class="s1">&#39;program&#39;</span> <span class="nv">OFS</span><span class="o">=</span><span class="s2">&quot;:&quot;</span> <span class="nv">var1</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$name</span><span class="s2">&quot;</span> <span class="nv">var2</span><span class="o">=</span><span class="s2">&quot;`echo Ma longshuai2`&quot;</span> <span class="nv">var3</span><span class="o">=</span><span class="s2">&quot;Ma longshuai3&quot;</span> <span class="nv">var4</span><span class="o">=</span>Malongshuai4 filename
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><strong>使用-v选项传递变量</strong></li>
+</ol>
+<p>变量赋值语句定义位置：<code class="docutils literal"><span class="pre">program</span></code>之前</p>
+<p>该种定义方式的特点是：变量可以在<code class="docutils literal"><span class="pre">BEGIN</span></code>中使用，因为它定义在<code class="docutils literal"><span class="pre">program</span></code>之前，先解析赋值变量，然后执行<code class="docutils literal"><span class="pre">BEGIN</span></code></p>
+<p>每定义一个变量，都需要使用一个<code class="docutils literal"><span class="pre">-v</span></code>选项，例如：</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;Ma longshuai&quot;</span>
+awk -v <span class="nv">OFS</span><span class="o">=</span><span class="s2">&quot;:&quot;</span> -v <span class="nv">var1</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$name</span><span class="s2">&quot;</span> -v <span class="nv">var2</span><span class="o">=</span><span class="s2">&quot;`echo Ma longshuai2`&quot;</span> -v <span class="nv">var3</span><span class="o">=</span><span class="s2">&quot;Ma longshuai3&quot;</span> <span class="s1">&#39;program&#39;</span> filename
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><strong>通过参数数组ARGV传递变量</strong></li>
+</ol>
+<p><code class="docutils literal"><span class="pre">ARGV</span></code>是内置的数组变量。awk内部会将<strong>命令行</strong>切分，并按规则将各参数存放到ARGV数组中，数组下标从0开始，这是awk中唯一下标从0开始的数组。在存放到``ARGV``时，所有的选项和program会被忽略。</p>
+<p>每存储一个数组变量，特殊变量<code class="docutils literal"><span class="pre">ARGC</span></code>的值增加1。因此<code class="docutils literal"><span class="pre">ARGC</span></code>的值代表的是参数的个数。所以，数组变量从<code class="docutils literal"><span class="pre">ARGV[0]</span></code>到<code class="docutils literal"><span class="pre">ARGV[ARGC-1]</span></code></p>
+<p>可使用类似下面的循环来遍历ARGV数组</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>awk -F <span class="s2">&quot;\t&quot;</span> -v <span class="nv">var1</span><span class="o">=</span><span class="s2">&quot;value1&quot;</span> <span class="s1">&#39;BEGIN{</span>
+<span class="s1">        for(i=0;i&lt;ARGC;++i){</span>
+<span class="s1">                print &quot;ARGV[&quot; i &quot;]: &quot; ARGV[i]</span>
+<span class="s1">        }</span>
+<span class="s1">        print &quot;ARGC: &quot; ARGC</span>
+<span class="s1">}&#39;</span> <span class="s2">&quot;a&quot;</span> <span class="s2">&quot;b&quot;</span> <span class="s2">&quot;v=1&quot;</span> file
+
+<span class="c1"># 输出结果</span>
+ARGV<span class="o">[</span><span class="m">0</span><span class="o">]</span>: awk
+ARGV<span class="o">[</span><span class="m">1</span><span class="o">]</span>: a
+ARGV<span class="o">[</span><span class="m">2</span><span class="o">]</span>: b
+ARGV<span class="o">[</span><span class="m">3</span><span class="o">]</span>: <span class="nv">v</span><span class="o">=</span><span class="m">1</span>
+ARGV<span class="o">[</span><span class="m">4</span><span class="o">]</span>: file
+ARGC: <span class="m">5</span>
+</pre></div>
+</div>
+<p>注意，<code class="docutils literal"><span class="pre">ARGV[0]</span></code>存储的是awk命令，<code class="docutils literal"><span class="pre">-F</span></code>和<code class="docutils literal"><span class="pre">-v</span></code>选项都没有存储到ARGV中</p>
+<p><code class="docutils literal"><span class="pre">ARGC</span></code>和<code class="docutils literal"><span class="pre">ARGV</span></code>数组变量的值都可以手动修改。命令行分割存储完成之后，开始处理<code class="docutils literal"><span class="pre">BEGIN</span></code>，再处理主循环输入。因此，在<code class="docutils literal"><span class="pre">BEGIN</span></code>里修改<code class="docutils literal"><span class="pre">ARGV</span></code>中输入文件对应的值，可以改变<code class="docutils literal"><span class="pre">awk</span></code>所读取的输入文件，若将其设置为空，则该数组变量直接被跳过，也就不再读取该输入文件</p>
+<p>需要注意的是，当增加<code class="docutils literal"><span class="pre">ARGV</span></code>元素时，必须同时递增<code class="docutils literal"><span class="pre">ARGC</span></code>的值，因为awk是根据<code class="docutils literal"><span class="pre">AGRC</span></code>来读取<code class="docutils literal"><span class="pre">ARGV</span></code>的。同理，只增加<code class="docutils literal"><span class="pre">ARGC</span></code>的值，将导致新建<code class="docutils literal"><span class="pre">ARGV</span></code>数组元素，且这些新元素的值为空。也因此，如果减小<code class="docutils literal"><span class="pre">ARGC</span></code>的值，将导致无法访问超出<code class="docutils literal"><span class="pre">ARGC-1</span></code>边界的<code class="docutils literal"><span class="pre">ARGV</span></code>元素。</p>
+</div>
+<div class="section" id="awkactions">
+<span id="awkoperal"></span><h4><code class="docutils literal"><span class="pre">awk</span></code>的<code class="docutils literal"><span class="pre">ACTIONS</span></code>中支持的运算符有<a class="headerlink" href="#awkactions" title="永久链接至标题">¶</a></h4>
 <ul>
 <li><p class="first">比较操作符：</p>
 <blockquote>
@@ -571,8 +646,337 @@
 </li>
 </ul>
 </div>
+<div class="section" id="awkctrl">
+<span id="id16"></span><h4><code class="docutils literal"><span class="pre">awk</span></code>的<code class="docutils literal"><span class="pre">ACTIONS</span></code>中支持的控制流语句有<a class="headerlink" href="#awkctrl" title="永久链接至标题">¶</a></h4>
+<ul class="simple">
+<li>赋值语句</li>
+<li>条件判断语句</li>
+<li>循环语句</li>
+</ul>
+<p>此处的赋值语句主要指的是对变量的赋值操作，不同赋值语句之间使用<code class="docutils literal"><span class="pre">;</span></code>隔开</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">FS=&quot;\n&quot;;RS=&quot;&quot;</span></code></li>
+<li><code class="docutils literal"><span class="pre">name=&quot;test</span> <span class="pre">anony&quot;</span></code></li>
+</ul>
+<p>条件判断语句的格式有</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># if多行格式</span>
+<span class="k">if</span><span class="o">(</span>测试表达式<span class="o">){</span>
+        cmd1
+        cmd2
+        ...
+<span class="o">}</span>
+
+<span class="c1"># if单行格式</span>
+<span class="k">if</span><span class="o">(</span>测试表达式<span class="o">){</span>cmd1<span class="p">;</span>cmd2<span class="p">;</span>...<span class="o">}</span>
+
+<span class="c1"># if-else单行格式</span>
+<span class="k">if</span><span class="o">(</span>测试表达式<span class="o">){</span>cmd1<span class="p">;</span>cmd2<span class="p">;</span>...<span class="o">}</span><span class="k">else</span><span class="o">{</span>cmd3<span class="p">;</span>cmd4<span class="p">;</span>...<span class="o">}</span>
+
+<span class="c1"># if-else多行格式</span>
+<span class="k">if</span><span class="o">(</span>测试表达式<span class="o">){</span>
+        cmd1
+        cmd2
+        ...
+<span class="o">}</span><span class="k">else</span><span class="o">{</span>
+        cmd3
+        cmd4
+        ...
+<span class="o">}</span>
+
+<span class="c1"># if-elseif-else单行格式</span>
+<span class="k">if</span><span class="o">(</span>测试表达式<span class="o">){</span>cmd1<span class="p">;</span>cmd2<span class="p">;</span>...<span class="o">}</span><span class="k">else</span> <span class="k">if</span><span class="o">{</span>cmd3<span class="p">;</span>...<span class="o">}</span><span class="k">else</span><span class="o">{</span>cmd7<span class="p">;</span>...<span class="o">}</span>
+
+<span class="c1"># if-elseif-else多行格式</span>
+<span class="k">if</span><span class="o">(</span>测试表达式<span class="o">){</span>
+        cmd1
+        cmd2
+        ...
+<span class="o">}</span>
+<span class="k">else</span> <span class="k">if</span><span class="o">{</span>
+        cmd3
+        cmd4
+        ...
+<span class="o">}</span>
+<span class="k">else</span><span class="o">{</span>
+        cmd5
+        cmd6
+        ...
+<span class="o">}</span>
+
+<span class="c1"># 三目运算符</span>
+test_cmd ? cmd1 : cmd2
+</pre></div>
+</div>
+<p>循环语句的格式有</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># while循环多行格式</span>
+<span class="k">while</span><span class="o">(</span>测试表达式<span class="o">){</span>
+        cmd1
+        cmd2
+        ....
+<span class="o">}</span>
+
+<span class="c1"># while循环单行格式</span>
+<span class="k">while</span><span class="o">(</span>测试表达式<span class="o">){</span>cmd1<span class="p">;</span>cmd2<span class="p">;</span>....<span class="o">}</span>
+
+<span class="c1"># do循环多行格式</span>
+<span class="k">do</span><span class="o">{</span>
+        cmd1
+        cmd2
+<span class="o">}</span><span class="k">while</span><span class="o">(</span>测试表达式<span class="o">)</span>
+
+<span class="c1"># do循环单行格式</span>
+<span class="k">do</span><span class="o">{</span>cmd1<span class="p">;</span>cmd2<span class="o">}</span><span class="k">while</span><span class="o">(</span>测试表达式<span class="o">)</span>
+
+<span class="c1"># for循环多行格式</span>
+<span class="k">for</span><span class="o">(</span>变量初始值<span class="p">;</span> 测试表达式<span class="p">;</span> 计数器增长表达式<span class="o">){</span>
+        cmd1
+        cmd2
+        ....
+<span class="o">}</span>
+
+<span class="k">for</span><span class="o">(</span>变量 in 数组<span class="o">){</span>
+        cmd1
+        cmd2
+        ....
+<span class="o">}</span>
+
+<span class="c1"># for循环单行格式</span>
+<span class="k">for</span><span class="o">(</span>变量初始值<span class="p">;</span> 测试表达式<span class="p">;</span> 计数器增长表达式<span class="o">){</span>cmd1<span class="p">;</span>cmd2<span class="p">;</span>....<span class="o">}</span>
+
+<span class="k">for</span><span class="o">(</span>变量 in 数组<span class="o">){</span>cmd1<span class="p">;</span>cmd2<span class="p">;</span>....<span class="o">}</span>
+</pre></div>
+</div>
+<p>需要说明的是：以上格式中所有<code class="docutils literal"><span class="pre">cmd</span></code>的本质就是一个<a class="reference external" href="#awkctrl">语句</a>或一个<a class="reference external" href="#awkfuncl">函数</a></p>
+<p>在循环语句中有几个可以影响循环的动作</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">break</span></code>：退出循环。</li>
+<li><code class="docutils literal"><span class="pre">continue</span></code>：退出当前循环，进入下一个循环</li>
+<li><code class="docutils literal"><span class="pre">next</span></code>：读入下一行，awk程序的顶端从头开始，该语句只适用于<code class="docutils literal"><span class="pre">PATTERN{action}</span></code>这部分，不适用<code class="docutils literal"><span class="pre">BEGIN{action}</span></code></li>
+<li><code class="docutils literal"><span class="pre">exit</span> <span class="pre">code</span></code>：直接进入END，若本就在END中，则直接退出awk；如果END中的exit没有定义code，则采用前一个exit的code。</li>
+</ul>
+</div>
+<div class="section" id="awkfuncl">
+<span id="id19"></span><h4><code class="docutils literal"><span class="pre">awk</span></code>的<code class="docutils literal"><span class="pre">ACTIONS</span></code>中支持的函数有<a class="headerlink" href="#awkfuncl" title="永久链接至标题">¶</a></h4>
+<ul class="simple">
+<li><a class="reference external" href="#outfuncl">输出函数</a></li>
+<li><a class="reference external" href="#algfuncl">算术函数</a></li>
+<li><a class="reference external" href="#strfuncl">字符串函数</a></li>
+<li><a class="reference external" href="#deffuncl">自定义函数</a></li>
+<li><a class="reference external" href="#sysfuncl">system函数</a></li>
+<li><a class="reference external" href="#getfuncl">getline函数</a></li>
+</ul>
+<p id="outfuncl"><code class="docutils literal"><span class="pre">ACTIONS</span></code>中使用<code class="docutils literal"><span class="pre">print</span></code>和<code class="docutils literal"><span class="pre">printf</span></code>函数输出数据，不仅可以输出到标准输出中，还可以重定向到文件中，甚至可以使用管道传递给另一个命令</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 输出数据到标准输出上</span>
+print                           <span class="c1"># 将$0打印到标准输出,等价于print $0</span>
+print expression expression ... <span class="c1"># 将各个expression的内容进行拼接然后打印到标准输出上，由ORS终止</span>
+print expression,expression,... <span class="c1"># 打印各个expression, expression之间由OFS 分开, 由ORS终止</span>
+printf<span class="o">(</span>format,expression,expression,…<span class="o">)</span> <span class="c1"># 格式化输出到标准输出上</span>
+
+<span class="c1"># 输出数据重定向到文件</span>
+<span class="c1"># 以下文件名filename必须使用双引号包围，否则被当作变量，且文件只会被打开一次</span>
+print expression,expression,… &gt; filename  <span class="c1"># 覆盖原文件内容</span>
+print expression,expression,… &gt;&gt; filename <span class="c1"># 追加到原文件中</span>
+printf<span class="o">(</span>format,expression,expression,…<span class="o">)</span> &gt; filename  <span class="c1"># 格式化覆盖原文件内容</span>
+printf<span class="o">(</span>format,expression,expression,…<span class="o">)</span> &gt;&gt; filename <span class="c1"># 格式化追加到原文件中</span>
+
+<span class="c1"># 输出数据到另一个命令</span>
+<span class="c1"># 以下命令需要使用双引号包围</span>
+print expression,expression,… <span class="p">|</span> <span class="nb">command</span>  <span class="c1"># 将数据传递给系统命令</span>
+printf<span class="o">(</span>format,expression,expression,…<span class="o">)</span> <span class="p">|</span> <span class="nb">command</span> <span class="c1"># 将格式化数据传递给系统命令</span>
+</pre></div>
+</div>
+<p>注意：如果print或printf的参数列表中含有操作符，则需要使用括号包围，否则容易产生歧义</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>print<span class="o">(</span><span class="nv">$1</span>, <span class="nv">$3</span><span class="o">)</span> &gt; <span class="o">(</span><span class="nv">$3</span> &gt; <span class="m">100</span> ? <span class="s2">&quot;bigpop&quot;</span> : <span class="s2">&quot;smallpop&quot;</span><span class="o">)</span>
+print <span class="nv">$1</span>, <span class="o">(</span><span class="nv">$2</span> &gt; <span class="nv">$3</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>这里需要说明的是<code class="docutils literal"><span class="pre">format格式化字串</span></code>，它是一个包含输出格式说明符的纯文本字符串，输出格式说明符使用<code class="docutils literal"><span class="pre">%</span></code>来描述，然后跟着几个字符，这些字符控制一个value的输出格式。第一个<code class="docutils literal"><span class="pre">%</span></code>描述value1的输出格式，第二个<code class="docutils literal"><span class="pre">%</span></code>描述value2的输出格式，依次类推。因此，<code class="docutils literal"><span class="pre">%</span></code>的数量应该和被输出的value数量一样多</p>
+<p>格式说明符<code class="docutils literal"><span class="pre">%</span></code>后可跟的字符有</p>
+<ul>
+<li><p class="first">格式符</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">%d</span></code>：以十进制整数显示</li>
+<li><code class="docutils literal"><span class="pre">%i</span></code>：以十进制整数显示</li>
+<li><code class="docutils literal"><span class="pre">%f</span></code>：以浮点数显示</li>
+<li><code class="docutils literal"><span class="pre">%s</span></code>：以字符串显示</li>
+<li><code class="docutils literal"><span class="pre">%u</span></code>：以无符号整数显示</li>
+<li><code class="docutils literal"><span class="pre">%%</span></code>：显示%自身</li>
+<li><code class="docutils literal"><span class="pre">%.</span></code>：以小数值格式输出</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">修饰符</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">N</span></code>：显示宽度；N为数值，宽度不足时若为左对齐则右边空格补足，若右对齐则左边空格补足</li>
+<li><code class="docutils literal"><span class="pre">-</span></code>：左对齐</li>
+<li><code class="docutils literal"><span class="pre">+</span></code>：显示数值正负号</li>
+<li><code class="docutils literal"><span class="pre">0</span></code>：表示以0填充</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>例如：</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>printf<span class="o">(</span><span class="s2">&quot;total pay for %s is </span>$<span class="s2">%.2f\n&quot;</span>, <span class="nv">$1</span>, <span class="nv">$2</span> * <span class="nv">$3</span><span class="o">)</span>
+<span class="c1"># 按字符串格式输出&quot;$1&quot;，按小数值格式输出&quot;$2 * $3&quot;，且小数位占2位</span>
+
+printf<span class="o">(</span><span class="s2">&quot;%-8s </span>$<span class="s2">%6.2f\n&quot;</span>, <span class="nv">$1</span>, <span class="nv">$2</span> * <span class="nv">$3</span><span class="o">)</span>
+<span class="c1"># &quot;%-8s&quot;表示&quot;$1&quot;按字符串格式输出，但短横线&quot;-&quot;表示要左对齐输出，&quot;8&quot;表示占用8个字符宽度，不足之数在右边空格补齐</span>
+<span class="c1"># &quot;%6.2f&quot;表示按小数格式输出&quot;$2 * $3&quot;，且小数位占用2位，总字符数占用6位。小数点也占用一个字符宽度。因此，一个可能的输出值为&quot;123.20&quot;</span>
+</pre></div>
+</div>
+<p id="algfuncl"><code class="docutils literal"><span class="pre">ACTIONS</span></code>中支持的算术函数有</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">cos(x)</span></code>：取x的余弦</li>
+<li><code class="docutils literal"><span class="pre">sin(x)</span></code>：取x的正弦</li>
+<li><code class="docutils literal"><span class="pre">sqrt(x)</span></code>：取x的平方根</li>
+<li><code class="docutils literal"><span class="pre">rand()</span></code>：返回一个随机数r，范围是[0,1)</li>
+<li><code class="docutils literal"><span class="pre">srand(x)</span></code>：设置rand()的种子值为x。种子值相同时，rand()的结果相同。可print srand()输出当前种子值</li>
+<li><code class="docutils literal"><span class="pre">int(x)</span></code>：取x的整数部分</li>
+</ul>
+<p id="strfuncl"><code class="docutils literal"><span class="pre">ACTIONS</span></code>中支持的字符串函数有(建议下面的所有regexp都使用<code class="docutils literal"><span class="pre">//</span></code>包围)</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">index(str1,str2)</span></code>：返回子串str2在字符串str1中第一次出现的位置。如果没有指定str1，则返回0</li>
+<li><code class="docutils literal"><span class="pre">length(str1)</span></code>：返回字符串str1的长度。如果未给定str1，则表示计算”$0”的长度</li>
+<li><code class="docutils literal"><span class="pre">substr(str1,p)</span></code>：返回str1中从p位置开始的后缀字符串</li>
+<li><code class="docutils literal"><span class="pre">substr(str1,p,n)</span></code>：返回str1中从p位置开始，长度为n的子串</li>
+<li><code class="docutils literal"><span class="pre">match(str1,regexp)</span></code>：如果regexp能匹配str1，则返回匹配起始位置。否则返回0。它会设置内置变量RSTART和RLENGTH的值</li>
+<li><code class="docutils literal"><span class="pre">split(str1,array,sep)</span></code>：使用字段分隔符sep将str1分割到数组array中，并返回数组的元素个数。如果未指定sep则采用FS的值。因此该函数用于切分字段到数组中，下标从1开始</li>
+<li><code class="docutils literal"><span class="pre">sprintf(fmt,expr)</span></code>：根据printf的格式fmt，返回格式化后的expr</li>
+<li><code class="docutils literal"><span class="pre">sub(regexp,rep,str2)</span></code>：将str2中第一个被regexp匹配的字符串替换成rep，替换成功则返回1(表示替换了1次)，否则返回0，注意是贪婪匹配，替换字符串rep中使用<code class="docutils literal"><span class="pre">&amp;</span></code>符号表示反向引用，引用的是整个被匹配的部分</li>
+<li><code class="docutils literal"><span class="pre">sub(regexp,rep)</span></code>：将”$0”中第一个被regexp匹配的字符串替换成rep，替换成功则返回1，否则返回0，注意是贪婪匹配，替换字符串rep中使用<code class="docutils literal"><span class="pre">&amp;</span></code>符号表示反向引用，引用的是整个被匹配的部分</li>
+<li><code class="docutils literal"><span class="pre">gsub(regexp,rep,str2)</span></code>：将str2中所有被regexp匹配的内容替换成rep，并返回替换的次数，替换字符串rep中使用<code class="docutils literal"><span class="pre">&amp;</span></code>符号表示反向引用，引用的是整个被匹配的部分</li>
+<li><code class="docutils literal"><span class="pre">gsub(regexp,rep)</span></code>：将”$0”中所有被regexp匹配的内容替换成rep，并返回替换的次数，替换字符串rep中使用<code class="docutils literal"><span class="pre">&amp;</span></code>符号表示反向引用，引用的是整个被匹配的部分</li>
+<li><code class="docutils literal"><span class="pre">toupper(str)</span></code>：将str转换成大写字母，并返回新串</li>
+<li><code class="docutils literal"><span class="pre">tolower(str)</span></code>：将str转换成小写字母，并返回新串</li>
+</ul>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>awk <span class="s1">&#39;BEGIN{</span>
+<span class="s1">        print index(&quot;banana&quot;,&quot;na&quot;)</span>
+<span class="s1">        print length(&quot;banana&quot;)</span>
+<span class="s1">        print match(&quot;banana&quot;,&quot;na.*&quot;)</span>
+<span class="s1">        print toupper(&quot;banana&quot;)</span>
+<span class="s1">        print substr(&quot;banana&quot;,3)}&#39;</span>
+<span class="c1"># 输出结果</span>
+<span class="c1">#3</span>
+<span class="c1">#6</span>
+<span class="c1">#3</span>
+<span class="c1">#BANANA</span>
+<span class="c1">#nana</span>
+
+awk <span class="s1">&#39;BEGIN{str1=&quot;x&amp;x&quot;;str2=&quot;banana&quot;</span>
+<span class="s1">        print sub(/a.*n/,str1,str2)</span>
+<span class="s1">        print str2}&#39;</span>
+<span class="c1"># 输出结果</span>
+<span class="c1">#1</span>
+<span class="c1">#bxananxa</span>
+
+awk <span class="s1">&#39;BEGIN{</span>
+<span class="s1">        print match(&quot;banana&quot;,/a.*n/)</span>
+<span class="s1">        print RSTART,RLENGTH}&#39;</span>
+<span class="c1"># 输出结果</span>
+<span class="c1">#2</span>
+<span class="c1">#2 4</span>
+
+awk <span class="s1">&#39;BEGIN{print sprintf(&quot;hello %i world %5s&quot;,&quot;123&quot;,&quot;abc&quot;)}&#39;</span>
+<span class="c1"># 输出结果</span>
+<span class="c1">#hello 123 world   abc</span>
+
+awk <span class="s1">&#39;BEGIN{</span>
+<span class="s1">        name=&quot;Ma long shuai&quot;</span>
+<span class="s1">        split(name,myname)</span>
+<span class="s1">        for (i in myname){</span>
+<span class="s1">                print myname[i]}</span>
+<span class="s1">        }&#39;</span>
+<span class="c1"># 输出结果</span>
+<span class="c1">#Ma</span>
+<span class="c1">#long</span>
+<span class="c1">#shuai</span>
+
+awk <span class="s1">&#39;BEGIN{</span>
+<span class="s1">        name=&quot;Ma:long:shuai&quot;</span>
+<span class="s1">        if (match(name,/:[^:]*:/)){</span>
+<span class="s1">                print substr(name,RSTART+1,RLENGTH-2)}}&#39;</span>
+<span class="c1"># 输出结果(将匹配成功的字符串输出出来)</span>
+<span class="c1">#long</span>
+</pre></div>
+</div>
+<p id="deffuncl">自定义函数的格式如下</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="k">function</span> name<span class="o">(</span>parameter-list<span class="o">)</span> <span class="o">{</span>
+        statements
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>自定义函数有以下特点</p>
+<ul class="simple">
+<li>函数中的变量不影响函数外的变量，但可以使用外部变量。参数列表使用逗号分隔，这些参数只在函数内部生效</li>
+<li>函数的定义可以在awk的引号内任意位置(即使是BEGIN之前或END之后)，但不能定义在<code class="docutils literal"><span class="pre">BEGIN、主输入循环、END内部</span></code>，否则自定义函数的大括号会和包围action的大括号冲突而报错</li>
+<li>函数的调用位置可以在函数的定义位置之前</li>
+<li>在函数的<code class="docutils literal"><span class="pre">statements</span></code>中，可以使用<code class="docutils literal"><span class="pre">return</span> <span class="pre">expression</span></code>语句，表示函数的返回值</li>
+</ul>
+<p>如下<strong>(1)-(4)</strong>处位置可定义函数，可在任意位置处调用函数</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>awk <span class="s1">&#39;(1)BEGIN{ACTIONS}(2)PATTERN{ACTIONS}(3)END{ACTIONS}(4)&#39;</span>
+</pre></div>
+</div>
+<p>以下实例创建了一个<strong>向字符串指定位置处插入一个字符</strong>的函数</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>awk <span class="s1">&#39;function insert(STRING, POS, INS) {</span>
+<span class="s1">        before_tmp = substr(STRING, 1, POS)</span>
+<span class="s1">        after_tmp = substr(STRING, POS + 1)</span>
+<span class="s1">        return before_tmp INS after_tmp</span>
+<span class="s1">}</span>
+<span class="s1">BEGIN{print insert(&quot;banana&quot;,3,&quot;x&quot;)}&#39;</span>
+</pre></div>
+</div>
+<p id="sysfuncl"><code class="docutils literal"><span class="pre">system</span></code>函数可以用来执行系统命令，但是命令需要使用引号包围，函数的返回值是命令的退出状态</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>awk <span class="s1">&#39;BEGIN{system(&quot;fdisk -l&quot;)}&#39;</span>
+awk <span class="s1">&#39;BEGIN{name=&quot;ma long shuai&quot;;system(&quot;echo &quot; name)}&#39;</span>
+</pre></div>
+</div>
+<p id="getfuncl"><code class="docutils literal"><span class="pre">getline</span></code>函数主要功能是：从文件、标准输入或管道中读取数据，并按情况设置变量的值。它可以自动不断的加载下一行</p>
+<p>关于该函数的返回值有如下情况：</p>
+<ul class="simple">
+<li>如果能读取记录，则返回值为1</li>
+<li>如果遇到输入流的尾部，则返回值为0</li>
+<li>如果不能读取记录(如文件没有读取权限、文件不存在)时，则返回值为-1</li>
+</ul>
+<p>该函数有以下使用格式</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">getline</span></code>：会从主输入文件中读取记录，会同时设置<code class="docutils literal"><span class="pre">$0,NF,NR,FNR</span></code></li>
+<li><code class="docutils literal"><span class="pre">getline</span> <span class="pre">var</span></code>：会从主输入文件中读取记录，并将读取的记录赋值给变量var，同时会设置<code class="docutils literal"><span class="pre">var,NR,FNR</span></code></li>
+<li><code class="docutils literal"><span class="pre">getline</span> <span class="pre">&lt;</span> <span class="pre">file</span></code>：从外部文件file中读取记录，同时会设置<code class="docutils literal"><span class="pre">$0,NF</span></code>，需要使用双引号包围文件名，否则被当成awk中的变量</li>
+<li><code class="docutils literal"><span class="pre">getline</span> <span class="pre">var</span> <span class="pre">&lt;</span> <span class="pre">file</span></code>：从外部文件file中读取记录，并将读取的记录赋值给变量var，需要使用双引号包围文件名，否则被当成awk中的变量</li>
+<li><code class="docutils literal"><span class="pre">cmd</span> <span class="pre">|</span> <span class="pre">getline</span></code>：从管道中读取记录，会同时设置<code class="docutils literal"><span class="pre">$0,NF</span></code></li>
+<li><code class="docutils literal"><span class="pre">cmd</span> <span class="pre">|</span> <span class="pre">getline</span> <span class="pre">var</span></code>：从管道中读取记录，并将读取的记录赋值给变量var</li>
+</ul>
+<p>也就是说</p>
+<ul class="simple">
+<li>当getline从非主输入文件读取记录时，不会设置NR和FNR</li>
+<li>当getline后没有给定变量var时，会将读取的记录赋值给$0，于是会同时设置NF并切分成字段；否则将读取的记录赋值给变量var，不会设置NF切分字段</li>
+</ul>
+<p>例如</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 执行Linux下的who命令并传递给getline读取，每读取一行记录，变量n自增1</span>
+<span class="k">while</span> <span class="o">(</span><span class="s2">&quot;who&quot;</span> <span class="p">|</span> getline<span class="o">){</span>n++<span class="o">}</span>
+
+<span class="c1"># 将Linux命令date的结果保存到awk的变量date中</span>
+<span class="s2">&quot;date&quot;</span> <span class="p">|</span> getline date
+
+<span class="c1"># 写成循环时，当无法读取file，返回值为&quot;-1&quot;，而while循环的判断条件是0和非0，所以&quot;-1&quot;会进入死循环</span>
+<span class="k">while</span> <span class="o">(</span>getline &lt;<span class="s2">&quot;file&quot;</span> &gt;0<span class="o">){</span>cmd...<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="section" id="x0302">
-<span id="awkfuncl"></span><span id="awkctrl"></span><h3>0x0302 应用实例<a class="headerlink" href="#x0302" title="永久链接至标题">¶</a></h3>
+<span id="awkappl"></span><h3>0x0302 应用实例<a class="headerlink" href="#x0302" title="永久链接至标题">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>awk <span class="s1">&#39;BEGIN{name=&quot;ma long shuai&quot;;print (1,2,3,4) | &quot;echo &quot; name}&#39;</span>
+awk <span class="s1">&#39;BEGIN{while ((&quot;fdisk -l&quot; | getline) &gt;0){print $0}}&#39;</span>
+awk <span class="s1">&#39;BEGIN{system(&quot;fdisk -l&quot;)}&#39;</span>
+awk <span class="s1">&#39;BEGIN{name=&quot;ma long shuai&quot;;system(&quot;echo &quot; name)}&#39;</span>
+awk -F<span class="s1">&#39;:&#39;</span> <span class="s1">&#39;$7 == &quot;/bin/bash&quot;{print &quot;who use bash shell: &quot;,$1}&#39;</span> /etc/passwd
+awk <span class="s1">&#39;BEGIN{print &quot;ID NAME GENDER GENDER&quot;;print &quot;&quot;}{print $0}END{print &quot;total num: &quot; NR}&#39;</span>
+awk <span class="s1">&#39;BEGIN{print rand();print rand();srand();print rand();print rand();print srand()}&#39;</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
