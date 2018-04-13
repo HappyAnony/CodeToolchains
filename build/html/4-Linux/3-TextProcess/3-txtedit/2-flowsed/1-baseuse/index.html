@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sed基本使用 &mdash; CodeToolchains 1.0.0 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../../../../genindex.html"/>
+        <link rel="search" title="搜索" href="../../../../../search.html"/>
+    <link rel="top" title="CodeToolchains 1.0.0 文档" href="../../../../../index.html"/>
+        <link rel="up" title="流式编辑器sed" href="../index.html"/>
+        <link rel="next" title="sed高级应用" href="../2-advance/index.html"/>
+        <link rel="prev" title="流式编辑器sed" href="../index.html"/> 
+
+  
+  <script src="../../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> CodeToolchains
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../1-TextEdit/index.html">文本编辑器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../2-VerControl/index.html">版本控制器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../3-IDE/index.html">IDE集成开发环境</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../index.html">Linux命令工具</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../../1-CmdHelp/index.html">简要概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../2-FileManage/index.html">文件管理</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../index.html">文本处理</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../../1-txtlook/index.html">文本查看</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../2-txtfind/index.html">文本查找</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../index.html">文本编辑</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../1-txtvim/index.html">文本编辑器vim</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../index.html">流式编辑器sed</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../4-UserManage/index.html">用户管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../5-PackageManage/index.html">软件包管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../6-ProcessManage/index.html">进程管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../7-SystemManage/index.html">系统管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../8-NetManage/index.html">网络管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../9-ServiceMange/index.html">服务管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../10-DiskManage/index.html">磁盘管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../11-SecurityManage/index.html">安全管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../12-KernelManage/index.html">内核管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../13-DevelopTools/index.html">开发工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../15-others/index.html">其它工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../16-ThirdTools/index.html">常见操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../14-ShellCode/index.html">shell编程</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../5-Wildcard/index.html">通配机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../6-DataBase/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../7-WebArch/index.html">网站架构</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">CodeToolchains</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Linux命令工具</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">文本处理</a> &raquo;</li>
+        
+          <li><a href="../../index.html">文本编辑</a> &raquo;</li>
+        
+          <li><a href="../index.html">流式编辑器sed</a> &raquo;</li>
+        
+      <li>sed基本使用</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../../../_sources/4-Linux/3-TextProcess/3-txtedit/2-flowsed/1-baseuse/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sed">
+<h1>sed基本使用<a class="headerlink" href="#sed" title="永久链接至标题">¶</a></h1>
+<p>本文目录</p>
+<ul>
+<li><p class="first"><a class="reference external" href="#naturel">sed本质</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="#syntaxl">sed语法</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="#mechanisml">sed实现机制</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="#awkoptionsl">sed常用选项</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="#awkprograml">sed程序</a></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="#scopel">sed程序之范围定界</a></li>
+<li><a class="reference external" href="#opcmdl">sed程序之操作命令</a></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference external" href="#scriptl">sed脚本</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="#applyl">sed应用</a></p>
+</li>
+</ul>
+<div class="section" id="x00-sed">
+<span id="naturel"></span><h2>0x00 sed本质<a class="headerlink" href="#x00-sed" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="x01-sed">
+<span id="syntaxl"></span><h2>0x01 sed语法<a class="headerlink" href="#x01-sed" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="x02-sed">
+<span id="mechanisml"></span><h2>0x02 sed实现机制<a class="headerlink" href="#x02-sed" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="x03-sed">
+<span id="awkoptionsl"></span><h2>0x03 sed常用选项<a class="headerlink" href="#x03-sed" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="x04-sed">
+<span id="awkprograml"></span><h2>0x04 sed程序<a class="headerlink" href="#x04-sed" title="永久链接至标题">¶</a></h2>
+<div class="section" id="x0400-sed">
+<span id="scopel"></span><h3>0x0400 sed程序之范围定界<a class="headerlink" href="#x0400-sed" title="永久链接至标题">¶</a></h3>
+</div>
+<div class="section" id="x0401-sed">
+<span id="opcmdl"></span><h3>0x0401 sed程序之操作命令<a class="headerlink" href="#x0401-sed" title="永久链接至标题">¶</a></h3>
+</div>
+</div>
+<div class="section" id="x05-sed">
+<span id="scriptl"></span><h2>0x05 sed脚本<a class="headerlink" href="#x05-sed" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="x06-sed">
+<span id="applyl"></span><h2>0x06 sed应用<a class="headerlink" href="#x06-sed" title="永久链接至标题">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../2-advance/index.html" class="btn btn-neutral float-right" title="sed高级应用" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="流式编辑器sed" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, HappyAnony.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

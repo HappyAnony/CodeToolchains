@@ -1,17 +1,14 @@
 文本编辑
 =================
 
-命令汇总
 
-- \ `vim <#vimll>`_\
-- \ `sed <#sedl>`_\
+目录
+------
 
-.. _vimll:
+.. toctree::
+   :titlesonly:
+   :glob:
 
-0x00 vim
-~~~~~~~~~~~
 
-.. _sedl:
-
-0x01 sed
-~~~~~~~~~~
+   1-txtvim/index
+   2-flowsed/index
