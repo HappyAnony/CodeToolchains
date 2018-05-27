@@ -1,0 +1,471 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sed基本使用 &mdash; CodeToolchains 1.0.0 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../../../../../genindex.html"/>
+        <link rel="search" title="搜索" href="../../../../../../search.html"/>
+    <link rel="top" title="CodeToolchains 1.0.0 文档" href="../../../../../../index.html"/>
+        <link rel="up" title="流式编辑器sed" href="../index.html"/>
+        <link rel="next" title="sed高级应用" href="../2-advance/index.html"/>
+        <link rel="prev" title="流式编辑器sed" href="../index.html"/> 
+
+  
+  <script src="../../../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> CodeToolchains
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../1-TextEdit/index.html">文本编辑器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../2-VerControl/index.html">版本控制器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../3-IDE/index.html">IDE集成开发环境</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../../index.html">Linux工具集</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../../../1-shellenv/index.html">shell环境</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../../index.html">shell命令</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../../../1-cmdview/index.html">命令概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../2-FileManage/index.html">文件管理</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../../index.html">文本处理</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../../1-txtlook/index.html">文本查看</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../2-txtfind/index.html">文本查找</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../../index.html">文本编辑</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../4-UserManage/index.html">用户管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../5-PackageManage/index.html">软件包管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../6-ProcessManage/index.html">进程管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../7-SystemManage/index.html">系统管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../8-NetManage/index.html">网络管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../9-ServiceMange/index.html">服务管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../10-DiskManage/index.html">磁盘管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../11-SecurityManage/index.html">安全管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../12-KernelManage/index.html">内核管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../13-DevelopTools/index.html">开发工具</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../zcommonopt/index.html">常见操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../zothers/index.html">其它工具</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../3-shellprogram/index.html">shell编程</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../5-Wildcard/index.html">通配机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../6-DataBase/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../7-WebArch/index.html">网站架构</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">CodeToolchains</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../../../index.html">Linux工具集</a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">shell命令</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">文本处理</a> &raquo;</li>
+        
+          <li><a href="../../index.html">文本编辑</a> &raquo;</li>
+        
+          <li><a href="../index.html">流式编辑器sed</a> &raquo;</li>
+        
+      <li>sed基本使用</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../../../../_sources/4-Linux/2-shellcmd/3-TextProcess/3-txtedit/2-flowsed/1-baseuse/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sed">
+<h1>sed基本使用<a class="headerlink" href="#sed" title="永久链接至标题">¶</a></h1>
+<p>本文目录</p>
+<ul>
+<li><p class="first"><a class="reference external" href="#naturel">sed本质</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="#syntaxl">sed语法</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="#mechanisml">sed实现机制</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="#awkoptionsl">sed常用选项</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="#awkprograml">sed脚本</a></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="#scopel">sed脚本之范围定界</a></li>
+<li><a class="reference external" href="#opcmdl">sed脚本之操作命令</a></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference external" href="#sedinputl">sed输入流</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="#applyl">sed应用</a></p>
+</li>
+</ul>
+<div class="section" id="x00-sed">
+<span id="naturel"></span><h2>0x00 sed本质<a class="headerlink" href="#x00-sed" title="永久链接至标题">¶</a></h2>
+<p>sed的本质就是一个流式编辑器。流式编辑器用于对输入流(文件、管道、标准输入传递的数据)执行基本的文本转换操作。它有以下特点(区别于其它类型编辑器)：</p>
+<ul class="simple">
+<li>能够筛选过滤管道传递过来的文本数据</li>
+<li>只能通过一次输入流，即每次的输入流只能处理一次，因此它的效率更高。例如：<code class="docutils literal"><span class="pre">(sed</span> <span class="pre">-n</span> <span class="pre">'2{p;q}';sed</span> <span class="pre">-n</span> <span class="pre">3{p;q})</span> <span class="pre">&lt;</span> <span class="pre">filename</span></code>命令中，第二个sed语句读取的输入流是空流</li>
+</ul>
+</div>
+<div class="section" id="x01-sed">
+<span id="syntaxl"></span><h2>0x01 sed语法<a class="headerlink" href="#x01-sed" title="永久链接至标题">¶</a></h2>
+<p>sed命令的语法格式是：<code class="docutils literal"><span class="pre">sed</span> <span class="pre">OPTIONS...</span> <span class="pre">[SCRIPT]</span> <span class="pre">[INPUTFILE...]</span></code></p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">OPTIONS</span></code>：<a class="reference external" href="#awkoptionsl">sed命令常用选项</a>，注意当使用<code class="docutils literal"><span class="pre">-e</span></code>或<code class="docutils literal"><span class="pre">-f</span> <span class="pre">script_file</span></code>选项指定SCRIPT时，<code class="docutils literal"><span class="pre">[SCRIPT]</span></code>参数将会被屏蔽，即sed将会将其当做输入文件处理</li>
+<li><code class="docutils literal"><span class="pre">[SCRIPT]</span></code>：<a class="reference external" href="#awkprograml">sed命令脚本</a>，<code class="docutils literal"><span class="pre">[SCRIPT]</span></code>是第一个非选项参数，sed仅在没有使用<code class="docutils literal"><span class="pre">-e</span></code>或<code class="docutils literal"><span class="pre">-f</span> <span class="pre">script_file</span></code>选项指定SCRIPT时，才将其当作是<code class="docutils literal"><span class="pre">script部分而非输入文件</span></code></li>
+<li><code class="docutils literal"><span class="pre">[INPUTFILE...]</span></code>：<a class="reference external" href="#sedinputl">sed命令输入流</a>，<code class="docutils literal"><span class="pre">[INPUTFILE...]</span></code>是第二个非选项参数，如果不指定<code class="docutils literal"><span class="pre">INPUTFILE</span></code>或者指定的<code class="docutils literal"><span class="pre">INPUTFILE</span></code>为<code class="docutils literal"><span class="pre">-</span></code>，sed将从标准输入中读取输入流并进行过滤</li>
+</ul>
+<p>将上述<code class="docutils literal"><span class="pre">sed语法格式</span></code>可以扩写成以下几种语法(本质是对<code class="docutils literal"><span class="pre">SCRIPT</span></code>部分的展开)</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 没有使用-e选项的单个表达式==单行</span>
+sed OPTIONS... Address<span class="o">{</span>cmd1<span class="p">;</span>cmd2<span class="p">;</span>cmd3...<span class="o">}</span> <span class="o">[</span>INPUTFILE...<span class="o">]</span> <span class="c1"># OPTIONS没有-e/f选项，[SCRIPT]选项是Address{cmd1;cmd2;cmd3...}</span>
+
+
+<span class="c1"># 使用-e选项的单个表达式==单行</span>
+sed OPTIONS... -e <span class="s1">&#39;Address{cmd1;cmd2;cmd3...}&#39;</span> <span class="o">[</span>INPUTFILE...<span class="o">]</span> <span class="c1"># 使用了OPTIONS中的-e选项指定SCRIPT，此时[SCRIPT]选项被屏蔽省略</span>
+
+
+<span class="c1"># 没有使用-e选项的多个表达式==单行，分号分隔</span>
+sed OPTIONS... Address1<span class="o">{</span>cmd1<span class="p">;</span>cmd2<span class="p">;</span>cmd3<span class="o">}</span><span class="p">;</span>Address2<span class="o">{</span>cmd1<span class="p">;</span>cmd2<span class="p">;</span>cmd3<span class="o">}</span>... <span class="o">[</span>INPUTFILE...<span class="o">]</span>
+
+
+<span class="c1"># 使用-e选项的多个表达式==单行，空格分隔</span>
+sed OPTIONS... -e <span class="s1">&#39;Address1{cmd1;cmd2;cmd3}&#39;</span> -e <span class="s1">&#39;Address2{cmd1;cmd2;cmd3}&#39;</span> ... <span class="o">[</span>INPUTFILE...<span class="o">]</span>
+
+
+<span class="c1"># 多个表达式==分行</span>
+sed OPTIONS... Address1<span class="o">{</span>
+        cmd1
+        cmd2
+        cmd3
+<span class="o">}</span>
+Address2<span class="o">{</span>
+        cmd1
+        cmd2
+        cmd3
+<span class="o">}</span>
+<span class="o">[</span>INPUTFILE...<span class="o">]</span>
+
+
+<span class="c1"># 使用-f选项指定SCRIPT脚本文件</span>
+sed OPTIONS... -f test.sed <span class="o">[</span>INPUTFILE...<span class="o">]</span> <span class="c1"># 使用了OPTIONS中的-f选项指定SCRIPT脚本文件，test.sed脚本文件的内容可以如下所示</span>
+<span class="c1">#!/usr/bin/sed -f</span>
+<span class="c1">#注释行</span>
+Address1<span class="o">{</span>cmd1<span class="p">;</span>cmd2...<span class="o">}</span>
+Address2<span class="o">{</span>cmd1<span class="p">;</span>cmd2...<span class="o">}</span>
+......
+</pre></div>
+</div>
+</div>
+<div class="section" id="x02-sed">
+<span id="mechanisml"></span><h2>0x02 sed实现机制<a class="headerlink" href="#x02-sed" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">sed</span></code>实现机制可以使用下列编程结构来描述</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="o">(</span><span class="nv">line</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>line&lt;<span class="o">=</span>last_line_num<span class="p">;</span>++line<span class="o">)</span>
+<span class="k">do</span>
+        <span class="nb">read</span> <span class="nv">$line</span> to pattern_space<span class="p">;</span>
+        <span class="k">while</span> pattern_space is not null
+        <span class="k">do</span>
+                <span class="k">if</span> Address1<span class="p">;</span><span class="k">then</span> execute cmd1 in SCRIPT<span class="p">;</span>
+                <span class="k">if</span> Address2<span class="p">;</span><span class="k">then</span> execute cmd2 in SCRIPT<span class="p">;</span>
+                <span class="k">if</span> Address3<span class="p">;</span><span class="k">then</span> execute cmd3 in SCRIPT<span class="p">;</span>
+                ……
+                auto_print<span class="p">;</span>
+                remove_pattern_space<span class="p">;</span>
+        <span class="k">done</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">sed</span></code>在对输入流进行处理时，维护了两个数据缓冲空间(这两个空间初始时都为空)</p>
+<ul class="simple">
+<li>一直处于活动状态的<code class="docutils literal"><span class="pre">模式空间(pattern</span> <span class="pre">space)</span></code></li>
+<li>辅助性的<code class="docutils literal"><span class="pre">保持空间(hold</span> <span class="pre">space)</span></code></li>
+</ul>
+<p>实现sed机制的编程结构中包含两个循环</p>
+<ul class="simple">
+<li><a class="reference external" href="#sedll">sed循环</a>：外层for循环</li>
+<li><a class="reference external" href="#scriptll">SCRIPT循环</a>：内层while循环</li>
+</ul>
+<p id="sedll"><code class="docutils literal"><span class="pre">sed循环</span></code>的处理流程是</p>
+<ul class="simple">
+<li><strong>(1)</strong>sed读取输入流(文件、管道、标准输入)中的一行，移除该行的尾随换行符，并将其放入到<code class="docutils literal"><span class="pre">模式空间(pattern</span> <span class="pre">space)</span></code>中，同时将此行行号通过sed行号计数器记录在内存中</li>
+<li><strong>(2)</strong>执行<a class="reference external" href="#scriptll">SCRIPT循环</a>处理<code class="docutils literal"><span class="pre">模式空间(pattern</span> <span class="pre">space)</span></code>中读入的行内容</li>
+<li><strong>(3)</strong>跳出<a class="reference external" href="#scriptll">SCRIPT循环</a>后返回第一步操作，继续读取输入流的下一行，直到处理完输入流的最后一行才退出<code class="docutils literal"><span class="pre">sed循环</span></code>，sed处理完毕</li>
+</ul>
+<p id="scriptll"><code class="docutils literal"><span class="pre">SCRIPT循环</span></code>的处理流程是</p>
+<ul class="simple">
+<li><strong>(1)</strong>判断<code class="docutils literal"><span class="pre">模式空间(pattern</span> <span class="pre">space)</span></code>是否为空，如果为空，则跳出<code class="docutils literal"><span class="pre">SCRIPT循环</span></code>；如果不为空，就执行下面操作</li>
+<li><strong>(2)</strong>如果<code class="docutils literal"><span class="pre">模式空间(pattern</span> <span class="pre">space)</span></code>中的内容能够匹配<code class="docutils literal"><span class="pre">Address1</span></code>，则执行<code class="docutils literal"><span class="pre">Address1</span></code>对应的<code class="docutils literal"><span class="pre">cmd1</span></code>对内容进行处理；否则不执行<code class="docutils literal"><span class="pre">cmd1</span></code></li>
+<li><strong>(3)</strong>如果<code class="docutils literal"><span class="pre">模式空间(pattern</span> <span class="pre">space)</span></code>中的内容能够匹配<code class="docutils literal"><span class="pre">Address2</span></code>，则执行<code class="docutils literal"><span class="pre">Address2</span></code>对应的<code class="docutils literal"><span class="pre">cmd2</span></code>对内容进行处理；否则不执行<code class="docutils literal"><span class="pre">cmd2</span></code></li>
+<li>…</li>
+<li><strong>(4)</strong>当判断执行完所有的<code class="docutils literal"><span class="pre">cmd</span></code>后，<code class="docutils literal"><span class="pre">auto_print</span></code>会自动输出<code class="docutils literal"><span class="pre">模式空间(pattern</span> <span class="pre">space)</span></code>中的内容到标准输出流或定向流中，并添加尾随的换行符</li>
+<li><strong>(5)</strong>最后<code class="docutils literal"><span class="pre">remove_pattern_space</span></code>会清空<code class="docutils literal"><span class="pre">模式空间(pattern</span> <span class="pre">space)</span></code>中的内容，并返回第一步操作</li>
+</ul>
+<p>需要注意的是</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">SCRIPT循环</span></code>中的<code class="docutils literal"><span class="pre">2/3步</span></code>对应着我们<a class="reference external" href="#awkprograml">sed脚本</a>部分(即语法格式中的<code class="docutils literal"><span class="pre">SCRIPT</span></code>)，可以根据需要进行修改</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">SCRIPT循环</span></code>中的<code class="docutils literal"><span class="pre">4/5步</span></code><code class="docutils literal"><span class="pre">自动输出</span></code>和<code class="docutils literal"><span class="pre">清空模式空间内容</span></code>，这两个操作每次<code class="docutils literal"><span class="pre">SCRIPT循环</span></code>都会默认自动执行，但是有些<a class="reference external" href="#opcmdl">操作命令</a>或<a class="reference external" href="#awkoptionsl">选项</a>可以改变这两个操作行为，使其输出总是输出空内容或无法输出或无法清空模式空间等</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">D</span></code>命令会进入多行模式，使得<code class="docutils literal"><span class="pre">SCRIPT循环</span></code>结束时将数据锁在<code class="docutils literal"><span class="pre">模式空间(pattern</span> <span class="pre">space)</span></code>中不输出也不清空，并且在当前<code class="docutils literal"><span class="pre">SCRIPT循环</span></code>还没结束时就强行进入下一轮<code class="docutils literal"><span class="pre">SCRIPT循环</span></code>，其实就相当 于在上面的while循环结构中加上了<code class="docutils literal"><span class="pre">continue</span></code>关键字</li>
+<li><code class="docutils literal"><span class="pre">d</span></code>命令可以直接跳出<code class="docutils literal"><span class="pre">SCRIPT循环</span></code>进入下一个<code class="docutils literal"><span class="pre">sed循环</span></code>，就像是在while循环中加上了<code class="docutils literal"><span class="pre">break</span></code>一样</li>
+<li><code class="docutils literal"><span class="pre">q</span></code>和<code class="docutils literal"><span class="pre">Q</span></code>命令可以直接退出<code class="docutils literal"><span class="pre">sed循环</span></code>，就像是在while循环中加上了<code class="docutils literal"><span class="pre">exit</span></code>一样</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="x03-sed">
+<span id="awkoptionsl"></span><h2>0x03 sed常用选项<a class="headerlink" href="#x03-sed" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">sed</span></code>命令的常用OPTIONS选项有</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">--help</span></code>：输出sed命令行的简单帮助信息并退出，也可以使用<code class="docutils literal"><span class="pre">info</span> <span class="pre">sed</span></code>命令查看其帮助信息，info文档更全面详细点</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">-n/--quiet/--silent</span></code>：默认情况下，sed将在每轮<a class="reference external" href="#scriptll">SCRIPT循环</a>结束时自动输出模式空间中的内容。使用该选项后可以使得这次自动输出动作输出空内容。注意，该选项是输出空内容而不是禁用输出动作，前者有输出流只是输出空流，后者则没有输出流；虽然两者的结果都是不输出任何内容，但在有些依赖于输出动作和输出流的地方，它们的区别是很大的。这种情况下，只有显式通过<code class="docutils literal"><span class="pre">p</span></code>命令来产生对应的输出</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">-e</span> <span class="pre">SCRIPT/--expression=SCRIPT</span></code>：<a class="reference external" href="#awkprograml">SCRIPT</a>是一个包含sed命令的表达式，<code class="docutils literal"><span class="pre">-e</span></code>选项就是向SCRIPT中添加命令的。可以省略<code class="docutils literal"><span class="pre">-e</span></code>选项，但如果命令行容易产生歧义，则使用<code class="docutils literal"><span class="pre">-e</span></code>选项可明确说明这部分是SCRIPT中的命令。另外，如果一个<code class="docutils literal"><span class="pre">-e</span></code>选项不方便描述所需命令集合时，可以指定多个<code class="docutils literal"><span class="pre">-e</span></code>选项</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">-f</span> <span class="pre">SCRIPT-FILE/--file=SCRIPT-FILE</span></code>：指定包含sed命令集合的SCRIPT文件(即将<code class="docutils literal"><span class="pre">-e</span></code>选项后面的SCRIPT表达式写入文件中)，让sed根据SCRIPT文件中的命令集处理输入流</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">-i[SUFFIX]/--in-place[=SUFFIX]</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li>该选项指定要将sed的输出结果保存(以覆盖的方式)到当前编辑的文件中。该项是通过创建一个临时文件并将输出写入到该临时文件，最后重命名为源文件来实现的。该选项隐含了<code class="docutils literal"><span class="pre">-s</span></code>选项</li>
+<li>当处理完当前输入流后，临时文件被重命名为源文件的名称，如果没有提供<code class="docutils literal"><span class="pre">SUFFIX</span></code>，源文件被覆盖，且不会生成备份文件；如果提供了<code class="docutils literal"><span class="pre">SUFFIX</span></code>，则在重命名临时文件之前，先使用该<code class="docutils literal"><span class="pre">SUFFIX</span></code>修改源文件名，从而生成一个备份文件(例如<code class="docutils literal"><span class="pre">sed</span> <span class="pre">-i'.log'</span> <span class="pre">SCRIPT</span> <span class="pre">a.txt</span></code>将生成两个文件<code class="docutils literal"><span class="pre">a.txt</span></code>和<code class="docutils literal"><span class="pre">a.txt.log</span></code>，前者是sed修改后的文件，<code class="docutils literal"><span class="pre">a.txt.log</span></code>是<code class="docutils literal"><span class="pre">源a.txt</span></code>的备份文件)</li>
+<li>注意：如果<code class="docutils literal"><span class="pre">SUFFIX</span></code>不包含符号<code class="docutils literal"><span class="pre">*</span></code>，将<code class="docutils literal"><span class="pre">SUFFIX</span></code>添加到原文件名的后面当作备份文件的后缀；如果<code class="docutils literal"><span class="pre">SUFFIX</span></code>中包含了一个或多个字符<code class="docutils literal"><span class="pre">*</span></code>，则每个<code class="docutils literal"><span class="pre">*</span></code>都替换为原文件名；这使得可以为备份文件添加一个前缀，而不是后缀，甚至可以将此备份文件放在在其他已存在的目录下</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">-r/--regexp-extended</span></code>：使用<a class="reference external" href="../../../../../5-Wildcard/2-Regular/1-syntax/2-eRegEx.html">扩展正则表达式</a>，而不是使用默认的<a class="reference external" href="../../../../../5-Wildcard/2-Regular/1-syntax/1-bRegEx.html">基础正则表达式</a>；sed所支持的扩展正则表达式和egrep一样，使用扩展正则表达式显得更简洁，因为有些元字符不用再使用反斜线<code class="docutils literal"><span class="pre">\</span></code>，但这是GNU扩展功能，因此应避免在可移植性脚本中使用</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">-s/--separate</span></code>：默认情况下，如果为sed指定了多个输入文件，例如<code class="docutils literal"><span class="pre">sed</span> <span class="pre">OPTIONS</span> <span class="pre">SCRIPT</span> <span class="pre">file1</span> <span class="pre">file2</span> <span class="pre">file3</span></code>，则多个文件会被sed当作一个长的输入流处理，也就是说所有文件被当成一个大文件进行处理。指定该选项后，sed将认为命令行中给定的每个文件都是独立的输入流；既然是独立的输入流，<a class="reference external" href="#scopel">范围定界</a>(如<code class="docutils literal"><span class="pre">/abc/</span></code>,<code class="docutils literal"><span class="pre">/def/</span></code>)就无法跨越多个文件进行匹配，行号也会在处理每个文件时重置，<code class="docutils literal"><span class="pre">$</span></code>代表的也将是每个文件的最后一行</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">-l</span> <span class="pre">N/--line-length=N</span></code>：为<code class="docutils literal"><span class="pre">l</span></code>命令指定默认的换行长度。<code class="docutils literal"><span class="pre">N=0</span></code>意味着完全不换行的长行，如果不指定，则70个字符就换行</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">--follow-symlinks</span></code>：该选项只在支持符号连接的操作系统上生效，且只有指定了<code class="docutils literal"><span class="pre">-i</span></code>选项时才生效。指定该选项后，如果sed命令行中指定的输入文件是一个符号连接，则sed将对该符号链接的目标文件进行处理。默认情况下，禁用该选项，因此不会修改链接的源文件</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">-u/--unbuffered</span></code>:使用尽量少的空间缓冲输入和输出行；该选项在某些情况下尤为有用，例如输入流的来源是<code class="docutils literal"><span class="pre">tail</span> <span class="pre">-f</span></code>时，指定该选项将可以尽快返回输出结果</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">-z/--null-data/--zero-terminated</span></code>：以空串符号<code class="docutils literal"><span class="pre">\0</span></code>而不是换行符<code class="docutils literal"><span class="pre">\n</span></code>作为输入流的行分隔符</p>
+</li>
+</ul>
+</div>
+<div class="section" id="x04-sed">
+<span id="awkprograml"></span><h2>0x04 sed程序<a class="headerlink" href="#x04-sed" title="永久链接至标题">¶</a></h2>
+<div class="section" id="x0400-sed">
+<span id="scopel"></span><h3>0x0400 sed程序之范围定界<a class="headerlink" href="#x0400-sed" title="永久链接至标题">¶</a></h3>
+</div>
+<div class="section" id="x0401-sed">
+<span id="opcmdl"></span><h3>0x0401 sed程序之操作命令<a class="headerlink" href="#x0401-sed" title="永久链接至标题">¶</a></h3>
+</div>
+</div>
+<div class="section" id="x05-sed">
+<span id="scriptl"></span><h2>0x05 sed脚本<a class="headerlink" href="#x05-sed" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="x06-sed">
+<span id="sedinputl"></span><h2>0x06 sed输入流<a class="headerlink" href="#x06-sed" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="applyl">
+<span id="id24"></span><h2>0x06 sed应用<a class="headerlink" href="#applyl" title="永久链接至标题">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../2-advance/index.html" class="btn btn-neutral float-right" title="sed高级应用" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="流式编辑器sed" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, HappyAnony.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../../../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

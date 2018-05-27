@@ -1,4 +1,4 @@
-Linux命令工具
+Linux工具集
 ===============
 
 Linux的哲学思想是：
@@ -30,20 +30,7 @@ Linux的哲学思想是：
 .. toctree::
    :titlesonly:
    :glob:
-   
-   1-CmdHelp/index
-   2-FileManage/index
-   3-TextProcess/index
-   4-UserManage/index
-   5-PackageManage/index
-   6-ProcessManage/index
-   7-SystemManage/index
-   8-NetManage/index
-   9-ServiceMange/index
-   10-DiskManage/index
-   11-SecurityManage/index
-   12-KernelManage/index
-   13-DevelopTools/index
-   15-others/index
-   16-ThirdTools/index
-   14-ShellCode/index
+
+   1-shellenv/index
+   2-shellcmd/index
+   3-shellprogram/index

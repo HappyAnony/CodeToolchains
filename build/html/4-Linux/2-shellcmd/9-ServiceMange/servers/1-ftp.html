@@ -1,0 +1,520 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ftp服务器 &mdash; CodeToolchains 1.0.0 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="搜索" href="../../../../search.html"/>
+    <link rel="top" title="CodeToolchains 1.0.0 文档" href="../../../../index.html"/>
+        <link rel="up" title="服务器搭建" href="index.html"/>
+        <link rel="next" title="nfs服务器" href="2-nfs.html"/>
+        <link rel="prev" title="服务器搭建" href="index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> CodeToolchains
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../1-TextEdit/index.html">文本编辑器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../2-VerControl/index.html">版本控制器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../3-IDE/index.html">IDE集成开发环境</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Linux工具集</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../1-shellenv/index.html">shell环境</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">shell命令</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../1-cmdview/index.html">命令概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../2-FileManage/index.html">文件管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../3-TextProcess/index.html">文本处理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../4-UserManage/index.html">用户管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../5-PackageManage/index.html">软件包管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../6-ProcessManage/index.html">进程管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../7-SystemManage/index.html">系统管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../8-NetManage/index.html">网络管理</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html">服务管理</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">服务器搭建</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../10-DiskManage/index.html">磁盘管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11-SecurityManage/index.html">安全管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../12-KernelManage/index.html">内核管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../13-DevelopTools/index.html">开发工具</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zcommonopt/index.html">常见操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zothers/index.html">其它工具</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../3-shellprogram/index.html">shell编程</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../5-Wildcard/index.html">通配机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../6-DataBase/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../7-WebArch/index.html">网站架构</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">CodeToolchains</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Linux工具集</a> &raquo;</li>
+        
+          <li><a href="../../index.html">shell命令</a> &raquo;</li>
+        
+          <li><a href="../index.html">服务管理</a> &raquo;</li>
+        
+          <li><a href="index.html">服务器搭建</a> &raquo;</li>
+        
+      <li>ftp服务器</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../../_sources/4-Linux/2-shellcmd/9-ServiceMange/servers/1-ftp.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ftp">
+<h1>ftp服务器<a class="headerlink" href="#ftp" title="永久链接至标题">¶</a></h1>
+<p>参考文档</p>
+<ul class="simple">
+<li><a class="reference external" href="http://desert3.iteye.com/blog/1685734">CentOS下vsftp设置</a></li>
+<li><a class="reference external" href="https://blog.csdn.net/programer_bei/article/details/52333586">针对CentOS的SELinux拦截vsftpd问题</a></li>
+</ul>
+<p><code class="docutils literal"><span class="pre">ftp服务器</span></code>的主要功能就是：文件的上传和下载</p>
+<p><code class="docutils literal"><span class="pre">ftp服务器的搭建</span></code>我们这里选择使用<code class="docutils literal"><span class="pre">vsftpd</span></code>工具</p>
+<p>其搭建基本流程是：</p>
+<ul>
+<li><p class="first"><a class="reference external" href="#vsftpdl">vsftpd工具安装</a></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="#ftpubuntu">Ubuntu系列安装</a></li>
+<li><a class="reference external" href="#ftpcentos">CentOS系列安装</a></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference external" href="#ftpserver">服务端配置</a></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="#ftpconf">修改配置文件</a></li>
+<li><a class="reference external" href="#ftpres">重启服务</a></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference external" href="#ftpclient">客户端登陆</a></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="#ftpu">ftp客户端访问</a></li>
+<li><a class="reference external" href="#ftpr">lftp客户端访问</a></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference external" href="#ftpoperation">连接操作</a></p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="#ftpopera">ftp客户端操作</a></li>
+<li><a class="reference external" href="#lftpopera">lftp客户端操作</a></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="section" id="x00-vsftpd">
+<span id="vsftpdl"></span><h2>0x00 vsftpd工具安装<a class="headerlink" href="#x00-vsftpd" title="永久链接至标题">¶</a></h2>
+<p>不同linux发行版的安装方式不同</p>
+<p id="ftpubuntu">Debian/Ubuntu系列安装方式</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># apt-get安装</span>
+<span class="nv">$sudo</span> apt-get install vsftpd
+</pre></div>
+</div>
+<p id="ftpcentos">RedHat/Fedra/CentOs系列安装方式</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># yum安装</span>
+<span class="nv">$yum</span> install vsftpd
+</pre></div>
+</div>
+</div>
+<div class="section" id="x01">
+<span id="ftpserver"></span><h2>0x01 服务端配置<a class="headerlink" href="#x01" title="永久链接至标题">¶</a></h2>
+<p id="ftpconf">安装好<code class="docutils literal"><span class="pre">vsftpd</span></code>工具之后，我们需要修改下配置文件，但是我们怎么知道配置在哪呢，如果熟悉linux的人就会知道配置文件肯定在<code class="docutils literal"><span class="pre">/etc</span></code>目录下，但是该目录那么多配置文件我该怎么找呢？此时我们有几种方式可以帮你找到其配置文件</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ rpm -ql vsftpd <span class="p">|</span> grep etc   <span class="c1"># 获取vsftpd工具配置文件的安装路径</span>
+$ whereis vsftpd              <span class="c1"># 获取vsftpd工具配置文件的安装路径</span>
+</pre></div>
+</div>
+<p>通过上述命令我们可以得知，其配置文件路径是：<code class="docutils literal"><span class="pre">/etc/vsftpd/vsftpd.conf</span></code>，通过<code class="docutils literal"><span class="pre">vi/vim</span></code>编辑器打开，具体修改内容如下：</p>
+<div class="figure">
+<img alt="../../../../_images/14.png" src="../../../../_images/14.png" />
+</div>
+<p id="ftpres">配置文件修改完之后，需要重启服务使其配置文件生效</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># Systemv格式重启服务</span>
+<span class="nv">$service</span> vsftpd restart           <span class="c1"># CentOS系列重启</span>
+<span class="nv">$sudo</span> service vsftpd restart      <span class="c1"># Ubuntu系列重启</span>
+
+<span class="c1"># Systemd格式重启服务</span>
+<span class="nv">$systemctl</span> restart vsftpd.service       <span class="c1"># CentOS系列重启</span>
+<span class="nv">$sudo</span> systemctl restart vsftpd.service  <span class="c1"># Ubuntu系列重启</span>
+</pre></div>
+</div>
+<p>最后使用<code class="docutils literal"><span class="pre">netstat</span> <span class="pre">-pantu</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">vsftpd</span></code>命令查看服务是否启动成功，处于监听状态</p>
+<div class="figure">
+<img alt="../../../../_images/22.png" src="../../../../_images/22.png" />
+</div>
+</div>
+<div class="section" id="x02">
+<span id="ftpclient"></span><h2>0x02 客户端登陆<a class="headerlink" href="#x02" title="永久链接至标题">¶</a></h2>
+<p id="ftpu">使用ftp客户端登陆之前，我们需要安装ftp客户端</p>
+<ul>
+<li><p class="first">linux端</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">yum</span> <span class="pre">install</span> <span class="pre">ftp</span></code></li>
+<li><code class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">ftp</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">windows端</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">Xmanage-Xshell</span></code></li>
+<li><code class="docutils literal"><span class="pre">Securecrt</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>安装好客户端后就可以使用ftp客户端登陆了，登陆方式有：</p>
+<ul class="simple">
+<li>实名用户登陆</li>
+<li>匿名用户登陆</li>
+</ul>
+<p>实名用户登陆(登陆默认进入登陆用户的家目录):</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># linux下使用ftp登陆</span>
+<span class="nv">$ftp</span> <span class="m">192</span>.168.80.128        <span class="c1"># 然后输入用户名和密码即可</span>
+
+<span class="c1"># windows下xshell登陆</span>
+<span class="nv">$ftp</span> zwy@192.168.80.128    <span class="c1"># zwy是要登陆的用户，然后输入密码即可</span>
+</pre></div>
+</div>
+<p>注意：有些用户可能不具有ftp的权限，这些用户会存在于<code class="docutils literal"><span class="pre">/etc/vsftpd/ftpusers</span></code> 和<code class="docutils literal"><span class="pre">/etc/vsftpd/user_list</span></code>文件中。如果想让这些用户可以ftp登陆，则需要将其在这两个文件删除或注释掉即可</p>
+<div class="figure">
+<img alt="../../../../_images/31.png" src="../../../../_images/31.png" />
+</div>
+<p>实名登陆有诸多弊端：</p>
+<ul class="simple">
+<li>暴露用户名和密码</li>
+<li>实名用户登陆后可以在任意目录下来回切换，不太安全</li>
+</ul>
+<p>所以一般我们都不使用实名用户登陆，而是使用匿名用户进行登陆</p>
+<p>匿名用户登陆后，是不允许匿名用户在任意目录下直接来回切换，只能在一个指定目录范围内工作，所以需要在ftp服务器上创建一个匿名用户的家目录，该目录就是匿名用户的根目录</p>
+<p>匿名用户是以ftp用户登陆的(默认无密码)，所以默认匿名用户的家目录就是ftp用户的家目录，此时我们可以通过<code class="docutils literal"><span class="pre">cat</span> <span class="pre">/etc/passwd</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">ftp</span></code>命令找到ftp用户的家目录，也就是匿名用户的家目录</p>
+<p>然后使用下列方法实现匿名用户登陆</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># linux下使用ftp登陆</span>
+<span class="nv">$ftp</span> <span class="m">192</span>.168.80.128        <span class="c1"># 然后输入用户名anonymous和密码，密码直接回车即可</span>
+
+<span class="c1"># windows下xshell登陆</span>
+<span class="nv">$ftp</span> anonymous@192.168.80.128    <span class="c1"># anonymous是匿名用户，然后输入密码，密码直接回车即可</span>
+</pre></div>
+</div>
+<p>除了可以使用默认ftp家目录作为匿名用户根目录，还可以自己设定</p>
+<ul>
+<li><p class="first">使用<code class="docutils literal"><span class="pre">mkdir</span> <span class="pre">anonyFtp</span></code>命令在指定目录下创建一个目录，即为匿名用户的家目录</p>
+</li>
+<li><p class="first">在<code class="docutils literal"><span class="pre">vsftpd.conf</span></code>配置文件中通过`` anon_root=/home/anonyFtp``设定该目录为匿名用户的登陆根目录</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">anonyFtp</span></code>目录的所有者模型可以使用默认的<code class="docutils literal"><span class="pre">owner</span></code>、<code class="docutils literal"><span class="pre">group</span></code>所有者，但是权限模型最好设置为777，即<code class="docutils literal"><span class="pre">chmod</span> <span class="pre">777</span> <span class="pre">anonyFtp</span></code>。此时owner和group都不是ftp</p>
+<blockquote>
+<div><ul class="simple">
+<li>如果要保证匿名用户能够登陆，必须保证<code class="docutils literal"><span class="pre">others所有者权限位+x</span></code></li>
+<li>如果要保证能够列出根目录下所有文件内容，必须保证<code class="docutils literal"><span class="pre">others所有者权限位+r</span></code></li>
+<li>如果要保证能够在根目录上上传文件，必须保证<code class="docutils literal"><span class="pre">others所有者权限位+w</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">如果要保证<code class="docutils literal"><span class="pre">anonyFtp</span></code>根目录下所有子目录能否切换、上传、下载，设置方法如下，这样可以保证ftp用户有可执行x权限</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">chown</span> <span class="pre">ftp:ftp</span> <span class="pre">anonyFtp/pub</span></code>：将pub目录的owner和group都设置为ftp，因为匿名用户是以ftp用户登陆的</li>
+<li><code class="docutils literal"><span class="pre">chmod</span> <span class="pre">744</span> <span class="pre">anonyFtp/pub</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">vsftpd默认被CentOS的防火墙组件SELinux拦截，造成vsftpd没有足够的权限，有两种解决方法</p>
+<blockquote>
+<div><ul>
+<li><p class="first">直接关闭SELinux，这样不太安全</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">setenforce</span> <span class="pre">0</span></code> ：暂时让SELinux进入Permissive模式，关闭SELinux，但是重启失效</li>
+<li>将<code class="docutils literal"><span class="pre">/etc/selinux/config</span></code>文件中的<code class="docutils literal"><span class="pre">SELINUX=enforcing</span></code>改成<code class="docutils literal"><span class="pre">SELINUX=permissive</span></code>,然后重读该配置文件，重启也生效</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">不需要关闭SELinux就能使vsftpd具有访问ftp根目录，以及文件传输等权限</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">getsebool</span> <span class="pre">-a</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">ftpd</span></code>：查看与ftpd相关的权限信息，off是关闭权限，on是打开权限</li>
+<li><code class="docutils literal"><span class="pre">setsebool</span> <span class="pre">-P</span> <span class="pre">ftpd_anon_write</span> <span class="pre">1</span></code>：打开ftpd_anon_write权限，重启生效</li>
+<li><code class="docutils literal"><span class="pre">setsebool</span> <span class="pre">-P</span> <span class="pre">allow_ftpd_full_access</span> <span class="pre">1</span></code>：打开allow_ftpd_full_access权限，重启生效</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">最后重启服务</p>
+</li>
+</ul>
+<p id="ftpr">使用lftp客户端登陆之前，我们需要安装lftp客户端</p>
+<ul>
+<li><p class="first">linux端</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">yum</span> <span class="pre">install</span> <span class="pre">lftp</span></code></li>
+<li><code class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">lftp</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>安装好客户端后就可以使用lftp客户端登陆了，登陆方式同样也有：</p>
+<ul class="simple">
+<li>实名用户登陆</li>
+<li>匿名用户登陆</li>
+</ul>
+<p>匿名用户登陆步骤：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">lftp</span> <span class="pre">192.168.80.128</span></code>，回车</li>
+<li>输入<code class="docutils literal"><span class="pre">login</span></code>，回车</li>
+</ul>
+<p>如果使用匿名用户登陆后<code class="docutils literal"><span class="pre">ls</span></code>出现如下错误提示：<code class="docutils literal"><span class="pre">refusing</span> <span class="pre">to</span> <span class="pre">run</span> <span class="pre">with</span> <span class="pre">writable</span> <span class="pre">root</span> <span class="pre">inside</span> <span class="pre">chroot()</span></code>，是因为默认配置中不允许根目录可写，有两种解决方法：</p>
+<ul class="simple">
+<li>方法一：<code class="docutils literal"><span class="pre">chmod</span> <span class="pre">o-w</span> <span class="pre">anonyFtp</span></code>：去掉根目录的可写权限</li>
+<li>方法二：在<code class="docutils literal"><span class="pre">/etc/vsftpd/vsftpd.conf</span></code>配置文件中，添加<code class="docutils literal"><span class="pre">allow_writeable_chroot=YES</span></code>字段</li>
+</ul>
+<p>实名用户登陆步骤：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">lftp</span> <span class="pre">test&#64;192.168.80.128</span></code>，回车</li>
+<li>输入密码回车</li>
+</ul>
+</div>
+<div class="section" id="x03">
+<span id="ftpoperation"></span><h2>0x03 连接操作<a class="headerlink" href="#x03" title="永久链接至标题">¶</a></h2>
+<p id="ftpopera">ftp客户端登陆后输入<code class="docutils literal"><span class="pre">help</span></code>即可查看ftp支持的所有操作命令</p>
+<p>linux中ftp工具支持的操作</p>
+<div class="figure">
+<img alt="../../../../_images/41.png" src="../../../../_images/41.png" />
+</div>
+<p>windows中xshell工具支持的操作</p>
+<div class="figure">
+<img alt="../../../../_images/51.png" src="../../../../_images/51.png" />
+</div>
+<p><strong>注意</strong>：ftp客户端不能直接操作目录，如果要上传下载目录，需要先将其打包压缩成一个文件</p>
+<p id="lftpopera">lftp客户端登陆后输入<code class="docutils literal"><span class="pre">help</span></code>即可查看lftp支持的所有操作命令</p>
+<div class="figure">
+<img alt="../../../../_images/61.png" src="../../../../_images/61.png" />
+</div>
+<p>其中常用操作有：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">put</span></code>：上传文件</li>
+<li><code class="docutils literal"><span class="pre">mput</span></code>：上传多个文件</li>
+<li><code class="docutils literal"><span class="pre">get</span></code>：下载文件</li>
+<li><code class="docutils literal"><span class="pre">mget</span></code>：下载多个文件</li>
+<li><code class="docutils literal"><span class="pre">mirror</span></code>：下载整个目录以及子目录</li>
+<li><code class="docutils literal"><span class="pre">mirror</span> <span class="pre">-R</span></code>：上传整个目录以及子目录</li>
+</ul>
+<p>由上述可知：lftp客户端既可以操作文件，又可以直接操作目录</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="2-nfs.html" class="btn btn-neutral float-right" title="nfs服务器" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="服务器搭建" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, HappyAnony.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

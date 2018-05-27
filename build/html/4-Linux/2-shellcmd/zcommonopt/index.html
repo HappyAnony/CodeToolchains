@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>常见操作 &mdash; CodeToolchains 1.0.0 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="索引"
+              href="../../../genindex.html"/>
+        <link rel="search" title="搜索" href="../../../search.html"/>
+    <link rel="top" title="CodeToolchains 1.0.0 文档" href="../../../index.html"/>
+        <link rel="up" title="shell命令" href="../index.html"/>
+        <link rel="next" title="其它工具" href="../zothers/index.html"/>
+        <link rel="prev" title="开发工具" href="../13-DevelopTools/index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> CodeToolchains
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../1-TextEdit/index.html">文本编辑器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2-VerControl/index.html">版本控制器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../3-IDE/index.html">IDE集成开发环境</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Linux工具集</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../1-shellenv/index.html">shell环境</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">shell命令</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../1-cmdview/index.html">命令概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../2-FileManage/index.html">文件管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../3-TextProcess/index.html">文本处理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../4-UserManage/index.html">用户管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../5-PackageManage/index.html">软件包管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6-ProcessManage/index.html">进程管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../7-SystemManage/index.html">系统管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../8-NetManage/index.html">网络管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../9-ServiceMange/index.html">服务管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10-DiskManage/index.html">磁盘管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11-SecurityManage/index.html">安全管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../12-KernelManage/index.html">内核管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../13-DevelopTools/index.html">开发工具</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">常见操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../zothers/index.html">其它工具</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../3-shellprogram/index.html">shell编程</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../5-Wildcard/index.html">通配机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../6-DataBase/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../7-WebArch/index.html">网站架构</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">CodeToolchains</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Linux工具集</a> &raquo;</li>
+        
+          <li><a href="../index.html">shell命令</a> &raquo;</li>
+        
+      <li>常见操作</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/4-Linux/2-shellcmd/zcommonopt/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>常见操作<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>1.查看内存空间使用状态</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">cat</span> <span class="pre">/proc/meninfo</span></code></li>
+<li><code class="docutils literal"><span class="pre">free</span></code>(-m:显示结果以MB位单位；-g:显示结果以GB为单位)</li>
+<li><code class="docutils literal"><span class="pre">vmstat</span> <span class="pre">-s</span></code></li>
+</ul>
+<p>2.查看当前系统挂载信息</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">mount</span></code></li>
+<li><code class="docutils literal"><span class="pre">cat</span> <span class="pre">/proc/mounts</span></code></li>
+<li><code class="docutils literal"><span class="pre">cat</span> <span class="pre">/etc/mtab</span></code></li>
+</ul>
+<p>3.查看整个目录文件 (包含目录下文件和子目录 )的大小</p>
+<ul class="simple">
+<li><cite>du -s /path/to/dir</cite></li>
+</ul>
+<p>4.查看挂载磁盘的分区信息</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">fdisk</span> <span class="pre">-l</span> <span class="pre">dev</span></code>查看指定磁盘的分区信息</li>
+<li><code class="docutils literal"><span class="pre">cat</span> <span class="pre">/proc/partitions</span></code>查看所有挂载磁盘的分区信息</li>
+</ul>
+<p>5.查看超级块SuperBlock的信息</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">dumpe2fs</span> <span class="pre">-h</span> <span class="pre">/deb/sdb</span></code></li>
+<li><code class="docutils literal"><span class="pre">tune2fs</span> <span class="pre">-l</span> <span class="pre">/deb/sdb</span></code></li>
+</ul>
+<p>6.启动图形界面</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">startx</span></code>启动Gnome界面</li>
+<li><code class="docutils literal"><span class="pre">startkde</span></code>启动KDE界面</li>
+<li><code class="docutils literal"><span class="pre">Ctrl+Alt+F7</span></code>启动图形界面</li>
+</ul>
+<p>7.取消正在执行的命令</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">Ctrl+c</span></code>当执行startx时可以使用该命令退出图形界面</li>
+</ul>
+<p>8.立即释放命令提示符(后台执行)</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">startx</span> <span class="pre">&amp;</span></code>可以在启动完图形界面后释放命令提示符</li>
+</ul>
+<p>9.翻屏</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">shift+PageUp/PageDown</span></code></li>
+</ul>
+<p>10.调用上一条命令后面的参数</p>
+<ul class="simple">
+<li>使用<code class="docutils literal"><span class="pre">esc+.</span></code>，先<code class="docutils literal"><span class="pre">esc键</span></code>然后<code class="docutils literal"><span class="pre">点号</span></code></li>
+</ul>
+<p>11.在交互模式下回删字符</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">ctrl+BackSpace</span></code></li>
+</ul>
+<p>12.查看端口对应的服务名或者服务对应的端口</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">grep</span> <span class="pre">ssh</span> <span class="pre">/etc/services</span></code>，/etc/services是一个端口名称解析库</li>
+</ul>
+<p>13.通过查看服务组件的生成文件查看服务的服务名</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">rpm</span> <span class="pre">-ql</span> <span class="pre">telnet-server</span></code></li>
+</ul>
+<p>14.关闭GUI</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">init</span> <span class="pre">3</span></code></li>
+<li><code class="docutils literal"><span class="pre">Alt+Ctrl+F1~F6</span></code></li>
+<li>修改配置文件</li>
+</ul>
+<p>15.启动GUI</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">init</span> <span class="pre">5</span></code></li>
+<li><code class="docutils literal"><span class="pre">startx</span></code></li>
+<li>修改配置文件</li>
+</ul>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../zothers/index.html" class="btn btn-neutral float-right" title="其它工具" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../13-DevelopTools/index.html" class="btn btn-neutral" title="开发工具" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, HappyAnony.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
