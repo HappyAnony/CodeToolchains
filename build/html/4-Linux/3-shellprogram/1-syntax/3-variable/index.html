@@ -227,8 +227,8 @@
 <li>不能使用<a class="reference external" href="../../../2-shellcmd/index.html">shell命令</a></li>
 </ul>
 </div>
-<div class="section" id="x01-vartypel">
-<span id="vartypel"></span><h2>0x01 vartypel<a class="headerlink" href="#x01-vartypel" title="永久链接至标题">¶</a></h2>
+<div class="section" id="x01">
+<span id="vartypel"></span><h2>0x01 变量类型<a class="headerlink" href="#x01" title="永久链接至标题">¶</a></h2>
 <p>shell脚本是弱类型解释型的语言，变量类型由不同关键字声明决定；根据变量类型可将变量分为：(变量类型即变量名的类型，它决定变量的作用域以及定义引用的方式)</p>
 <blockquote>
 <div><ul class="simple">
@@ -612,7 +612,8 @@ test<span class="o">(){</span>
 </div>
 <div class="section" id="x0105">
 <span id="propertyl"></span><h3>0x0105 变量属性<a class="headerlink" href="#x0105" title="永久链接至标题">¶</a></h3>
-<p><code class="docutils literal"><span class="pre">Var_Name=Value</span></code>语句中声明定义的变量<code class="docutils literal"><span class="pre">Var_Name</span></code>默认的属性是全局字符串变量，但是该变量可以通过一些关键字进行修饰来改变变量的属性</p>
+<p>此处的变量属性是指<code class="docutils literal"><span class="pre">数据类型</span></code>和<code class="docutils literal"><span class="pre">变量类型</span></code>，这两个属性可以通过相关命令关键字进行修改，例如：</p>
+<p><code class="docutils literal"><span class="pre">Var_Name=Value</span></code>语句中声明定义的变量<code class="docutils literal"><span class="pre">Var_Name</span></code>默认的数据类型是<code class="docutils literal"><span class="pre">字符串类型</span></code>，变量类型是<code class="docutils literal"><span class="pre">本地全局变量</span></code></p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">local</span> <span class="pre">Var_Name</span></code>声明该变量为局部变量</li>
 <li><code class="docutils literal"><span class="pre">export</span> <span class="pre">Var_Name</span></code>声明该变量为环境变量</li>

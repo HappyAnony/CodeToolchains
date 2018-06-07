@@ -206,6 +206,84 @@
 </ul>
 <div class="section" id="x00">
 <span id="valuesl"></span><h2>0x00 数值型<a class="headerlink" href="#x00" title="永久链接至标题">¶</a></h2>
+<p>首先我们来声明定义一个数值型变量：<code class="docutils literal"><span class="pre">declare</span> <span class="pre">-i</span> <span class="pre">Var_Name</span></code></p>
+<ul class="simple">
+<li>虽说声明是一个数值型变量，但是存储依然是按照字符串的形式进行存储</li>
+<li>该种方式声明，变量默认是本地全局变量，可以通过<code class="docutils literal"><span class="pre">local</span> <span class="pre">Var_Name</span></code>关键字将变量修改为局部变量，可以通过<code class="docutils literal"><span class="pre">export</span> <span class="pre">Var_Name</span></code>关键字将变量导出为环境变量</li>
+<li>除了使用<code class="docutils literal"><span class="pre">declare</span> <span class="pre">-i</span></code>显式声明变量数据类型为数值型，还可以像<code class="docutils literal"><span class="pre">Var_Name=1</span></code>由解释器动态执行隐式声明该变量数据类型为数值型</li>
+</ul>
+<p>数值型变量一般支持以下运算操作</p>
+<ul class="simple">
+<li><a class="reference external" href="#arithmeticl">算术运算</a></li>
+<li><a class="reference external" href="#logicl">逻辑运算</a></li>
+<li><a class="reference external" href="#arrayindex">数组索引</a></li>
+</ul>
+</div>
+<div class="section" id="x0000">
+<span id="arithmeticl"></span><h2>0x0000 算术运算<a class="headerlink" href="#x0000" title="永久链接至标题">¶</a></h2>
+<p>算术运算代码示例如下</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">declare</span> -i <span class="nv">val</span><span class="o">=</span><span class="m">5</span>   <span class="c1"># 显式声明数值变量</span>
+<span class="nv">num</span><span class="o">=</span><span class="m">2</span>              <span class="c1"># 隐式声明数值变量</span>
+
+<span class="c1"># 使用[]运算符执行算术表达式$val+$num</span>
+<span class="c1"># 使用$引用表达式执行结果</span>
+<span class="nb">echo</span> <span class="s2">&quot;val+num=</span>$<span class="s2">[</span><span class="nv">$val</span><span class="s2">+</span><span class="nv">$num</span><span class="s2">]&quot;</span>
+
+<span class="c1"># 使用(())运算符执行算术表达式</span>
+<span class="c1"># 使用$引用表达式执行结果</span>
+<span class="nb">echo</span> <span class="s2">&quot;val-num=</span><span class="k">$((</span><span class="nv">$val</span><span class="o">-</span><span class="nv">$num</span><span class="k">))</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;val%num=</span><span class="k">$((</span><span class="nv">$val</span><span class="o">%</span><span class="nv">$num</span><span class="k">))</span><span class="s2">&quot;</span>
+
+<span class="c1"># 使用let关键字执行算术表达式$val*$num</span>
+<span class="c1"># 使用=运算符将执行结果赋值给变量</span>
+<span class="nb">let</span> <span class="nv">ret</span><span class="o">=</span><span class="nv">$val</span>*<span class="nv">$num</span>
+<span class="nb">echo</span> <span class="s2">&quot;var*num=</span><span class="nv">$ret</span><span class="s2">&quot;</span>
+
+<span class="c1"># 使用expr命令执行算术表达式$val/$num但是$val / $num之间需要用空格隔开</span>
+<span class="c1"># 此时该表达式中的各个部分将作为参数传递给expr命令，最后使用``运算符引用命令的执行结果</span>
+<span class="c1"># 使用=运算符将命令引用结果赋值给变量</span>
+<span class="nv">ret</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$val</span> / <span class="nv">$num</span><span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">&quot;val/num=</span><span class="nv">$ret</span><span class="s2">&quot;</span>
+
+<span class="c1"># 使用let关键字执行算术表达式+=、-=、*=、/=、%=</span>
+<span class="nb">let</span> <span class="nv">val</span><span class="o">+=</span><span class="nv">$num</span>
+<span class="nb">echo</span> <span class="s2">&quot;var+=num:</span><span class="nv">$val</span><span class="s2">&quot;</span>
+<span class="nb">let</span> val-<span class="o">=</span><span class="nv">$num</span>
+<span class="nb">echo</span> <span class="s2">&quot;var-=num:</span><span class="nv">$val</span><span class="s2">&quot;</span>
+<span class="nb">let</span> val*<span class="o">=</span><span class="nv">$num</span>
+<span class="nb">echo</span> <span class="s2">&quot;val*=num:</span><span class="nv">$val</span><span class="s2">&quot;</span>
+<span class="nb">let</span> val/<span class="o">=</span><span class="nv">$sum</span>         <span class="c1"># 貌似let不支持/=运算符</span>
+<span class="nb">echo</span> <span class="s2">&quot;val/=num:</span><span class="nv">$val</span><span class="s2">&quot;</span>
+<span class="nb">let</span> val%<span class="o">=</span><span class="nv">$num</span>
+<span class="nb">echo</span> <span class="s2">&quot;val%=num:</span><span class="nv">$val</span><span class="s2">&quot;</span>
+
+<span class="c1"># 执行结果如下</span>
+<span class="c1"># val+num=7</span>
+<span class="c1"># val-num=3</span>
+<span class="c1"># val%num=1</span>
+<span class="c1"># var*num=10</span>
+<span class="c1"># val/num=2</span>
+<span class="c1"># var+=num:7</span>
+<span class="c1"># var-=num:5</span>
+<span class="c1"># val*=num:10</span>
+<span class="c1"># ./test.sh: line 19: let: val/=: syntax error: operand expected (error token is &quot;/=&quot;)</span>
+<span class="c1"># val/=num:10</span>
+<span class="c1"># val%=num:0</span>
+</pre></div>
+</div>
+<p>由上述示例可知</p>
+<ul class="simple">
+<li>数值类型变量支持的算术运算有：<code class="docutils literal"><span class="pre">加</span></code>、<code class="docutils literal"><span class="pre">减</span></code>、<code class="docutils literal"><span class="pre">乘</span></code>、<code class="docutils literal"><span class="pre">除</span></code></li>
+<li>数值类型变量支持的算术运算符有：<code class="docutils literal"><span class="pre">+</span></code>、<code class="docutils literal"><span class="pre">-</span></code>、<code class="docutils literal"><span class="pre">*</span></code>、<code class="docutils literal"><span class="pre">/</span></code>、<code class="docutils literal"><span class="pre">%</span></code>、<code class="docutils literal"><span class="pre">+=</span></code>、<code class="docutils literal"><span class="pre">-=</span></code>、<code class="docutils literal"><span class="pre">*=</span></code>、<code class="docutils literal"><span class="pre">%=</span></code></li>
+</ul>
+</div>
+<div class="section" id="x0001">
+<span id="logicl"></span><h2>0x0001 逻辑运算<a class="headerlink" href="#x0001" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="x0002">
+<span id="arrayindex"></span><h2>0x0002 数组索引<a class="headerlink" href="#x0002" title="永久链接至标题">¶</a></h2>
 </div>
 <div class="section" id="x01">
 <span id="stringsl"></span><h2>0x01 字符串型<a class="headerlink" href="#x01" title="永久链接至标题">¶</a></h2>
