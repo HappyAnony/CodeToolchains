@@ -189,30 +189,18 @@
             
   <div class="section" id="id1">
 <h1>变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>变量是一种逻辑概念，变量通过变量名进行声明、定义、赋值和引用；变量存在于内存中，设置或修改变量属性时，不带<code class="docutils literal"><span class="pre">$</span></code>，只有引用变量的值时才使用<code class="docutils literal"><span class="pre">$</span></code></p>
-<p>变量名的本质是：一段可读可写的连续内存空间的别名</p>
-<p>通过对变量名的引用就可以读写访问连续的内存空间</p>
-<p>变量名的命名须遵循如下规则：</p>
+<p>变量是一种逻辑概念，变量有三要素(也可称为三种属性)</p>
 <ul class="simple">
-<li>命名只能使用英文字母，数字和下划线，首个字符不能以数字开头</li>
-<li>中间不能有空格，可以使用下划线<code class="docutils literal"><span class="pre">_</span></code></li>
-<li>不能使用标点符号</li>
-<li>不能使用<code class="docutils literal"><span class="pre">bash</span></code>内嵌的关键字(可用<code class="docutils literal"><span class="pre">help</span></code>命令查看保留关键字)</li>
-<li>不能使用<code class="docutils literal"><span class="pre">shell命令</span></code></li>
+<li>数据类型：变量存储数据的类型；用来确定该变量存储数据的内存大小以及存储数据所能支持的运算操作(解释器执行解释)</li>
+<li>变量类型：变量名的类型；用来确定该变量的作用域以及生命周期(关键字修饰决定)</li>
+<li>变量名：访问变量存储的数据；用来访问一段可读可写的连续内存空间(自定义命名)</li>
 </ul>
-<p>shell脚本是弱类型解释型的语言，变量通常不需要特地声明甚至不需要初始化，在脚本运行时由解释器进行解释运算，解释器知道变量在什么时候是什么类型，所以直接赋值使用即可；根据不同的分类标准，可以将变量分成不同类型</p>
+<p>其中数据类型属性将在<a class="reference external" href="../2-datatype/index.html">数据类型</a>一章内容介绍</p>
+<p>在本章内容中主要介绍</p>
 <ul>
-<li><p class="first">1.根据变量数据类型进行划分：确定变量的内存空间大小、以及支持的运算(该分类变量在<a class="reference external" href="../2-datatype/index.html">数据类型</a>一章内容介绍)</p>
-<blockquote>
-<div><ul class="simple">
-<li>数值变量</li>
-<li>字符串变量</li>
-<li>数值变量</li>
-<li>列表变量</li>
-</ul>
-</div></blockquote>
+<li><p class="first"><a class="reference external" href="#varnamel">变量名</a></p>
 </li>
-<li><p class="first">2.根据变量使用位置、功用特性进行划分：确定变量的作用域以及定义引用的方式(该分类变量在本章进行展开介绍)</p>
+<li><p class="first"><a class="reference external" href="#vartypel">变量类型</a></p>
 <blockquote>
 <div><ul class="simple">
 <li><a class="reference external" href="#locall">本地变量</a></li>
@@ -226,7 +214,34 @@
 </li>
 </ul>
 <div class="section" id="x00">
-<span id="locall"></span><h2>0x00 本地变量<a class="headerlink" href="#x00" title="永久链接至标题">¶</a></h2>
+<span id="varnamel"></span><h2>0x00 变量名<a class="headerlink" href="#x00" title="永久链接至标题">¶</a></h2>
+<p>变量是通过变量名进行声明、定义、赋值和引用；变量存在于内存中，对于shell变量而言，设置或修改变量属性时，不带<code class="docutils literal"><span class="pre">$</span></code>，只有引用变量的值时才使用<code class="docutils literal"><span class="pre">$</span></code></p>
+<p>变量名的本质是：一段可读可写的连续内存空间的别名</p>
+<p>通过对变量名的引用就可以读写访问连续的内存空间</p>
+<p>变量名的命名须遵循如下规则：</p>
+<ul class="simple">
+<li>命名只能使用英文字母，数字和下划线，首个字符不能以数字开头</li>
+<li>中间不能有空格，可以使用下划线<code class="docutils literal"><span class="pre">_</span></code></li>
+<li>不能使用标点符号</li>
+<li>不能使用<code class="docutils literal"><span class="pre">bash</span></code>内嵌的关键字(可用<code class="docutils literal"><span class="pre">help</span></code>命令查看保留关键字)</li>
+<li>不能使用<a class="reference external" href="../../../2-shellcmd/index.html">shell命令</a></li>
+</ul>
+</div>
+<div class="section" id="x01-vartypel">
+<span id="vartypel"></span><h2>0x01 vartypel<a class="headerlink" href="#x01-vartypel" title="永久链接至标题">¶</a></h2>
+<p>shell脚本是弱类型解释型的语言，变量类型由不同关键字声明决定；根据变量类型可将变量分为：(变量类型即变量名的类型，它决定变量的作用域以及定义引用的方式)</p>
+<blockquote>
+<div><ul class="simple">
+<li>本地变量</li>
+<li>局部变量</li>
+<li>环境变量</li>
+<li>位置变量</li>
+<li>特殊变量</li>
+<li>变量属性</li>
+</ul>
+</div></blockquote>
+<div class="section" id="x0100">
+<span id="locall"></span><h3>0x0100 本地变量<a class="headerlink" href="#x0100" title="永久链接至标题">¶</a></h3>
 <p>本地变量可以理解为全局变量，它的作用域为：只对当前shell进程有效，对其子shell以及其他shell都无效</p>
 <p>该类型变量的声明定义方式为：<code class="docutils literal"><span class="pre">[set]Var_Name=Value</span></code></p>
 <ul class="simple">
@@ -289,8 +304,8 @@ test_two
 </pre></div>
 </div>
 </div>
-<div class="section" id="x01">
-<span id="sidel"></span><h2>0x01 局部变量<a class="headerlink" href="#x01" title="永久链接至标题">¶</a></h2>
+<div class="section" id="x0101">
+<span id="sidel"></span><h3>0x0101 局部变量<a class="headerlink" href="#x0101" title="永久链接至标题">¶</a></h3>
 <p>局部变量的作用域为：只对变量声明定义所在函数内有效</p>
 <p>该类型变量的声明定义方式为：<code class="docutils literal"><span class="pre">loca</span> <span class="pre">Var_Name=Value</span></code></p>
 <ul class="simple">
@@ -344,8 +359,8 @@ test_two
 </pre></div>
 </div>
 </div>
-<div class="section" id="x02">
-<span id="envl"></span><h2>0x02 环境变量<a class="headerlink" href="#x02" title="永久链接至标题">¶</a></h2>
+<div class="section" id="x0102">
+<span id="envl"></span><h3>0x0102 环境变量<a class="headerlink" href="#x0102" title="永久链接至标题">¶</a></h3>
 <p>环境变量可以用来</p>
 <ul class="simple">
 <li>定义bash的工作特性</li>
@@ -487,8 +502,8 @@ test_two
 </pre></div>
 </div>
 </div>
-<div class="section" id="x03">
-<span id="positionl"></span><h2>0x03 位置变量<a class="headerlink" href="#x03" title="永久链接至标题">¶</a></h2>
+<div class="section" id="x0103">
+<span id="positionl"></span><h3>0x0103 位置变量<a class="headerlink" href="#x0103" title="永久链接至标题">¶</a></h3>
 <p>位置变量无需声明定义，直接引用即可；该变量也不能被赋值修改，甚至不能被unset撤销</p>
 <p>位置变量是用来实现</p>
 <ul>
@@ -530,8 +545,8 @@ test<span class="o">(){</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="x04">
-<span id="speciall"></span><h2>0x04 特殊变量<a class="headerlink" href="#x04" title="永久链接至标题">¶</a></h2>
+<div class="section" id="x0104">
+<span id="speciall"></span><h3>0x0104 特殊变量<a class="headerlink" href="#x0104" title="永久链接至标题">¶</a></h3>
 <p>特殊变量也无需声明定义，直接引用即可；该变量也不能被赋值修改，甚至不能被unset撤销</p>
 <p>特殊变量的引用方式如下</p>
 <ul>
@@ -595,8 +610,8 @@ test<span class="o">(){</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="x05">
-<span id="propertyl"></span><h2>0x05 变量属性<a class="headerlink" href="#x05" title="永久链接至标题">¶</a></h2>
+<div class="section" id="x0105">
+<span id="propertyl"></span><h3>0x0105 变量属性<a class="headerlink" href="#x0105" title="永久链接至标题">¶</a></h3>
 <p><code class="docutils literal"><span class="pre">Var_Name=Value</span></code>语句中声明定义的变量<code class="docutils literal"><span class="pre">Var_Name</span></code>默认的属性是全局字符串变量，但是该变量可以通过一些关键字进行修饰来改变变量的属性</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">local</span> <span class="pre">Var_Name</span></code>声明该变量为局部变量</li>
@@ -607,6 +622,7 @@ test<span class="o">(){</span>
 <li><code class="docutils literal"><span class="pre">declare</span> <span class="pre">+i</span> <span class="pre">Var_Name</span></code>取消该变量的整型变量属性</li>
 <li><code class="docutils literal"><span class="pre">declare</span> <span class="pre">-p</span> <span class="pre">Var_Name</span></code>显式指定变量被声明的类型</li>
 </ul>
+</div>
 </div>
 </div>
 
