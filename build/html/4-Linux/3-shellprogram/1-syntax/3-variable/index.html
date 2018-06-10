@@ -209,13 +209,14 @@
 <li><a class="reference external" href="#positionl">位置变量</a></li>
 <li><a class="reference external" href="#speciall">特殊变量</a></li>
 <li><a class="reference external" href="#propertyl">变量属性</a></li>
+<li><a class="reference external" href="#varassignl">变量赋值</a></li>
 </ul>
 </div></blockquote>
 </li>
 </ul>
 <div class="section" id="x00">
 <span id="varnamel"></span><h2>0x00 变量名<a class="headerlink" href="#x00" title="永久链接至标题">¶</a></h2>
-<p>变量是通过变量名进行声明、定义、赋值和引用；变量存在于内存中，对于shell变量而言，设置或修改变量属性时，不带<code class="docutils literal"><span class="pre">$</span></code>，只有引用变量的值时才使用<code class="docutils literal"><span class="pre">$</span></code></p>
+<p>变量是通过变量名进行声明、定义、赋值和引用；变量存在于内存中，对于shell变量而言，设置或修改变量属性以及变量值时，不需要带<code class="docutils literal"><span class="pre">$</span></code>，只有引用变量的值时才使用<code class="docutils literal"><span class="pre">$</span></code></p>
 <p>变量名的本质是：一段可读可写的连续内存空间的别名</p>
 <p>通过对变量名的引用就可以读写访问连续的内存空间</p>
 <p>变量名的命名须遵循如下规则：</p>
@@ -366,6 +367,7 @@ test_two
 <li>定义bash的工作特性</li>
 <li>保存当前会话的属性信息</li>
 </ul>
+<p>关于环境变量的生命周期和作用域可以参考：<a class="reference external" href="../../../1-shellenv/1-shellsoft/index.html">bash环境配置</a></p>
 <p>shell环境变量有两种来源</p>
 <ul>
 <li><p class="first">系统环境变量</p>
@@ -373,9 +375,41 @@ test_two
 <div><ul>
 <li><p class="first">该环境变量已经由bash定义初始化，不用重新声明定义，只要引用就可以</p>
 <blockquote>
+<div><ul>
+<li><p class="first">使用<code class="docutils literal"><span class="pre">env</span></code>、<code class="docutils literal"><span class="pre">export</span></code>、<code class="docutils literal"><span class="pre">set</span></code>、<code class="docutils literal"><span class="pre">declare</span></code>或<code class="docutils literal"><span class="pre">printenv</span></code>可以查看当前用户的环境变量(包括系统环境变量和自定义环境变量)，以下列出部分bash默认系统环境变量(<code class="docutils literal"><span class="pre">set</span></code>和<code class="docutils literal"><span class="pre">declare</span></code>可以查看所有环境变量，其它三个命令只能查看部分环境变量)</p>
+<blockquote>
 <div><ul class="simple">
-<li>使用<code class="docutils literal"><span class="pre">env</span></code>、<code class="docutils literal"><span class="pre">export</span></code>或<code class="docutils literal"><span class="pre">printenv</span></code>可以查看当前用户的环境变量(包括系统环境变量和自定义环境变量)</li>
-<li>系统环境变量常用大写字母表示</li>
+<li><code class="docutils literal"><span class="pre">$BASH</span></code>：bash二进制程序文件的路径</li>
+<li><code class="docutils literal"><span class="pre">$BASH_SUBSHELL</span></code>：子shell的层次说明，说明用户在哪一个层次中</li>
+<li><code class="docutils literal"><span class="pre">$BASH_VERSION</span></code>：bash的版本</li>
+<li><code class="docutils literal"><span class="pre">$EDITOR</span></code>：指定默认编辑器</li>
+<li><code class="docutils literal"><span class="pre">$EUID</span></code>：有效的用户ID</li>
+<li><code class="docutils literal"><span class="pre">$UID</span></code>：当前用户的ID号</li>
+<li><code class="docutils literal"><span class="pre">$USER</span></code>：当前用户名</li>
+<li><code class="docutils literal"><span class="pre">$PATH</span></code>：自动搜索路径</li>
+<li><code class="docutils literal"><span class="pre">$LANG</span></code>：系统使用语系</li>
+<li><code class="docutils literal"><span class="pre">LOGNAME</span></code>：当前登录的用户</li>
+<li><code class="docutils literal"><span class="pre">$FUNCNAME</span></code>：当前函数的名称，在函数中引用想判断自己是什么函数</li>
+<li><code class="docutils literal"><span class="pre">$GROUPS</span></code>：当前用户所属的组</li>
+<li><code class="docutils literal"><span class="pre">$HOME</span></code>：当前用户的家目录</li>
+<li><code class="docutils literal"><span class="pre">$HOSTTYPE</span></code>：主机架构类型，用来识别系统硬件平台</li>
+<li><code class="docutils literal"><span class="pre">$MACHTYPE</span></code>：平台类型，系统平台依赖的编译平台</li>
+<li><code class="docutils literal"><span class="pre">$OSTYPE</span></code>：OS系统类型</li>
+<li><code class="docutils literal"><span class="pre">$IFS</span></code>：输入数据时的默认字段分隔符，默认是空白符(空格、制表符、换行符)</li>
+<li><code class="docutils literal"><span class="pre">$OLDPWD</span></code>：上次使用的目录</li>
+<li><code class="docutils literal"><span class="pre">$PWD</span></code>：当前目录</li>
+<li><code class="docutils literal"><span class="pre">$PPID</span></code>：父进程</li>
+<li><code class="docutils literal"><span class="pre">$PS1</span></code>：主提示符，即bash命令窗口提示符</li>
+<li><code class="docutils literal"><span class="pre">$PS2</span></code>：第二提示符，主要用于补充完全命令输入时的提示符</li>
+<li><code class="docutils literal"><span class="pre">$PS3</span></code>：第三提示符，用于select命令中</li>
+<li><code class="docutils literal"><span class="pre">$PS4</span></code>：第四提示符，当使用-X选项调用脚本时，显示的提示符，默认为+号</li>
+<li><code class="docutils literal"><span class="pre">$SECONDS</span></code>：当前脚本已经运行的时长，单位为秒</li>
+<li><code class="docutils literal"><span class="pre">$SHLVL</span></code>：shell的级别，bash被嵌入的深度</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">系统环境变量常用大写字母表示</p>
+</li>
 </ul>
 </div></blockquote>
 </li>
@@ -562,13 +596,17 @@ test<span class="o">(){</span>
 </li>
 <li><p class="first"><code class="docutils literal"><span class="pre">$BASHPID</span></code>：引用当前shell的PID，这和<code class="docutils literal"><span class="pre">$$</span></code>是不同的，因为每个shell的$BASHPID是独立的，而<code class="docutils literal"><span class="pre">$$</span></code>有时候会继承父shell的值</p>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">$!</span></code>：引用最近一次执行的后台进程PID</p>
+<li><p class="first"><code class="docutils literal"><span class="pre">$!</span></code>：引用最近一次执行的后台进程PID，即运行于后台的最后一个作业的PID</p>
 </li>
 <li><p class="first"><code class="docutils literal"><span class="pre">$#</span></code>：引用所有位置参数的个数</p>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">$*</span></code>：引用所有位置参数的整体</p>
+<li><p class="first"><code class="docutils literal"><span class="pre">$*</span></code>：引用所有位置参数的整体，即所有参数被当做一个字符串</p>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">$&#64;</span></code>：引用所有单个位置参数</p>
+<li><p class="first"><code class="docutils literal"><span class="pre">$&#64;</span></code>：引用所有单个位置参数，即每个参数都是一个独立的字符串</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">$_</span></code>：引用上一条命令的最后一个参数的值</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">$-</span></code>：引用传递给脚本的标记</p>
 </li>
 </ul>
 <p>示例程序如下</p>
@@ -622,6 +660,20 @@ test<span class="o">(){</span>
 <li><code class="docutils literal"><span class="pre">declare</span> <span class="pre">-i</span> <span class="pre">Var_Name</span></code>声明该变量为整型变量</li>
 <li><code class="docutils literal"><span class="pre">declare</span> <span class="pre">+i</span> <span class="pre">Var_Name</span></code>取消该变量的整型变量属性</li>
 <li><code class="docutils literal"><span class="pre">declare</span> <span class="pre">-p</span> <span class="pre">Var_Name</span></code>显式指定变量被声明的类型</li>
+<li><code class="docutils literal"><span class="pre">declare</span> <span class="pre">-r</span> <span class="pre">Var_Name</span></code>声明该变量为只读变量，不能撤销，不能修改，相当于readonly，只有当前进程终止才消失</li>
+<li><code class="docutils literal"><span class="pre">declare</span> <span class="pre">+r</span> <span class="pre">Var_Name</span></code>取消该变量的只读变量属性</li>
+</ul>
+<p>可以使用<code class="docutils literal"><span class="pre">man</span> <span class="pre">declare</span></code>查看<code class="docutils literal"><span class="pre">declare</span></code>命令的详细使用方法</p>
+</div>
+<div class="section" id="x0106">
+<span id="varassignl"></span><h3>0x0106 变量赋值<a class="headerlink" href="#x0106" title="永久链接至标题">¶</a></h3>
+<p>除了上述介绍的<code class="docutils literal"><span class="pre">Var_Name=Value</span></code>赋值方式，还有以下变量赋值的方式，以下赋值方式常用来给变量赋默认值</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">${var:-default}</span></code>：如果var没有声明或者声明了为空，则返回default代表的值；如果var声明了不为空，则返回var代表的值</li>
+<li><code class="docutils literal"><span class="pre">${var-default}</span></code>：如果var没有声明，则返回default代表的值；如果var声明了但是为空，则返回null；如果var声明了不为空，则返回var代表的值</li>
+<li><code class="docutils literal"><span class="pre">${var:+default}</span></code>：如果var没有声明或者声明了为空，不做任何操作，返回空；如果var声明了不为空，则返回default代表的值</li>
+<li><code class="docutils literal"><span class="pre">${var:=default}</span></code>：如果var没有声明或者声明了为空，则返回default代表的值，并将default的值赋值给var；如果var声明了不为空，则返回var代表的值</li>
+<li><code class="docutils literal"><span class="pre">${var:?default}</span></code>：如果var没有声明或者声明了为空，则以default为错误信息返回；如果var声明了不为空，则返回var代表的值</li>
 </ul>
 </div>
 </div>

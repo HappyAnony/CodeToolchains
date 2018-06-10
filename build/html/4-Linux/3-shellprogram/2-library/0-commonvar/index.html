@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>常用命令 &mdash; CodeToolchains 1.0.0 文档</title>
+  <title>常用环境变量 &mdash; CodeToolchains 1.0.0 文档</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="search" title="搜索" href="../../../../search.html"/>
     <link rel="top" title="CodeToolchains 1.0.0 文档" href="../../../../index.html"/>
         <link rel="up" title="常用类库" href="../index.html"/>
-        <link rel="next" title="常用函数" href="../2-commonfunc/index.html"/>
+        <link rel="next" title="常用命令" href="../1-commoncmd/index.html"/>
         <link rel="prev" title="常用类库" href="../index.html"/> 
 
   
@@ -101,7 +101,8 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html">shell编程</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../../1-syntax/index.html">语法基础</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../index.html">常用类库</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">常用命令</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">常用环境变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../1-commoncmd/index.html">常用命令</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../2-commonfunc/index.html">常用函数</a></li>
 </ul>
 </li>
@@ -163,13 +164,13 @@
         
           <li><a href="../index.html">常用类库</a> &raquo;</li>
         
-      <li>常用命令</li>
+      <li>常用环境变量</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../../_sources/4-Linux/3-shellprogram/2-library/1-commoncmd/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../../_sources/4-Linux/3-shellprogram/2-library/0-commonvar/index.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -183,10 +184,33 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>常用命令<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>shift轮替变量</p>
-<p>命令mktemp创建临时文件或目录</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>mktemp <span class="o">[</span>-d<span class="o">]</span> /tmp/file.XX   <span class="c1"># X指定越多，随机生成的后缀就越长，其中-d表示创建临时目录。</span>
+<h1>常用环境变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>bash的伪随机数生成器</p>
+<ul class="simple">
+<li>$RANDOM=======生成0~32767之间的随机数</li>
+<li>$[RANDOM%num]===生成0~num之间的随机数；对算术表达式的值进行引用时需要使用[]</li>
+</ul>
+<p>代码示例：通过脚本生成n个随机数(N&gt;5),对这些随机数按从小到大排序</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">declare</span> -a arrynumber
+<span class="nb">read</span> -p <span class="s2">&quot;Enter a number:&quot;</span> opt
+<span class="nv">opt</span><span class="o">=</span>$<span class="o">[</span>opt-1<span class="o">]</span>
+<span class="k">for</span> i in <span class="sb">`</span>seq <span class="m">0</span> <span class="nv">$opt</span><span class="sb">`</span><span class="p">;</span><span class="k">do</span>
+  arrynumer<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span>$<span class="o">[</span>RANDOM%1000<span class="o">]</span>
+<span class="k">done</span>
+<span class="nb">let</span> <span class="nv">length</span><span class="o">=</span><span class="si">${#</span><span class="nv">arrynumer</span><span class="p">[@]</span><span class="si">}</span>
+<span class="nv">length</span><span class="o">=</span>$<span class="o">[</span>length-1<span class="o">]</span>
+<span class="k">for</span> i in <span class="sb">`</span>seq <span class="m">0</span> <span class="nv">$length</span><span class="sb">`</span><span class="p">;</span><span class="k">do</span>
+  <span class="nb">let</span> <span class="nv">j</span><span class="o">=</span>i+1
+  <span class="k">for</span> j in <span class="sb">`</span>seq <span class="nv">$j</span> <span class="nv">$length</span><span class="sb">`</span><span class="p">;</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="o">[</span> <span class="si">${</span><span class="nv">arrynumer</span><span class="p">[</span><span class="nv">$j</span><span class="p">]</span><span class="si">}</span> -lt <span class="si">${</span><span class="nv">arrynumer</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+        <span class="nv">temp</span><span class="o">=</span><span class="si">${</span><span class="nv">arrynumer</span><span class="p">[</span><span class="nv">$j</span><span class="p">]</span><span class="si">}</span>
+        arrynumer<span class="o">[</span><span class="nv">$j</span><span class="o">]=</span><span class="si">${</span><span class="nv">arrynumer</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>
+        arrynumer<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span><span class="nv">$temp</span>
+      <span class="k">fi</span>
+  <span class="k">done</span>
+  <span class="nb">echo</span> <span class="si">${</span><span class="nv">arrynumer</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>
+<span class="k">done</span>
 </pre></div>
 </div>
 </div>
@@ -201,7 +225,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../2-commonfunc/index.html" class="btn btn-neutral float-right" title="常用函数" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../1-commoncmd/index.html" class="btn btn-neutral float-right" title="常用命令" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../index.html" class="btn btn-neutral" title="常用类库" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
