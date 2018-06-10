@@ -214,9 +214,16 @@
 </ul>
 <div class="section" id="x00">
 <span id="orderstate"></span><h2>0x00 顺序执行语句<a class="headerlink" href="#x00" title="永久链接至标题">¶</a></h2>
+<p>顺序执行语句是默认法则，即按照自上而下、自左往右的顺序逐条执行各命令，每执行一次就会得到对应的结果，然后退出该次执行操作</p>
 </div>
 <div class="section" id="x01">
 <span id="conditionstate"></span><h2>0x01 条件执行语句<a class="headerlink" href="#x01" title="永久链接至标题">¶</a></h2>
+<p>条件执行语句会根据判断条件选择符合条件的分支执行对应的<code class="docutils literal"><span class="pre">cmd_list</span></code>命令列表，执行完命令后就会退出该分支；条件执行语句有以下几种</p>
+<ul class="simple">
+<li><a class="reference external" href="#ifconditon">if条件语句</a></li>
+<li><a class="reference external" href="#casecondition">case条件语句</a></li>
+<li><a class="reference external" href="#selectcondition">select条件语句</a></li>
+</ul>
 </div>
 <div class="section" id="x0100-if">
 <span id="ifconditon"></span><h2>0x0100 if条件语句<a class="headerlink" href="#x0100-if" title="永久链接至标题">¶</a></h2>
@@ -229,6 +236,12 @@
 </div>
 <div class="section" id="x02">
 <span id="loopstate"></span><h2>0x02 循环执行语句<a class="headerlink" href="#x02" title="永久链接至标题">¶</a></h2>
+<p>循环执行语句会根据判断条件循环多次执行对应的循环体<code class="docutils literal"><span class="pre">cmd_list</span></code>命令列表，当判断条件不满足时就会退出该循环体；循环执行语句有以下几种</p>
+<ul class="simple">
+<li><a class="reference external" href="#forloop">for循环语句</a></li>
+<li><a class="reference external" href="#whileloop">while循环语句</a></li>
+<li><a class="reference external" href="#untilloop">until循环语句</a></li>
+</ul>
 </div>
 <div class="section" id="x0200-for">
 <span id="forloop"></span><h2>0x0200 for循环语句<a class="headerlink" href="#x0200-for" title="永久链接至标题">¶</a></h2>
