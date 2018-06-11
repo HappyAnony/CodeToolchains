@@ -199,6 +199,7 @@
 <li><a class="reference external" href="#ifconditon">if条件语句</a></li>
 <li><a class="reference external" href="#casecondition">case条件语句</a></li>
 <li><a class="reference external" href="#selectcondition">select条件语句</a></li>
+<li><a class="reference external" href="#conteststate">条件测试表达式</a></li>
 </ul>
 </div></blockquote>
 </li>
@@ -227,6 +228,91 @@
 </div>
 <div class="section" id="x0100-if">
 <span id="ifconditon"></span><h2>0x0100 if条件语句<a class="headerlink" href="#x0100-if" title="永久链接至标题">¶</a></h2>
+<p>if条件语句的语法结构如下(使用<code class="docutils literal"><span class="pre">help</span> <span class="pre">if</span></code>命令可以查看)</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="k">if</span> TEST_COMMANDS<span class="p">;</span> <span class="k">then</span>
+        COMMANDS_LIST<span class="p">;</span>
+<span class="o">[</span><span class="k">elif</span> TEST_COMMANDS<span class="p">;</span> <span class="k">then</span>
+        COMMANDS_LIST<span class="p">;</span><span class="o">]</span>
+...
+<span class="o">[</span><span class="k">else</span>
+        COMMANDS_LIST<span class="p">;</span><span class="o">]</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p>其执行逻辑是</p>
+<ul class="simple">
+<li><strong>1.</strong> 先执行<code class="docutils literal"><span class="pre">if</span></code>分支下的<code class="docutils literal"><span class="pre">TEST_COMMANDS</span></code>条件测试命令，如果执行完的状态返回值为<code class="docutils literal"><span class="pre">非0</span></code>，则执行第2步；如果执行完的状态返回值为<code class="docutils literal"><span class="pre">0</span></code>，即<code class="docutils literal"><span class="pre">TEST_COMMANDS</span></code>条件测试命令执行成功，则执行该分支下的<code class="docutils literal"><span class="pre">COMMANDS_LIST</span></code>命令列表，执行完后就直接退出，此时整个if语句结构体的状态返回值取决于<code class="docutils literal"><span class="pre">COMMANDS_LIST</span></code>命令列表中最后一个命令的状态返回值</li>
+<li><strong>2.</strong>如果存在<code class="docutils literal"><span class="pre">elif</span></code>分支，则按照第一步的流程依次执行<code class="docutils literal"><span class="pre">elif</span></code>分支下的<code class="docutils literal"><span class="pre">TEST_COMMANDS</span></code>条件测试命令，如果没有一个<code class="docutils literal"><span class="pre">elif</span></code>分支的状态返回值为<code class="docutils literal"><span class="pre">0</span></code>，则执行第3步；如果存在一个<code class="docutils literal"><span class="pre">elif</span></code>分支的状态返回值为<code class="docutils literal"><span class="pre">0</span></code>，即该分支下的<code class="docutils literal"><span class="pre">TEST_COMMANDS</span></code>条件测试命令执行成功，则执行该分支下的<code class="docutils literal"><span class="pre">COMMANDS_LIST</span></code>命令列表，执行完后就直接退出，此时整个if语句结构体的状态返回值取决于<code class="docutils literal"><span class="pre">COMMANDS_LIST</span></code>命令列表中最后一个命令的状态返回值</li>
+<li><strong>3.</strong>如果<code class="docutils literal"><span class="pre">else</span></code>分支不存在，那么整个if语句结构体的状态返回值为<code class="docutils literal"><span class="pre">0</span></code>；如果存在<code class="docutils literal"><span class="pre">else</span></code>分支，则执行该分支下的<code class="docutils literal"><span class="pre">COMMANDS_LIST</span></code>命令列表，执行完后就直接退出，此时整个if语句结构体的状态返回值取决于<code class="docutils literal"><span class="pre">COMMANDS_LIST</span></code>命令列表中最后一个命令的状态返回值</li>
+</ul>
+<p>在整个if语句结构体中有两个地方需要注意</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">COMMANDS_LIST</span></code>：表示待执行的命令列表，即一系列shell命令的集合，类型格式多种多样，在一系列示例代码中可见一斑</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">TEST_COMMANDS</span></code>：表示条件测试命令，即通过引用条件测试命令的执行状态返回值是否为<code class="docutils literal"><span class="pre">0</span></code>来判断是否执行上述<code class="docutils literal"><span class="pre">COMMANDS_LIST</span></code>命令列表；<strong>这里需要特别注意的是，和其它语言不通，shell的条件测试命令只有以下三种类型</strong></p>
+<blockquote>
+<div><ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">命令执行</span></code>：命令本身执行后就会产生对应的执行状态返回值，所以可以直接用来做条件判断</p>
+<blockquote>
+<div><ul class="simple">
+<li>此时不能使用<code class="docutils literal"><span class="pre">``</span></code>操作符来引用命令，因为该操作引用的是命令的执行结果，而不是命令的执行状态返回值</li>
+<li>通常是直接使用命令，然后在命令后面添加<code class="docutils literal"><span class="pre">s&amp;&gt;</span> <span class="pre">/dev/null</span></code>，表示将命令的执行结果重定向至<code class="docutils literal"><span class="pre">/dev/null</span></code>，只引用其状态返回值；例如：<code class="docutils literal"><span class="pre">if</span> <span class="pre">grep</span> <span class="pre">&quot;^root&quot;</span> <span class="pre">/etc/passwd</span> <span class="pre">&amp;&gt;</span> <span class="pre">/dev/null;</span> <span class="pre">then</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">执行条件测试表达式</span></code>：在shell中，条件测试表达式是由条件测试操作符以及对应的操作数组成，详细介绍可参考下列：<a class="reference external" href="#conteststate">条件测试表达式</a>，执行条件测试表达式有以下三种格式</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">test</span> <span class="pre">Test_Expression</span></code>：通过<code class="docutils literal"><span class="pre">test</span></code>命令执行</li>
+<li><code class="docutils literal"><span class="pre">[</span> <span class="pre">Test_Expression</span> <span class="pre">]</span></code>：通过<code class="docutils literal"><span class="pre">[]</span></code>操作符执行，注意<code class="docutils literal"><span class="pre">Test_Expression</span></code> 前后有空格</li>
+<li><code class="docutils literal"><span class="pre">[[</span> <span class="pre">Test_Expression</span> <span class="pre">]]</span></code>：通过<code class="docutils literal"><span class="pre">[[]]</span></code>操作符执行，注意<code class="docutils literal"><span class="pre">Test_Expression</span></code> 前后有空格</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">组合条件测试</span></code>：即对多个<code class="docutils literal"><span class="pre">命令执行状态返回值</span></code>或者<code class="docutils literal"><span class="pre">执行条件测试表达式状态返回值</span></code>做逻辑运算，组合条件测试有以下三种格式</p>
+<blockquote>
+<div><ul>
+<li><p class="first">逻辑与操作：只有当<code class="docutils literal"><span class="pre">&amp;&amp;</span></code>操作符两边执行结果都为真(状态值为0)，最后组合条件测试结果才为真(状态值为0)</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">[</span> <span class="pre">Test_Expression1</span> <span class="pre">]</span> <span class="pre">&amp;&amp;</span> <span class="pre">[</span> <span class="pre">Test_Expression2</span> <span class="pre">]</span></code>：此处使用<code class="docutils literal"><span class="pre">[]</span></code>或<code class="docutils literal"><span class="pre">[[]]</span></code>都行</li>
+<li><code class="docutils literal"><span class="pre">COMMAND</span> <span class="pre">&amp;&gt;</span> <span class="pre">/dev/null</span> <span class="pre">&amp;&amp;</span> <span class="pre">[</span> <span class="pre">Test_Expression2</span> <span class="pre">]</span></code>：此处使用<code class="docutils literal"><span class="pre">[]</span></code>或<code class="docutils literal"><span class="pre">[[]]</span></code>都行</li>
+<li><code class="docutils literal"><span class="pre">COMMAND1</span> <span class="pre">&amp;&gt;</span> <span class="pre">/dev/null</span> <span class="pre">&amp;&amp;</span> <span class="pre">COMMAND2</span> <span class="pre">&amp;&gt;</span> <span class="pre">/dev/null</span> <span class="pre">&amp;&amp;</span></code></li>
+<li><code class="docutils literal"><span class="pre">[</span> <span class="pre">Test_Expression1</span> <span class="pre">-a</span> <span class="pre">Test_Expression2</span> <span class="pre">]</span></code>：此处使用<code class="docutils literal"><span class="pre">[]</span></code>或<code class="docutils literal"><span class="pre">[[]]</span></code>都行</li>
+<li><code class="docutils literal"><span class="pre">[[</span> <span class="pre">Test_Expression1</span> <span class="pre">&amp;&amp;</span> <span class="pre">Test_Expression2</span> <span class="pre">]]</span></code>：此处只能使用<code class="docutils literal"><span class="pre">[[]]</span></code>操作符，因为<code class="docutils literal"><span class="pre">&amp;&amp;</span></code>运算符不允许用于<code class="docutils literal"><span class="pre">[]</span></code>操作符中</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">逻辑或操作：只要<code class="docutils literal"><span class="pre">||</span></code>操作符两边执行结果有一个为真(状态值为0)，最后组合条件测试结果就为真(状态值为0)</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">[</span> <span class="pre">Test_Expression1</span> <span class="pre">]</span> <span class="pre">||</span> <span class="pre">[</span> <span class="pre">Test_Expression2</span> <span class="pre">]</span></code>：此处使用<code class="docutils literal"><span class="pre">[]</span></code>或<code class="docutils literal"><span class="pre">[[]]</span></code>都行</li>
+<li><code class="docutils literal"><span class="pre">COMMAND</span> <span class="pre">&amp;&gt;</span> <span class="pre">/dev/null</span> <span class="pre">||</span> <span class="pre">[</span> <span class="pre">Test_Expression2</span> <span class="pre">]</span></code>：此处使用<code class="docutils literal"><span class="pre">[]</span></code>或<code class="docutils literal"><span class="pre">[[]]</span></code>都行</li>
+<li><code class="docutils literal"><span class="pre">COMMAND1</span> <span class="pre">&amp;&gt;</span> <span class="pre">/dev/null</span> <span class="pre">||</span> <span class="pre">COMMAND2</span> <span class="pre">&amp;&gt;</span> <span class="pre">/dev/null</span> <span class="pre">&amp;&amp;</span></code></li>
+<li><code class="docutils literal"><span class="pre">[</span> <span class="pre">Test_Expression1</span> <span class="pre">-0</span> <span class="pre">Test_Expression2</span> <span class="pre">]</span></code>：此处使用<code class="docutils literal"><span class="pre">[]</span></code>或<code class="docutils literal"><span class="pre">[[]]</span></code>都行</li>
+<li><code class="docutils literal"><span class="pre">[[</span> <span class="pre">Test_Expression1</span> <span class="pre">||</span> <span class="pre">Test_Expression2</span> <span class="pre">]]</span></code>：此处只能使用<code class="docutils literal"><span class="pre">[[]]</span></code>操作符，因为<code class="docutils literal"><span class="pre">||</span></code>运算符不允许用于<code class="docutils literal"><span class="pre">[]</span></code>操作符中</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">逻辑非操作：对<code class="docutils literal"><span class="pre">!</span></code>右侧执行结果取反</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">!</span> <span class="pre">[</span> <span class="pre">Test_Expression</span> <span class="pre">]</span></code>：此处使用<code class="docutils literal"><span class="pre">[]</span></code>或<code class="docutils literal"><span class="pre">[[]]</span></code>都行</li>
+<li><code class="docutils literal"><span class="pre">!</span> <span class="pre">COMMAND1</span> <span class="pre">&amp;&gt;</span> <span class="pre">/dev/null</span></code></li>
+<li><code class="docutils literal"><span class="pre">!</span> <span class="pre">([</span> <span class="pre">Test_Expression1</span> <span class="pre">]</span> <span class="pre">||</span> <span class="pre">[</span> <span class="pre">Test_Expression2</span> <span class="pre">])</span></code>：此处相当于<code class="docutils literal"><span class="pre">!</span> <span class="pre">[</span> <span class="pre">Test_Expression1</span> <span class="pre">]</span> <span class="pre">&amp;&amp;</span> <span class="pre">!</span> <span class="pre">[</span> <span class="pre">Test_Expression2</span> <span class="pre">]</span></code></li>
+<li><code class="docutils literal"><span class="pre">!</span> <span class="pre">([</span> <span class="pre">Test_Expression1</span> <span class="pre">]</span> <span class="pre">&amp;&amp;</span> <span class="pre">[</span> <span class="pre">Test_Expression2</span> <span class="pre">])</span></code>：此处相当于<code class="docutils literal"><span class="pre">!</span> <span class="pre">[</span> <span class="pre">Test_Expression1</span> <span class="pre">]</span> <span class="pre">||</span> <span class="pre">!</span> <span class="pre">[</span> <span class="pre">Test_Expression2</span> <span class="pre">]</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">注意：<strong>非的优先级大于与，与的优先级大于或</strong></p>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
 </div>
 <div class="section" id="x0101-case">
 <span id="casecondition"></span><h2>0x0101 case条件语句<a class="headerlink" href="#x0101-case" title="永久链接至标题">¶</a></h2>
@@ -234,8 +320,11 @@
 <div class="section" id="x0102-select">
 <span id="selectcondition"></span><h2>0x0102 select条件语句<a class="headerlink" href="#x0102-select" title="永久链接至标题">¶</a></h2>
 </div>
+<div class="section" id="x0103">
+<span id="conteststate"></span><span id="loopstate"></span><h2>0x0103 条件测试表达式<a class="headerlink" href="#x0103" title="永久链接至标题">¶</a></h2>
+</div>
 <div class="section" id="x02">
-<span id="loopstate"></span><h2>0x02 循环执行语句<a class="headerlink" href="#x02" title="永久链接至标题">¶</a></h2>
+<h2>0x02 循环执行语句<a class="headerlink" href="#x02" title="永久链接至标题">¶</a></h2>
 <p>循环执行语句会根据判断条件循环多次执行对应的循环体<code class="docutils literal"><span class="pre">cmd_list</span></code>命令列表，当判断条件不满足时就会退出该循环体；循环执行语句有以下几种</p>
 <ul class="simple">
 <li><a class="reference external" href="#forloop">for循环语句</a></li>

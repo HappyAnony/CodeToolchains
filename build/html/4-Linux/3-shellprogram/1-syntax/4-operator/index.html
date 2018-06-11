@@ -328,11 +328,37 @@
 <div class="section" id="x03">
 <span id="logicalll"></span><h2>0x03 逻辑操作符<a class="headerlink" href="#x03" title="永久链接至标题">¶</a></h2>
 <p>逻辑操作符有</p>
-<ul class="simple">
-<li>逻辑与<code class="docutils literal"><span class="pre">&amp;&amp;</span></code></li>
-<li>逻辑或<code class="docutils literal"><span class="pre">||</span></code></li>
-<li>逻辑非<code class="docutils literal"><span class="pre">!</span></code></li>
+<ul>
+<li><p class="first">逻辑与<code class="docutils literal"><span class="pre">&amp;&amp;</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">真</span> <span class="pre">&amp;&amp;</span> <span class="pre">真</span> <span class="pre">=</span> <span class="pre">真</span></code></li>
+<li><code class="docutils literal"><span class="pre">真</span> <span class="pre">&amp;&amp;</span> <span class="pre">假</span> <span class="pre">=</span> <span class="pre">假</span></code></li>
+<li><code class="docutils literal"><span class="pre">假</span> <span class="pre">&amp;&amp;</span> <span class="pre">真</span> <span class="pre">=</span> <span class="pre">假</span></code></li>
+<li><code class="docutils literal"><span class="pre">假</span> <span class="pre">&amp;&amp;</span> <span class="pre">假</span> <span class="pre">=</span> <span class="pre">假</span></code></li>
 </ul>
+</div></blockquote>
+</li>
+<li><p class="first">逻辑或<code class="docutils literal"><span class="pre">||</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">真</span> <span class="pre">||</span> <span class="pre">真</span> <span class="pre">=</span> <span class="pre">真</span></code></li>
+<li><code class="docutils literal"><span class="pre">真</span> <span class="pre">||</span> <span class="pre">假</span> <span class="pre">=</span> <span class="pre">真</span></code></li>
+<li><code class="docutils literal"><span class="pre">假</span> <span class="pre">||</span> <span class="pre">真</span> <span class="pre">=</span> <span class="pre">真</span></code></li>
+<li><code class="docutils literal"><span class="pre">假</span> <span class="pre">||</span> <span class="pre">假</span> <span class="pre">=</span> <span class="pre">假</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">逻辑非<code class="docutils literal"><span class="pre">!</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">！真</span> <span class="pre">=</span> <span class="pre">假</span></code></li>
+<li><code class="docutils literal"><span class="pre">！假</span> <span class="pre">=</span> <span class="pre">真</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>注意：各种编译语言对逻辑真、假的定义不同，在shell中，状态值为0代表真，状态值为非0代表假</strong></p>
 </div>
 <div class="section" id="x04">
 <span id="parenthesel"></span><h2>0x04 括号操作符<a class="headerlink" href="#x04" title="永久链接至标题">¶</a></h2>
