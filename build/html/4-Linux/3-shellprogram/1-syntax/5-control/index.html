@@ -195,22 +195,34 @@
 </li>
 <li><p class="first"><a class="reference external" href="#conditionstate">条件执行语句</a></p>
 <blockquote>
+<div><ul>
+<li><p class="first"><a class="reference external" href="#ifconditon">if条件语句</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="#casecondition">case条件语句</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="#selectcondition">select条件语句</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="#conteststate">条件测试表达式</a></p>
+<blockquote>
 <div><ul class="simple">
-<li><a class="reference external" href="#ifconditon">if条件语句</a></li>
-<li><a class="reference external" href="#casecondition">case条件语句</a></li>
-<li><a class="reference external" href="#selectcondition">select条件语句</a></li>
-<li><a class="reference external" href="#conteststate">条件测试表达式</a></li>
+<li><a class="reference external" href="#intergtest">整数测试表达式</a></li>
+<li><a class="reference external" href="#chartest">字符测试表达式</a></li>
+<li><a class="reference external" href="#filetest">文件测试表达式</a></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first"><a class="reference external" href="#loopstate">循环执行语句</a></p>
-<blockquote>
-<div><ul class="simple">
+</ul>
+</div></blockquote>
+</li>
+<li><dl class="first docutils">
+<dt><a class="reference external" href="#loopstate">循环执行语句</a></dt>
+<dd><ul class="first last simple">
 <li><a class="reference external" href="#forloop">for循环语句</a></li>
 <li><a class="reference external" href="#whileloop">while循环语句</a></li>
 <li><a class="reference external" href="#untilloop">until循环语句</a></li>
 </ul>
-</div></blockquote>
+</dd>
+</dl>
 </li>
 </ul>
 <div class="section" id="x00">
@@ -225,9 +237,8 @@
 <li><a class="reference external" href="#casecondition">case条件语句</a></li>
 <li><a class="reference external" href="#selectcondition">select条件语句</a></li>
 </ul>
-</div>
 <div class="section" id="x0100-if">
-<span id="ifconditon"></span><h2>0x0100 if条件语句<a class="headerlink" href="#x0100-if" title="永久链接至标题">¶</a></h2>
+<span id="ifconditon"></span><h3>0x0100 if条件语句<a class="headerlink" href="#x0100-if" title="永久链接至标题">¶</a></h3>
 <p>if条件语句的语法结构如下(使用<code class="docutils literal"><span class="pre">help</span> <span class="pre">if</span></code>命令可以查看)</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="k">if</span> TEST_COMMANDS<span class="p">;</span> <span class="k">then</span>
         COMMANDS_LIST<span class="p">;</span>
@@ -315,13 +326,121 @@
 </ul>
 </div>
 <div class="section" id="x0101-case">
-<span id="casecondition"></span><h2>0x0101 case条件语句<a class="headerlink" href="#x0101-case" title="永久链接至标题">¶</a></h2>
+<span id="casecondition"></span><h3>0x0101 case条件语句<a class="headerlink" href="#x0101-case" title="永久链接至标题">¶</a></h3>
 </div>
 <div class="section" id="x0102-select">
-<span id="selectcondition"></span><h2>0x0102 select条件语句<a class="headerlink" href="#x0102-select" title="永久链接至标题">¶</a></h2>
+<span id="selectcondition"></span><h3>0x0102 select条件语句<a class="headerlink" href="#x0102-select" title="永久链接至标题">¶</a></h3>
 </div>
 <div class="section" id="x0103">
-<span id="conteststate"></span><span id="loopstate"></span><h2>0x0103 条件测试表达式<a class="headerlink" href="#x0103" title="永久链接至标题">¶</a></h2>
+<span id="conteststate"></span><span id="loopstate"></span><h3>0x0103 条件测试表达式<a class="headerlink" href="#x0103" title="永久链接至标题">¶</a></h3>
+<p>条件测试表达式有以下几种类型</p>
+<ul class="simple">
+<li><a class="reference external" href="#intergtest">整数测试表达式</a></li>
+<li><a class="reference external" href="#chartest">字符测试表达式</a></li>
+<li><a class="reference external" href="#filetest">文件测试表达式</a></li>
+</ul>
+<p id="intergtest">整数测试表达式的格式为：<code class="docutils literal"><span class="pre">NUM1</span> <span class="pre">操作符</span> <span class="pre">NUM2</span></code></p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">NUM1</span></code>和<code class="docutils literal"><span class="pre">NUM2</span></code>是整数，可以直接是整数值(例如：<code class="docutils literal"><span class="pre">2</span></code>)，可以是变量引用(例如：<code class="docutils literal"><span class="pre">$#</span></code>)，也可以是算术运算得到的值(参考<a class="reference external" href="../2-datatype/index.html#arithmeticl">算术运算</a>)</p>
+</li>
+<li><p class="first">整数测试操作符有</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">-eq</span></code>：等于</li>
+<li><code class="docutils literal"><span class="pre">-ne</span></code>：不等于</li>
+<li><code class="docutils literal"><span class="pre">-le</span></code>：小于等于</li>
+<li><code class="docutils literal"><span class="pre">-ge</span></code>：大于等于</li>
+<li><code class="docutils literal"><span class="pre">-lt</span></code>：小于</li>
+<li><code class="docutils literal"><span class="pre">-gt</span></code>:大于</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p id="chartest">字符测试表达式的格式有两种格式</p>
+<ul>
+<li><p class="first">双目测试格式：<code class="docutils literal"><span class="pre">STR1</span> <span class="pre">双目操作符</span> <span class="pre">STR2</span></code></p>
+<blockquote>
+<div><ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">STR1</span></code>和<code class="docutils literal"><span class="pre">STR2</span></code>是字符串，shell中默认数据类型是字符串，即不带<code class="docutils literal"><span class="pre">&quot;&quot;</span></code>默认都会被当做字符串类型；但是在此处，必须使用<code class="docutils literal"><span class="pre">&quot;&quot;</span></code>(除非是模式匹配中的模式字符串，才不用引号)</p>
+</li>
+<li><p class="first">双目测试操作符有</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">&gt;</span></code>：表示左边的字符串大于右边的字符串</li>
+<li><code class="docutils literal"><span class="pre">&lt;</span></code>：表示左边的字符串小于右边的字符串</li>
+<li><code class="docutils literal"><span class="pre">==</span></code>：表示左边的字符串等于右边的字符串</li>
+<li><code class="docutils literal"><span class="pre">!=</span></code>、<code class="docutils literal"><span class="pre">&lt;&gt;</span></code>：表示左右两边的字符串完全不相等</li>
+<li><code class="docutils literal"><span class="pre">=~</span></code>：左侧是普通字符串，右侧是一个模式字符串，用来判断左侧的字符串能否被右侧的模式所匹配：但是必须在<code class="docutils literal"><span class="pre">[[]]</span></code>中才能执行模式匹配；模式中可以使用行首、行尾锚定符，但是<strong>模式不要加引号</strong>，有时候可能不需要转义，具体模式书写格式可参考<a class="reference external" href="../../../../5-Wildcard/2-Regular/1-syntax/index.html">正则表达式</a></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">单目测试格式：<code class="docutils literal"><span class="pre">单目操作符</span> <span class="pre">STR</span></code></p>
+<blockquote>
+<div><ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">STR</span></code>是字符串，shell中默认数据类型是字符串，即不带<code class="docutils literal"><span class="pre">&quot;&quot;</span></code>默认都会被当做字符串类型；但是在此处，必须使用<code class="docutils literal"><span class="pre">&quot;&quot;</span></code></p>
+</li>
+<li><p class="first">单目测试操作符有</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">-n</span></code>: 判断字符串是否不空，不空为真，空则为假</li>
+<li><code class="docutils literal"><span class="pre">-z</span></code>：判断字符串是否为空，空则为真，不空则假</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p id="filetest">文件测试表达式的格式也有两种</p>
+<ul>
+<li><p class="first">单目测试格式：<code class="docutils literal"><span class="pre">单目操作符</span> <span class="pre">FILE</span></code></p>
+<blockquote>
+<div><ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">FILE</span></code>是文件名，一般使用绝对路径</p>
+</li>
+<li><p class="first">单目操作符有</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">-e</span> <span class="pre">FILE</span></code>：测试文件是否存在</li>
+<li><code class="docutils literal"><span class="pre">-a</span> <span class="pre">FILE</span></code>：测试文件是否存在</li>
+<li><code class="docutils literal"><span class="pre">-f</span> <span class="pre">FILE</span></code>：测试是否为普通文件</li>
+<li><code class="docutils literal"><span class="pre">-d</span> <span class="pre">FILE</span></code>： 测试是否为目录文件</li>
+<li><code class="docutils literal"><span class="pre">-b</span> <span class="pre">FILE</span></code>：测试文件是否存在并且是否为一个块设备文件</li>
+<li><code class="docutils literal"><span class="pre">-c</span> <span class="pre">FILE</span></code>：测试文件是否存在并且是否为一个字符设备文件</li>
+<li><code class="docutils literal"><span class="pre">-h|-L</span> <span class="pre">FILE</span></code>：测试文件是否存在并且是否为符号链接文件</li>
+<li><code class="docutils literal"><span class="pre">-p</span> <span class="pre">FILE</span></code>：测试文件是否存在并且是否为管道文件：</li>
+<li><code class="docutils literal"><span class="pre">-S</span> <span class="pre">FILE</span></code>：测试文件是否存在并且是否为套接字文件：</li>
+<li><code class="docutils literal"><span class="pre">-r</span> <span class="pre">FILE</span></code>：测试其有效用户是否对此文件有读取权限</li>
+<li><code class="docutils literal"><span class="pre">-w</span> <span class="pre">FILE</span></code>：测试其有效用户是否对此文件有写权限</li>
+<li><code class="docutils literal"><span class="pre">-x</span> <span class="pre">FILE</span></code>：测试其有效用户是否对此文件有执行权限</li>
+<li><code class="docutils literal"><span class="pre">-s</span> <span class="pre">FILE</span></code>：测试文件是否存在并且不空</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">双目测试格式：<code class="docutils literal"><span class="pre">FILE1</span> <span class="pre">双目操作符</span> <span class="pre">FILE2</span></code></p>
+<blockquote>
+<div><ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">FILE1</span></code>和<code class="docutils literal"><span class="pre">FILE2</span></code>是文件名，一般使用绝对路径</p>
+</li>
+<li><p class="first">双目操作符有</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">FILE1</span> <span class="pre">-nt</span> <span class="pre">FILE2</span></code>：测试FILE1是否比FILE2更new一些</li>
+<li><code class="docutils literal"><span class="pre">FILE1</span> <span class="pre">-ot</span> <span class="pre">FILE2</span></code>：测试FILE1是否比FILE2更old一些</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
 </div>
 <div class="section" id="x02">
 <h2>0x02 循环执行语句<a class="headerlink" href="#x02" title="永久链接至标题">¶</a></h2>
