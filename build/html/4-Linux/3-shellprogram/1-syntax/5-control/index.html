@@ -259,6 +259,11 @@
 <p>在整个if语句结构体中有两个地方需要注意</p>
 <ul>
 <li><p class="first"><code class="docutils literal"><span class="pre">COMMANDS_LIST</span></code>：表示待执行的命令列表，即一系列shell命令的集合，类型格式多种多样，在一系列示例代码中可见一斑</p>
+<blockquote>
+<div><ul class="simple">
+<li>注意：在命令列表中不能使用<code class="docutils literal"><span class="pre">()</span></code>操作符改变优先级，它的作用是让括号内的语句成为命令列表进入子shell中执行，它的具体作用可参考：<a class="reference external" href="../4-operator/index.html#parenthesel">括号操作符</a></li>
+</ul>
+</div></blockquote>
 </li>
 <li><p class="first"><code class="docutils literal"><span class="pre">TEST_COMMANDS</span></code>：表示条件测试命令，即通过引用条件测试命令的执行状态返回值是否为<code class="docutils literal"><span class="pre">0</span></code>来判断是否执行上述<code class="docutils literal"><span class="pre">COMMANDS_LIST</span></code>命令列表；<strong>这里需要特别注意的是，和其它语言不通，shell的条件测试命令只有以下三种类型</strong></p>
 <blockquote>
@@ -266,7 +271,7 @@
 <li><p class="first"><code class="docutils literal"><span class="pre">命令执行</span></code>：命令本身执行后就会产生对应的执行状态返回值，所以可以直接用来做条件判断</p>
 <blockquote>
 <div><ul class="simple">
-<li>此时不能使用<code class="docutils literal"><span class="pre">``</span></code>操作符来引用命令，因为该操作引用的是命令的执行结果，而不是命令的执行状态返回值</li>
+<li>此时不能使用<strong>``</strong>操作符来引用命令，因为该操作引用的是命令的执行结果，而不是命令的执行状态返回值</li>
 <li>通常是直接使用命令，然后在命令后面添加<code class="docutils literal"><span class="pre">s&amp;&gt;</span> <span class="pre">/dev/null</span></code>，表示将命令的执行结果重定向至<code class="docutils literal"><span class="pre">/dev/null</span></code>，只引用其状态返回值；例如：<code class="docutils literal"><span class="pre">if</span> <span class="pre">grep</span> <span class="pre">&quot;^root&quot;</span> <span class="pre">/etc/passwd</span> <span class="pre">&amp;&gt;</span> <span class="pre">/dev/null;</span> <span class="pre">then</span></code></li>
 </ul>
 </div></blockquote>
@@ -324,9 +329,196 @@
 </div></blockquote>
 </li>
 </ul>
+<p>示例代码如下</p>
+<ul class="simple">
+<li>输出两个传入参数中的最大值</li>
+</ul>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -lt <span class="m">2</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">&quot;`basename </span><span class="nv">$0</span><span class="s2">` arg1 arg2&quot;</span>
+        <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$1</span> -gt <span class="nv">$2</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">&quot;the max num is </span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+        <span class="nb">echo</span> <span class="s2">&quot;the max num is </span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>计算1~200之间偶数之和</li>
+</ul>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">declare</span> -i <span class="nv">sum</span><span class="o">=</span><span class="m">0</span>
+<span class="k">for</span> i in <span class="o">{</span><span class="m">1</span>..200<span class="o">}</span><span class="p">;</span><span class="k">do</span>
+        <span class="k">if</span> <span class="o">[</span> $<span class="o">[</span><span class="nv">$i</span>%2<span class="o">]</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+                <span class="nb">let</span> <span class="nv">sum</span><span class="o">+=</span><span class="nv">$i</span>
+        <span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;the sum is : </span><span class="nv">$sum</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>让用户输入一个用户名，先判断该用户是否存在，不存在，则以7为退出码；如果存在，判断用户的shell是否为<code class="docutils literal"><span class="pre">/bin/bash</span></code>，如果是，则显示为<code class="docutils literal"><span class="pre">Bash</span> <span class="pre">User</span></code>，退出码为0，否则显示为<code class="docutils literal"><span class="pre">Not</span> <span class="pre">Bash</span> <span class="pre">User</span></code>，退出码为1</li>
+</ul>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">read</span> -p <span class="s2">&quot;please input username: &quot;</span> username
+
+<span class="nb">echo</span> <span class="nv">$username</span>
+<span class="k">if</span> ! grep <span class="s2">&quot;^</span><span class="nv">$username</span><span class="s2">\&gt;&quot;</span> /etc/passwd <span class="p">&amp;</span>&gt; /dev/null<span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">&quot;User not exist&quot;</span>
+        <span class="nb">exit</span> <span class="m">7</span>
+<span class="k">elif</span> <span class="o">[[</span> <span class="sb">`</span>grep <span class="s2">&quot;^</span><span class="nv">$username</span><span class="s2">\&gt;&quot;</span> /etc/passwd <span class="p">|</span> cut -d: -f7<span class="sb">`</span> <span class="o">=</span>~ /bin/bash <span class="o">]]</span><span class="p">;</span><span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Bash User&quot;</span>
+        <span class="nb">exit</span> <span class="m">0</span>
+<span class="k">else</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Not Bash User&quot;</span>
+        <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>统计输入文件的空白行数</li>
+</ul>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">read</span> -p <span class="s2">&quot;Enter a file path: &quot;</span> filename
+
+<span class="k">if</span> grep <span class="s2">&quot;^</span>$<span class="s2">&quot;</span> <span class="nv">$filename</span> <span class="p">&amp;</span>&gt; /dev/dull<span class="p">;</span> <span class="k">then</span>
+        <span class="nv">linesCount</span><span class="o">=</span><span class="sb">`</span>grep <span class="s2">&quot;^</span>$<span class="s2">&quot;</span> <span class="nv">$filename</span> <span class="p">|</span> wc -l<span class="sb">`</span>
+        <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2"> has </span><span class="nv">$linesCount</span><span class="s2"> space lines&quot;</span>
+<span class="k">else</span>
+        <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2"> has no space linse&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="x0101-case">
 <span id="casecondition"></span><h3>0x0101 case条件语句<a class="headerlink" href="#x0101-case" title="永久链接至标题">¶</a></h3>
+<p>case条件语句的语法结构如下(使用<code class="docutils literal"><span class="pre">help</span> <span class="pre">case</span></code>命令可以查看)</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="k">case</span> WORD in
+        PATTERN1<span class="o">)</span>
+                COMMANDS_LIST
+                <span class="p">;;</span>
+        PATTERN2<span class="o">)</span>
+                COMMANDS_LIST
+                <span class="p">;;</span>
+        PATTERN3<span class="o">)</span>
+                COMMANDS_LIST
+                <span class="p">;;</span>
+        ...
+<span class="k">esac</span>
+</pre></div>
+</div>
+<p>其执行逻辑是：<code class="docutils literal"><span class="pre">WORD</span></code>依次匹配<code class="docutils literal"><span class="pre">PATTERN1</span></code>、<code class="docutils literal"><span class="pre">PATTERN2</span></code>、<code class="docutils literal"><span class="pre">PATTERN3</span></code>……；如果所有模式都没有匹配上，则直接退出<code class="docutils literal"><span class="pre">case</span></code>语句，此时执行状态返回值为<code class="docutils literal"><span class="pre">0</span></code>；如果匹配上任意一个<code class="docutils literal"><span class="pre">PATTERN</span></code>就执行该分支下面的<code class="docutils literal"><span class="pre">COMMANDS_LIST</span></code>命令列表，执行完后就直接退出，此时整个case语句结构体的状态返回值取决于<code class="docutils literal"><span class="pre">COMMANDS_LIST</span></code>命令列表中最后一个命令的状态返回值；模式的匹配优先级是<code class="docutils literal"><span class="pre">PATTERN1</span></code>&gt; <code class="docutils literal"><span class="pre">PATTERN2</span></code>&gt; <code class="docutils literal"><span class="pre">PATTERN3</span></code>&gt; <code class="docutils literal"><span class="pre">......</span></code></p>
+<p>在以上结构中，有以下几点需要注意</p>
+<ul>
+<li><p class="first">case中的每个小分支都以双分号<code class="docutils literal"><span class="pre">;;</span></code>结尾，表示执行完该分支后直接退出<code class="docutils literal"><span class="pre">case</span></code>语句；但最后一个小分句的双分号可以省略。实际上，小分句除了使用<code class="docutils literal"><span class="pre">;;</span></code>结尾，还可以使用<code class="docutils literal"><span class="pre">;&amp;</span></code>和<code class="docutils literal"><span class="pre">;;&amp;</span></code>结尾，只不过意义不同，如下</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">;;</span></code>符号表示小分支执行完成后立即退出case语句</li>
+<li><code class="docutils literal"><span class="pre">;&amp;</span></code>符号表示继续执行下一个小分支中的<code class="docutils literal"><span class="pre">COMMANDS_LIST</span></code>部分，而无需进行匹配动作，并由此小分支的结尾符号来决定是否继续操作下一个小分句</li>
+<li><code class="docutils literal"><span class="pre">;;&amp;</span></code>符号表示继续向后(不止是下一个，而是一直向后)匹配小分支，如果匹配成功，则执行对应小分支中的<code class="docutils literal"><span class="pre">COMMANDS_LIST</span></code>部分，并由此小分支的结尾符号来决定是否继续向后匹配</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">每个小分支中的<code class="docutils literal"><span class="pre">PATTERN</span></code>部分都使用括号<code class="docutils literal"><span class="pre">()</span></code>包围，只不过左括号<code class="docutils literal"><span class="pre">(</span></code>不是必须的</p>
+</li>
+<li><p class="first">一般最后一个小分支使用的<code class="docutils literal"><span class="pre">PATTERN</span></code>是<code class="docutils literal"><span class="pre">*</span></code>，表示无法匹配前面所有小分支时，将匹配该小分支；用来避免case语句无法匹配的情况，在shell脚本中，此小分支一般用于提示用户脚本的使用方法，即给出脚本的<code class="docutils literal"><span class="pre">Usage</span></code></p>
+</li>
+</ul>
+<p>这里也需要说明下以下两个关键组成成分</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">WORD</span></code>：一般是字符串类型</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">PATTERN</span></code>：该模式支持<a class="reference external" href="../../../../5-Wildcard/1-FileWildcard.html">通配符机制</a>(注意不是正则表达式)</p>
+<blockquote>
+<div><ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">*</span></code>：匹配任意长度的任意字符</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">?</span></code>: 匹配单个任意字符</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">[]</span></code>: 匹配指定字符范围内的任意单个字符，不区分大小写</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">[a-z]</span></code>：不区分大小写，可以匹配大写字母</li>
+<li><code class="docutils literal"><span class="pre">[A-Z]</span></code>：不区分大小写，可以匹配小写字母</li>
+<li><code class="docutils literal"><span class="pre">[0-9]</span></code>：匹配0到9任意单个数字</li>
+<li><code class="docutils literal"><span class="pre">[a-z0-9]</span></code>：匹配单个字母或数字</li>
+<li><code class="docutils literal"><span class="pre">[[:upper:]]</span></code>：匹配单个大写字母</li>
+<li><code class="docutils literal"><span class="pre">[[:lower:]]</span></code>：匹配单个小写字母</li>
+<li><code class="docutils literal"><span class="pre">[[:alpha:]]</span></code>：匹配单个大写或小写字母</li>
+<li><code class="docutils literal"><span class="pre">[[:digit:]]</span></code>：匹配单个数字</li>
+<li><code class="docutils literal"><span class="pre">[[:alnum:]]</span></code>：匹配单个字母或数字</li>
+<li><code class="docutils literal"><span class="pre">[[:space:]]</span></code>：匹配单个空格字符</li>
+<li><code class="docutils literal"><span class="pre">[[:punct:]]</span></code>：匹配单个标点符号</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">[^]</span></code>: 匹配指定字符范围外的任意单个字符</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">[^a-z]</span></code>：匹配字母之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^A-Z]</span></code>：匹配字母之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^0-9]</span></code>：匹配数字之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^a-z0-9]</span></code>：匹配字母和数字之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^[:upper:]]</span></code>：匹配大写字母之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^[:lower:]]</span></code>：匹配小写字母之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^[:alpha:]]</span></code>：匹配字母之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^[:digit:]]</span></code>：匹配数字之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^[:alnum:]]</span></code>：匹配字母和数字之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^[:space:]]</span></code>：匹配空格字符之外的单个字符</li>
+<li><code class="docutils literal"><span class="pre">[^[:punct:]]</span></code>：匹配标点符号之外的单个字符</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">|</span></code>：用来分隔上述<code class="docutils literal"><span class="pre">*</span></code> 、<code class="docutils literal"><span class="pre">?</span></code>、<code class="docutils literal"><span class="pre">[]</span></code>、<code class="docutils literal"><span class="pre">[^]</span></code>通配元字符；例如<code class="docutils literal"><span class="pre">([yY]</span> <span class="pre">|</span> <span class="pre">[yY][eE][sS]])</span></code>表示即可以输入单个字母的<code class="docutils literal"><span class="pre">y或Y</span></code>，还可以输入<code class="docutils literal"><span class="pre">yes三个字母的任意大小写格式</span></code></p>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>示例代码如下</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span> -- y
+
+<span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> in
+    <span class="o">([</span>yY<span class="o">]</span><span class="p">|</span><span class="o">[</span>yY<span class="o">][</span>eE<span class="o">][</span>sS<span class="o">])</span>
+        <span class="nb">echo</span> yes<span class="p">;&amp;</span>
+    <span class="o">([</span>nN<span class="o">]</span><span class="p">|</span><span class="o">[</span>nN<span class="o">][</span>oO<span class="o">])</span>
+        <span class="nb">echo</span> no<span class="p">;;</span>
+    <span class="o">(</span>*<span class="o">)</span>
+        <span class="nb">echo</span> wrong<span class="p">;;</span>
+<span class="k">esac</span>
+
+<span class="c1"># 执行结果如下</span>
+<span class="c1"># yes</span>
+<span class="c1"># no</span>
+</pre></div>
+</div>
+<p>其中<code class="docutils literal"><span class="pre">set</span> <span class="pre">--</span> <span class="pre">string_list</span></code>的作用是将<code class="docutils literal"><span class="pre">string_list</span></code>按照<code class="docutils literal"><span class="pre">IFS</span></code>分隔后分别赋值给位置变量<code class="docutils literal"><span class="pre">$1、$2、$3...</span></code>，因此此处是为<code class="docutils literal"><span class="pre">$1</span></code>赋值字符<code class="docutils literal"><span class="pre">y</span></code></p>
+<p>在此示例中，<code class="docutils literal"><span class="pre">$1</span></code>能匹配第一个小分支，但第一个小分支的结尾符号为<code class="docutils literal"><span class="pre">;&amp;</span></code>，所以无需判断地直接执行第二个小分支的<code class="docutils literal"><span class="pre">echo</span> <span class="pre">no</span></code>，但第二个小分支的结尾符号为<code class="docutils literal"><span class="pre">;;</span></code>，于是直接退出case语句。因此，即使<code class="docutils literal"><span class="pre">$1</span></code>无法匹配第二个小分句，case语句的结果中也输出了<code class="docutils literal"><span class="pre">yes</span></code>和<code class="docutils literal"><span class="pre">no</span></code></p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span> -- y
+
+<span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> in
+    <span class="o">([</span>yY<span class="o">]</span><span class="p">|</span><span class="o">[</span>yY<span class="o">][</span>eE<span class="o">][</span>sS<span class="o">])</span>
+        <span class="nb">echo</span> yes<span class="p">;;&amp;</span>
+    <span class="o">([</span>nN<span class="o">]</span><span class="p">|</span><span class="o">[</span>nN<span class="o">][</span>oO<span class="o">])</span>
+        <span class="nb">echo</span> no<span class="p">;;</span>
+    <span class="o">(</span>*<span class="o">)</span>
+        <span class="nb">echo</span> wrong<span class="p">;;</span>
+<span class="k">esac</span>
+
+<span class="c1"># 执行结果如下</span>
+<span class="c1"># yes</span>
+<span class="c1"># wrong</span>
+</pre></div>
+</div>
+<p>在此示例中，<code class="docutils literal"><span class="pre">$1</span></code>能匹配第一个小分支，但第一个小分支的结尾符号为<code class="docutils literal"><span class="pre">;;&amp;</span></code>，所以继续向下匹配，第二个小分支未匹配成功，直到第三个小分支才被匹配上，于是执行第三个小分支中的<code class="docutils literal"><span class="pre">echo</span> <span class="pre">wrong</span></code>，但第三个小分支的结尾符号为<code class="docutils literal"><span class="pre">;;</span></code>，于是直接退出case语句。所以，结果中输出了<code class="docutils literal"><span class="pre">yes</span></code>和<code class="docutils literal"><span class="pre">wrong</span></code></p>
 </div>
 <div class="section" id="x0102-select">
 <span id="selectcondition"></span><h3>0x0102 select条件语句<a class="headerlink" href="#x0102-select" title="永久链接至标题">¶</a></h3>
