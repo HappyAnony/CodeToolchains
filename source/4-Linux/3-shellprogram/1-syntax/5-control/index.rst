@@ -42,7 +42,7 @@
 0x0100 if条件语句
 ^^^^^^^^^^^^^^^^^^
 
-if条件语句的语法结构如下(使用\ ``help if``\ 命令可以查看)
+\ ``if条件语句``\ 的语法结构如下(使用\ ``help if``\ 命令可以查看)
 
 .. code-block:: sh
 
@@ -175,7 +175,7 @@ if条件语句的语法结构如下(使用\ ``help if``\ 命令可以查看)
 0x0101 case条件语句
 ^^^^^^^^^^^^^^^^^^^^^^
 
-case条件语句的语法结构如下(使用\ ``help case``\ 命令可以查看)
+\ ``case条件语句``\ 的语法结构如下(使用\ ``help case``\ 命令可以查看)
 
 .. code-block:: sh
 
@@ -292,7 +292,50 @@ case条件语句的语法结构如下(使用\ ``help case``\ 命令可以查看)
 0x0102 select条件语句
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-.. _loopstate:
+\ ``select条件语句``\ 是一种可以提供菜单选择的条件判断语句，其语法结构如下(使用\ ``help select``\ 命令可以查看)
+
+.. code-block:: sh
+
+	select NAME [in WORDS ... ;] do 
+		COMMANDS_LIST
+	done
+
+其执行逻辑是
+
+- \ **1.**\ 如果\ ``in WORDS``\ 部分存在，则会将\ ``WORDS``\ 部分根据环境变量\ ``IFS``\ 进行分割，对分割后的每一项依次进行编号作为菜单项输出；如果\ ``in WORDS``\ 部分不存在，则使用\ ``in $@``\ 代替，即将位置变量的内容进行编号作为菜单项输出
+- \ **2.**\ 当输入内容能够匹配输出菜单序号时，该序号将会保存到变量\ ``NAME``\ 中，该序号对应的内容将会保存到特殊变量\ ``REPLY``\ 中；当输入内容不能匹配输出菜单序号时，比如随便几个字符，变量\ ``NAME``\ 将会被置空，特殊变量\ ``REPLY``\ 将会保存所有输入内容
+- \ **3.**\ 每次输入选择保存\ ``NAME``\ 和\ ``REPLY``\ 变量后，就会直接执行\ ``COMMANDS_LIST``\ 部分；如果没有\ ``break``\ 命令，则会跳回第一步，循环重复执行，直到遇到\ ``break``\ 命令或者\ ``ctrl+c``\ 退出\ ``select``\ 语句
+
+
+示例代码如下
+
+.. code-block:: sh
+
+	#!/bin/bash
+
+	select fname in cat dog sheep mouse;do
+	        echo your choice: \"$REPLY\) $fname\"
+	done
+
+	# 执行结果如下
+	[root@localhost ~]# ./test.sh 
+	1) cat
+	2) dog
+	3) sheep
+	4) mouse
+	#? 1                      # 输入序号1
+	your choice: "1) cat"
+	#? 2                      # 输入序号2
+	your choice: "2) dog"
+	#? 3                      # 输入序号3
+	your choice: "3) sheep"
+	#? 4                      # 输入序号4
+	your choice: "4) mouse"
+	#? 5                      # 输入序号5，没有该序号值，所有fname变量置空
+	your choice: "5) "
+	#? anony                  # 输入anony，不是序号值，所以fname变量置空
+	your choice: "anony) "
+	#? ^C                     # select语句中没有break命令，通过ctrl+c退出select语句
 
 
 .. _conteststate:
@@ -373,10 +416,12 @@ case条件语句的语法结构如下(使用\ ``help case``\ 命令可以查看)
 		- \ ``FILE1 -ot FILE2``\ ：测试FILE1是否比FILE2更old一些
 
 
+.. _loopstate:
+
 0x02 循环执行语句
 ~~~~~~~~~~~~~~~~~~~
 
-循环执行语句会根据判断条件循环多次执行对应的循环体\ ``cmd_list``\ 命令列表，当判断条件不满足时就会退出该循环体；循环执行语句有以下几种
+循环执行语句会根据判断条件循环多次执行对应的循环体\ ``cmd_list``\ 命令列表，当判断条件不满足时就会退出该循环体，需要注意的是：\ **循环必须有退出条件，否则将陷入死循环**\ ；循环执行语句有以下几种
 
 - \ `for循环语句 <#forloop>`_\ 
 - \ `while循环语句 <#whileloop>`_\ 
@@ -387,14 +432,45 @@ case条件语句的语法结构如下(使用\ ``help case``\ 命令可以查看)
 0x0200 for循环语句
 ~~~~~~~~~~~~~~~~~~~~
 
+\ ``for循环语句``\ 在shell脚本中应用及其广泛，它有两种语法结构(使用\ ``help for``\ 命令可以查看)
+
+.. code-block:: sh
+
+	# 结构一
+	for NAME [in WORDS ... ] ; do 
+		COMMANDS_LIST
+	done
+
+
+	# 结构二
+	for (( exp1; exp2; exp3 )); do 
+		COMMANDS_LIST
+	done
+
 .. _whileloop:
 
 0x0201 while循环语句
 ~~~~~~~~~~~~~~~~~~~~~~~
 
+\ ``while循环语句``\ 的语法结构如下(使用\ ``help while``\ 命令可以查看)
+
+.. code-block:: sh
+
+	while TEST_COMMANDS_LIST; do 
+		COMMANDS_LIST
+	done
+
 .. _untilloop:
 
 0x0202 until循环语句
 ~~~~~~~~~~~~~~~~~~~~~
+
+\ ``until循环语句``\ 的语法结构如下(使用\ ``help until``\ 命令可以查看)
+
+.. code-block:: sh
+
+	until TEST_COMMANDS_LIST; do
+		COMMANDS_LIST
+	done
 
 

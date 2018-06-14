@@ -239,7 +239,7 @@
 </ul>
 <div class="section" id="x0100-if">
 <span id="ifconditon"></span><h3>0x0100 if条件语句<a class="headerlink" href="#x0100-if" title="永久链接至标题">¶</a></h3>
-<p>if条件语句的语法结构如下(使用<code class="docutils literal"><span class="pre">help</span> <span class="pre">if</span></code>命令可以查看)</p>
+<p><code class="docutils literal"><span class="pre">if条件语句</span></code>的语法结构如下(使用<code class="docutils literal"><span class="pre">help</span> <span class="pre">if</span></code>命令可以查看)</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="k">if</span> TEST_COMMANDS<span class="p">;</span> <span class="k">then</span>
         COMMANDS_LIST<span class="p">;</span>
 <span class="o">[</span><span class="k">elif</span> TEST_COMMANDS<span class="p">;</span> <span class="k">then</span>
@@ -398,7 +398,7 @@
 </div>
 <div class="section" id="x0101-case">
 <span id="casecondition"></span><h3>0x0101 case条件语句<a class="headerlink" href="#x0101-case" title="永久链接至标题">¶</a></h3>
-<p>case条件语句的语法结构如下(使用<code class="docutils literal"><span class="pre">help</span> <span class="pre">case</span></code>命令可以查看)</p>
+<p><code class="docutils literal"><span class="pre">case条件语句</span></code>的语法结构如下(使用<code class="docutils literal"><span class="pre">help</span> <span class="pre">case</span></code>命令可以查看)</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="k">case</span> WORD in
         PATTERN1<span class="o">)</span>
                 COMMANDS_LIST
@@ -522,9 +522,49 @@
 </div>
 <div class="section" id="x0102-select">
 <span id="selectcondition"></span><h3>0x0102 select条件语句<a class="headerlink" href="#x0102-select" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">select条件语句</span></code>是一种可以提供菜单选择的条件判断语句，其语法结构如下(使用<code class="docutils literal"><span class="pre">help</span> <span class="pre">select</span></code>命令可以查看)</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="k">select</span> NAME <span class="o">[</span>in WORDS ... <span class="p">;</span><span class="o">]</span> <span class="k">do</span>
+        COMMANDS_LIST
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>其执行逻辑是</p>
+<ul class="simple">
+<li><strong>1.</strong>如果<code class="docutils literal"><span class="pre">in</span> <span class="pre">WORDS</span></code>部分存在，则会将<code class="docutils literal"><span class="pre">WORDS</span></code>部分根据环境变量<code class="docutils literal"><span class="pre">IFS</span></code>进行分割，对分割后的每一项依次进行编号作为菜单项输出；如果<code class="docutils literal"><span class="pre">in</span> <span class="pre">WORDS</span></code>部分不存在，则使用<code class="docutils literal"><span class="pre">in</span> <span class="pre">$&#64;</span></code>代替，即将位置变量的内容进行编号作为菜单项输出</li>
+<li><strong>2.</strong>当输入内容能够匹配输出菜单序号时，该序号将会保存到变量<code class="docutils literal"><span class="pre">NAME</span></code>中，该序号对应的内容将会保存到特殊变量<code class="docutils literal"><span class="pre">REPLY</span></code>中；当输入内容不能匹配输出菜单序号时，比如随便几个字符，变量<code class="docutils literal"><span class="pre">NAME</span></code>将会被置空，特殊变量<code class="docutils literal"><span class="pre">REPLY</span></code>将会保存所有输入内容</li>
+<li><strong>3.</strong>每次输入选择保存<code class="docutils literal"><span class="pre">NAME</span></code>和<code class="docutils literal"><span class="pre">REPLY</span></code>变量后，就会直接执行<code class="docutils literal"><span class="pre">COMMANDS_LIST</span></code>部分；如果没有<code class="docutils literal"><span class="pre">break</span></code>命令，则会跳回第一步，循环重复执行，直到遇到<code class="docutils literal"><span class="pre">break</span></code>命令或者<code class="docutils literal"><span class="pre">ctrl+c</span></code>退出<code class="docutils literal"><span class="pre">select</span></code>语句</li>
+</ul>
+<p>示例代码如下</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="k">select</span> fname in cat dog sheep mouse<span class="p">;</span><span class="k">do</span>
+        <span class="nb">echo</span> your choice: <span class="se">\&quot;</span><span class="nv">$REPLY</span><span class="se">\)</span> <span class="nv">$fname</span><span class="se">\&quot;</span>
+<span class="k">done</span>
+
+<span class="c1"># 执行结果如下</span>
+<span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># ./test.sh</span>
+<span class="m">1</span><span class="o">)</span> cat
+<span class="m">2</span><span class="o">)</span> dog
+<span class="m">3</span><span class="o">)</span> sheep
+<span class="m">4</span><span class="o">)</span> mouse
+<span class="c1">#? 1                      # 输入序号1</span>
+your choice: <span class="s2">&quot;1) cat&quot;</span>
+<span class="c1">#? 2                      # 输入序号2</span>
+your choice: <span class="s2">&quot;2) dog&quot;</span>
+<span class="c1">#? 3                      # 输入序号3</span>
+your choice: <span class="s2">&quot;3) sheep&quot;</span>
+<span class="c1">#? 4                      # 输入序号4</span>
+your choice: <span class="s2">&quot;4) mouse&quot;</span>
+<span class="c1">#? 5                      # 输入序号5，没有该序号值，所有fname变量置空</span>
+your choice: <span class="s2">&quot;5) &quot;</span>
+<span class="c1">#? anony                  # 输入anony，不是序号值，所以fname变量置空</span>
+your choice: <span class="s2">&quot;anony) &quot;</span>
+<span class="c1">#? ^C                     # select语句中没有break命令，通过ctrl+c退出select语句</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="x0103">
-<span id="conteststate"></span><span id="loopstate"></span><h3>0x0103 条件测试表达式<a class="headerlink" href="#x0103" title="永久链接至标题">¶</a></h3>
+<span id="conteststate"></span><h3>0x0103 条件测试表达式<a class="headerlink" href="#x0103" title="永久链接至标题">¶</a></h3>
 <p>条件测试表达式有以下几种类型</p>
 <ul class="simple">
 <li><a class="reference external" href="#intergtest">整数测试表达式</a></li>
@@ -635,8 +675,8 @@
 </div>
 </div>
 <div class="section" id="x02">
-<h2>0x02 循环执行语句<a class="headerlink" href="#x02" title="永久链接至标题">¶</a></h2>
-<p>循环执行语句会根据判断条件循环多次执行对应的循环体<code class="docutils literal"><span class="pre">cmd_list</span></code>命令列表，当判断条件不满足时就会退出该循环体；循环执行语句有以下几种</p>
+<span id="loopstate"></span><h2>0x02 循环执行语句<a class="headerlink" href="#x02" title="永久链接至标题">¶</a></h2>
+<p>循环执行语句会根据判断条件循环多次执行对应的循环体<code class="docutils literal"><span class="pre">cmd_list</span></code>命令列表，当判断条件不满足时就会退出该循环体，需要注意的是：<strong>循环必须有退出条件，否则将陷入死循环</strong>；循环执行语句有以下几种</p>
 <ul class="simple">
 <li><a class="reference external" href="#forloop">for循环语句</a></li>
 <li><a class="reference external" href="#whileloop">while循环语句</a></li>
@@ -645,12 +685,37 @@
 </div>
 <div class="section" id="x0200-for">
 <span id="forloop"></span><h2>0x0200 for循环语句<a class="headerlink" href="#x0200-for" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">for循环语句</span></code>在shell脚本中应用及其广泛，它有两种语法结构(使用<code class="docutils literal"><span class="pre">help</span> <span class="pre">for</span></code>命令可以查看)</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># 结构一</span>
+<span class="k">for</span> NAME <span class="o">[</span>in WORDS ... <span class="o">]</span> <span class="p">;</span> <span class="k">do</span>
+        COMMANDS_LIST
+<span class="k">done</span>
+
+
+<span class="c1"># 结构二</span>
+<span class="k">for</span> <span class="o">((</span> exp1<span class="p">;</span> exp2<span class="p">;</span> exp3 <span class="o">))</span><span class="p">;</span> <span class="k">do</span>
+        COMMANDS_LIST
+<span class="k">done</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="x0201-while">
 <span id="whileloop"></span><h2>0x0201 while循环语句<a class="headerlink" href="#x0201-while" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">while循环语句</span></code>的语法结构如下(使用<code class="docutils literal"><span class="pre">help</span> <span class="pre">while</span></code>命令可以查看)</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="k">while</span> TEST_COMMANDS_LIST<span class="p">;</span> <span class="k">do</span>
+        COMMANDS_LIST
+<span class="k">done</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="x0202-until">
 <span id="untilloop"></span><h2>0x0202 until循环语句<a class="headerlink" href="#x0202-until" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">until循环语句</span></code>的语法结构如下(使用<code class="docutils literal"><span class="pre">help</span> <span class="pre">until</span></code>命令可以查看)</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="k">until</span> TEST_COMMANDS_LIST<span class="p">;</span> <span class="k">do</span>
+        COMMANDS_LIST
+<span class="k">done</span>
+</pre></div>
+</div>
 </div>
 </div>
 
