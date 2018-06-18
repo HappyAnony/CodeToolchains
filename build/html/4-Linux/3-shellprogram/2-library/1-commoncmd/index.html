@@ -38,7 +38,7 @@
     <link rel="top" title="CodeToolchains 1.0.0 文档" href="../../../../index.html"/>
         <link rel="up" title="常用类库" href="../index.html"/>
         <link rel="next" title="常用函数" href="../2-commonfunc/index.html"/>
-        <link rel="prev" title="常用类库" href="../index.html"/> 
+        <link rel="prev" title="常用环境变量" href="../0-commonvar/index.html"/> 
 
   
   <script src="../../../../_static/js/modernizr.min.js"></script>
@@ -101,6 +101,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html">shell编程</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../../1-syntax/index.html">语法基础</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../index.html">常用类库</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../0-commonvar/index.html">常用环境变量</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">常用命令</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../2-commonfunc/index.html">常用函数</a></li>
 </ul>
@@ -184,10 +185,83 @@
             
   <div class="section" id="id1">
 <h1>常用命令<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>shift轮替变量</p>
-<p>命令mktemp创建临时文件或目录</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>mktemp <span class="o">[</span>-d<span class="o">]</span> /tmp/file.XX   <span class="c1"># X指定越多，随机生成的后缀就越长，其中-d表示创建临时目录。</span>
+<p>shell脚本可以理解为shell命令的集合，shell命令可以分为两大类</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">shell内部命令(builtin</span> <span class="pre">command)</span></code>：在bash中内部实现的命令叫做内建命令，在文件系统上没有对应的可执行文件</li>
+<li><code class="docutils literal"><span class="pre">shell外部命令(binary</span> <span class="pre">command)</span></code>：在文件系统上的某个位置(/bin、/sbin等)有一个与命令名称对应的可执行文件</li>
+</ul>
+<p>关于shell脚本中可能会用到的shell命令可以参考：<a class="reference external" href="../../../2-shellcmd/index.html">linux工具集之shell命令</a></p>
+<p>在此处我们主要介绍下shell脚本中使用频次最高的几个命令</p>
+<ul class="simple">
+<li><a class="reference external" href="#readll">read</a>：获取用户输入</li>
+<li><a class="reference external" href="#echoll">echo</a>：打印输出</li>
+<li><a class="reference external" href="#printfll">printf</a>：打印输出</li>
+<li><a class="reference external" href="#shiftll">shift</a>：剔除位置参数</li>
+</ul>
+<div class="section" id="x00-read">
+<span id="readll"></span><h2>0x00 read<a class="headerlink" href="#x00-read" title="永久链接至标题">¶</a></h2>
+<p>关于<code class="docutils literal"><span class="pre">read</span></code>命令的用法详见：<a class="reference external" href="../../../2-shellcmd/ziooprate/index.html#readl">IO操作之read</a></p>
+</div>
+<div class="section" id="x01-echo">
+<span id="echoll"></span><h2>0x01 echo<a class="headerlink" href="#x01-echo" title="永久链接至标题">¶</a></h2>
+<p>关于<code class="docutils literal"><span class="pre">echo</span></code>命令的用法详见：<a class="reference external" href="../../../2-shellcmd/ziooprate/index.html#echol">IO操作之echo</a></p>
+</div>
+<div class="section" id="x02-printf">
+<span id="printfll"></span><h2>0x02 printf<a class="headerlink" href="#x02-printf" title="永久链接至标题">¶</a></h2>
+<p>关于<code class="docutils literal"><span class="pre">printf</span></code>命令的用法详见：<a class="reference external" href="../../../2-shellcmd/ziooprate/index.html#printfl">IO操作之printf</a></p>
+</div>
+<div class="section" id="x03-shift">
+<span id="shiftll"></span><h2>0x03 shift<a class="headerlink" href="#x03-shift" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">shift</span></code>命令在shell脚本中用来剔除脚本的位置变量，它是shell内建命令，使用<code class="docutils literal"><span class="pre">help</span> <span class="pre">shift</span></code>命令可以查看其语法格式和使用说明，它的语法格式如下</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nb">shift</span> <span class="o">[</span>n<span class="o">]</span>
 </pre></div>
+</div>
+<p>该命令常用来解析脚本的传入参数</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">shift</span></code>表示剔除脚本的第一个传入参数，后面参数往前排</li>
+<li><code class="docutils literal"><span class="pre">shift</span> <span class="pre">n</span></code>表示剔除脚本的前n个传入参数，后面参数往前排</li>
+</ul>
+</div></blockquote>
+<p>写一个脚本，使用形式：<code class="docutils literal"><span class="pre">userinfo.sh</span> <span class="pre">-u</span> <span class="pre">username</span> <span class="pre">[-v</span> <span class="pre">{1|2}]</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">-u</span></code>选项用于指定用户，而后脚本显示用户的UID和GID</li>
+<li><code class="docutils literal"><span class="pre">-v</span></code>选项后面是1，则显示用户的家目录路径；如果是2，则显示用户的家目录路径和shell</li>
+</ul>
+</div></blockquote>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="o">[</span> <span class="nv">$#</span> -lt <span class="m">2</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;less arguments&quot;</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span> <span class="m">3</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;-u&quot;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nv">userName</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+        <span class="nb">shift</span> <span class="m">2</span>       <span class="c1"># 剔除前2个位置参数</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$#</span> -ge <span class="m">2</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;-v&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nv">verFlag</span><span class="o">=</span><span class="nv">$2</span>
+<span class="k">fi</span>
+
+<span class="nv">verFlag</span><span class="o">=</span><span class="si">${</span><span class="nv">verFlag</span><span class="k">:-</span><span class="nv">0</span><span class="si">}</span>
+
+<span class="k">if</span> <span class="o">[</span> -n <span class="nv">$verFlag</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="k">if</span> ! <span class="o">[[</span> <span class="nv">$verFlag</span> <span class="o">=</span>~ <span class="o">[</span><span class="m">012</span><span class="o">]</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+                <span class="nb">echo</span> <span class="s2">&quot;Wrong Parameter&quot;</span>
+                <span class="nb">echo</span> <span class="s2">&quot;Usage: `basename </span><span class="nv">$0</span><span class="s2">` -u UserName -v {1|2}&quot;</span>
+                <span class="nb">exit</span> <span class="m">4</span>
+        <span class="k">fi</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$verFlag</span> -eq <span class="m">1</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+        grep <span class="s2">&quot;^</span><span class="nv">$userName</span><span class="s2">&quot;</span> /etc/passwd <span class="p">|</span> cut -d: -f1,3,4,6
+<span class="k">elif</span> <span class="o">[</span> <span class="nv">$verFlag</span> -eq <span class="m">2</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+        grep <span class="s2">&quot;^</span><span class="nv">$userName</span><span class="s2">&quot;</span> /etc/passwd <span class="p">|</span> cut -d: -f1,3,4,6,7
+<span class="k">else</span>
+        grep <span class="s2">&quot;^</span><span class="nv">$userName</span><span class="s2">&quot;</span> /etc/passwd <span class="p">|</span> cut -d: -f1,3,4
+<span class="k">fi</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -204,7 +278,7 @@
         <a href="../2-commonfunc/index.html" class="btn btn-neutral float-right" title="常用函数" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral" title="常用类库" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../0-commonvar/index.html" class="btn btn-neutral" title="常用环境变量" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

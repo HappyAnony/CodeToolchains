@@ -11,6 +11,7 @@ shell命令
    1-cmdview/index
    2-FileManage/index
    3-TextProcess/index
+   ziooprate/index
    4-UserManage/index
    5-PackageManage/index
    6-ProcessManage/index

@@ -101,6 +101,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../1-cmdview/index.html">命令概述</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../2-FileManage/index.html">文件管理</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../3-TextProcess/index.html">文本处理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ziooprate/index.html">IO操作</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../4-UserManage/index.html">用户管理</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../5-PackageManage/index.html">软件包管理</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../6-ProcessManage/index.html">进程管理</a></li>
@@ -190,60 +191,8 @@
             
   <div class="section" id="id1">
 <h1>其它工具<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>命令汇总</p>
-<ul class="simple">
-<li><a class="reference external" href="#echol">echo</a></li>
-</ul>
-<div class="section" id="x00-echo">
-<span id="echol"></span><h2>0x00 echo<a class="headerlink" href="#x00-echo" title="永久链接至标题">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">echo</span></code>命令类似于<code class="docutils literal"><span class="pre">c中printf</span></code>，用于I/O标准输出</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$echo</span> <span class="s2">&quot;hello world&quot;</span>   <span class="c1"># 打印字符串</span>
-
-<span class="c1"># -e选项支持字符串内转义字符的显示输出</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;hello\bworld&quot;</span>        <span class="c1"># 删除前面的字符，输出hellworld</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;hello\tworld&quot;</span>        <span class="c1"># 制表符，输出hello    world</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;hello\vworld&quot;</span>        <span class="c1"># 垂直制表符</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;hello\nworld&quot;</span>        <span class="c1"># 换行符</span>
-
-<span class="c1"># 着色显示，字符串格式为：&quot;\033[#;#mSTRING\033[0m&quot;</span>
-<span class="c1"># 控制符开始\033[</span>
-<span class="c1"># 第一个#表示字背景颜色，;前面的标识为背景颜色，颜色范围40—–47</span>
-<span class="c1"># ;用来分隔字背景颜色和文字颜色，如果没有表示默认背景颜色</span>
-<span class="c1"># 第二个#表示文字颜色，m前面的颜色标识为文字颜色，颜色范围30—–37</span>
-<span class="c1"># 控制符结束\033[0m</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[32mhello\033[0m&quot;</span>        <span class="c1"># 着色显示，默认背景颜色，字颜色为32绿色</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[34m 蓝色字 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[35m 紫色字 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[36m 天蓝字 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[37m 白色字 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[40;37m 黑底白字 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[41;37m 红底白字 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[42;37m 绿底白字 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[43;37m 黄底白字 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[44;37m 蓝底白字 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[45;37m 紫底白字 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[46;37m 天蓝底白字 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[47;30m 白底黑字 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[41;37;0m 关闭所有属性 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[41;37;1m 设置高亮度 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[41;37;4m 下划线 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[41;37;5m 闪烁 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[41;37;7m 反显 \033[0m&quot;</span>
-<span class="nv">$echo</span> -e <span class="s2">&quot;\033[41;37;8m 消隐 \033[0m&quot;</span>
-</pre></div>
-</div>
-<div class="figure">
-<img alt="../../../_images/15.png" src="../../../_images/15.png" />
-</div>
-<div class="figure">
-<img alt="../../../_images/23.png" src="../../../_images/23.png" />
-</div>
-</div>
-<div class="section" id="x01">
-<h2>0x01 环境变量<a class="headerlink" href="#x01" title="永久链接至标题">¶</a></h2>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nv">$export</span>      <span class="c1"># 显示当前shell环境变量</span>
 </pre></div>
-</div>
 </div>
 </div>
 

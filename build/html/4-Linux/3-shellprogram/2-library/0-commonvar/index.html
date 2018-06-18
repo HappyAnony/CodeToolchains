@@ -185,7 +185,32 @@
             
   <div class="section" id="id1">
 <h1>常用环境变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>bash的伪随机数生成器</p>
+<p>shell脚本中常用的环境变量有</p>
+<ul class="simple">
+<li><a class="reference external" href="#ifsl">IFS</a></li>
+<li><a class="reference external" href="#randoml">RANDOM</a></li>
+</ul>
+<div class="section" id="x00-ifs">
+<span id="ifsl"></span><h2>0x00 IFS<a class="headerlink" href="#x00-ifs" title="永久链接至标题">¶</a></h2>
+<p>shell下的很多命令都会分割单词，绝大多数时候默认是采用空格作为分隔符，有些时候遇到制表符、换行符也会进行分隔；这种分隔符是由<code class="docutils literal"><span class="pre">IFS</span></code>环境变量指定的</p>
+<p><code class="docutils literal"><span class="pre">IFS</span></code>是shell内部字段分隔符的环境变量</p>
+<div class="figure">
+<img alt="../../../../_images/18.png" src="../../../../_images/18.png" />
+</div>
+<p>由上图可知：默认的<code class="docutils literal"><span class="pre">IFS</span></code>在碰到<code class="docutils literal"><span class="pre">空格</span></code>、<code class="docutils literal"><span class="pre">制表符\t</span></code>或 <code class="docutils literal"><span class="pre">分行符\n</span></code>就会自动分隔进入下一步；但是对空格处理有点不一样，对行首和行尾两边的空格不处理，并且多个连续的空格默认当作一个空格</p>
+<p>有些时候在编写脚本或执行循环的时候，修改<code class="docutils literal"><span class="pre">IFS</span></code>可以起很大作用。如果要修改<code class="docutils literal"><span class="pre">IFS</span></code>，最好记得先备份系统<code class="docutils literal"><span class="pre">IFS</span></code>，再需要的地方再还原<code class="docutils literal"><span class="pre">IFS</span></code></p>
+<div class="figure">
+<img alt="../../../../_images/24.png" src="../../../../_images/24.png" />
+</div>
+<p>大多数时候，我们都不会去修改<code class="docutils literal"><span class="pre">IFS</span></code>来达到某种目的，而是采用其他方法来替代实现。这样就需要注意默认<code class="docutils literal"><span class="pre">IFS</span></code>的一个特殊性，它会忽略前导空白和后缀空白，并压缩连续空白；但是在某些时候，这会出现意想不到的问题</p>
+<div class="figure">
+<img alt="../../../../_images/33.png" src="../../../../_images/33.png" />
+</div>
+<p>因此，<strong>在可以对变量加引号的情况下，一定要加上引号来保护空白字符</strong></p>
+</div>
+<div class="section" id="x01-random">
+<span id="randoml"></span><h2>0x01 RANDOM<a class="headerlink" href="#x01-random" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">RANDOM</span></code>环境变量是bash的伪随机数生成器</p>
 <ul class="simple">
 <li>$RANDOM=======生成0~32767之间的随机数</li>
 <li>$[RANDOM%num]===生成0~num之间的随机数；对算术表达式的值进行引用时需要使用[]</li>
@@ -212,6 +237,7 @@
   <span class="nb">echo</span> <span class="si">${</span><span class="nv">arrynumer</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>
 <span class="k">done</span>
 </pre></div>
+</div>
 </div>
 </div>
 

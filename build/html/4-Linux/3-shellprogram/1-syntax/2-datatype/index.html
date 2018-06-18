@@ -103,7 +103,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../1-scriptstruct/index.html">脚本结构</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">数据类型</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../3-variable/index.html">变量</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../4-operator/index.html">运算符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../4-operator/index.html">操作符</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../5-control/index.html">控制流程语句</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../6-functions/index.html">函数</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../7-pieceofkn/index.html">知识碎片</a></li>
@@ -215,7 +215,7 @@
 <p>数值型变量一般支持以下运算操作</p>
 <ul class="simple">
 <li><a class="reference external" href="#arithmeticl">算术运算</a></li>
-<li><a class="reference external" href="#logicl">逻辑运算</a></li>
+<li><a class="reference external" href="#logicl">比较运算</a></li>
 <li><a class="reference external" href="#arrayindex">数组索引</a></li>
 </ul>
 </div>
@@ -291,9 +291,13 @@
 </ul>
 </div>
 <div class="section" id="x0001">
-<span id="logicl"></span><h2>0x0001 逻辑运算<a class="headerlink" href="#x0001" title="永久链接至标题">¶</a></h2>
-<p>逻辑运算一般用于条件测试</p>
-<p>示例代码如下</p>
+<span id="logicl"></span><h2>0x0001 比较运算<a class="headerlink" href="#x0001" title="永久链接至标题">¶</a></h2>
+<p>比较运算有以下几种类型</p>
+<ul class="simple">
+<li><a class="reference external" href="#logicltestl">用于条件测试</a></li>
+<li><a class="reference external" href="#logiclforl">用于for循环</a></li>
+</ul>
+<p id="logicltestl">用于条件测试的示例代码如下</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nb">declare</span> -i <span class="nv">val</span><span class="o">=</span><span class="m">5</span>   <span class="c1"># 显式声明数值变量</span>
@@ -349,7 +353,7 @@
 <span class="c1"># the value of num variable is lower than 5</span>
 </pre></div>
 </div>
-<p>由上述示例可知：数值类型变量支持的逻辑运算以及对应的逻辑运算符如下</p>
+<p>由上述示例可知：数值类型变量用于条件测试时支持的比较运算以及对应的运算符如下</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">等于</span></code>：<code class="docutils literal"><span class="pre">-eq</span></code></li>
 <li><code class="docutils literal"><span class="pre">不等于</span></code>：<code class="docutils literal"><span class="pre">-ne</span></code></li>
@@ -357,6 +361,55 @@
 <li><code class="docutils literal"><span class="pre">大于等于</span></code>：<code class="docutils literal"><span class="pre">-ge</span></code></li>
 <li><code class="docutils literal"><span class="pre">大于</span></code>：<code class="docutils literal"><span class="pre">-gt</span></code></li>
 <li><code class="docutils literal"><span class="pre">小于</span></code>：<code class="docutils literal"><span class="pre">-lt</span></code></li>
+<li><code class="docutils literal"><span class="pre">逻辑与</span></code>：<code class="docutils literal"><span class="pre">&amp;&amp;</span></code></li>
+<li><code class="docutils literal"><span class="pre">逻辑非</span></code>：<code class="docutils literal"><span class="pre">!</span></code></li>
+<li><code class="docutils literal"><span class="pre">逻辑或</span></code>：<code class="docutils literal"><span class="pre">||</span></code></li>
+</ul>
+<p id="logiclforl">用于用于for循环的示例代码如下</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># ==判断变量i的值是否等于1</span>
+<span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span> <span class="nv">i</span><span class="o">==</span><span class="m">1</span><span class="p">;</span> i++<span class="o">))</span><span class="p">;</span><span class="k">do</span>
+        <span class="nb">echo</span> <span class="nv">$i</span>
+<span class="k">done</span>
+
+<span class="c1"># !=判断变量i的值是否不等于3</span>
+<span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span> i!<span class="o">=</span><span class="m">3</span><span class="p">;</span> i++<span class="o">))</span><span class="p">;</span> <span class="k">do</span>
+        <span class="nb">echo</span> <span class="nv">$i</span>
+<span class="k">done</span>
+
+<span class="c1"># &lt;=判断变量i的值是否小于等于4</span>
+<span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span> i&lt;<span class="o">=</span><span class="m">4</span><span class="p">;</span> i++<span class="o">))</span><span class="p">;</span> <span class="k">do</span>
+        <span class="nb">echo</span> <span class="nv">$i</span>
+<span class="k">done</span>
+
+<span class="c1"># &gt;=判断变量i的值是否大于等于1</span>
+<span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">5</span><span class="p">;</span> i&gt;<span class="o">=</span><span class="m">1</span><span class="p">;</span> i--<span class="o">))</span><span class="p">;</span><span class="k">do</span>
+        <span class="nb">echo</span> <span class="nv">$i</span>
+<span class="k">done</span>
+
+<span class="c1"># &lt;判断变量i的值是否小于7</span>
+<span class="c1"># &gt;判断变量i的值是否大于0</span>
+<span class="c1"># &amp;&amp;表示逻辑与</span>
+<span class="c1"># ||表示逻辑或</span>
+<span class="c1"># !表示逻辑非</span>
+<span class="c1"># 非的优先级大于与，与的优先级大于或</span>
+<span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span> i&gt;0 <span class="o">&amp;&amp;</span> i&lt;<span class="m">7</span><span class="p">;</span> i++<span class="o">))</span><span class="p">;</span> <span class="k">do</span>
+        <span class="nb">echo</span> <span class="nv">$i</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>由上述示例可知：数值类型变量用于for循环时支持的比较运算以及对应的运算符如下</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">等于</span></code>：<code class="docutils literal"><span class="pre">==</span></code></li>
+<li><code class="docutils literal"><span class="pre">不等于</span></code>：<code class="docutils literal"><span class="pre">!=</span></code></li>
+<li><code class="docutils literal"><span class="pre">小于等于</span></code>：<code class="docutils literal"><span class="pre">&lt;=</span></code></li>
+<li><code class="docutils literal"><span class="pre">大于等于</span></code>：<code class="docutils literal"><span class="pre">&gt;=</span></code></li>
+<li><code class="docutils literal"><span class="pre">大于</span></code>：<code class="docutils literal"><span class="pre">&gt;</span></code></li>
+<li><code class="docutils literal"><span class="pre">小于</span></code>：<code class="docutils literal"><span class="pre">&lt;</span></code></li>
+<li><code class="docutils literal"><span class="pre">逻辑与</span></code>：<code class="docutils literal"><span class="pre">&amp;&amp;</span></code></li>
+<li><code class="docutils literal"><span class="pre">逻辑非</span></code>：<code class="docutils literal"><span class="pre">!</span></code></li>
+<li><code class="docutils literal"><span class="pre">逻辑或</span></code>：<code class="docutils literal"><span class="pre">||</span></code></li>
 </ul>
 </div>
 <div class="section" id="x0002">
@@ -622,7 +675,7 @@ array4<span class="o">[</span><span class="m">3</span><span class="o">]=</span><
 <span class="c1"># array_test8:/usr/bin /root/bin /usr/mysql</span>
 </pre></div>
 </div>
-<p>同时普通数组也可用于for循环遍历</p>
+<p id="forlooppl">同时普通数组也可用于for循环遍历</p>
 <p>代码示例如下</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
@@ -821,7 +874,7 @@ array3<span class="o">[</span>name5<span class="o">]=</span>lisi
 <span class="c1"># array_test8:/usr/mysql  /usr/bin /root/bin</span>
 </pre></div>
 </div>
-<p>关联数组和普通数组一样，也可用于for循环遍历</p>
+<p id="forloopgl">关联数组和普通数组一样，也可用于for循环遍历</p>
 <p>先创建<code class="docutils literal"><span class="pre">test.log</span></code>文件，内容如下</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1">#cat ~/test.log</span>
 portmapper
@@ -879,7 +932,7 @@ nlockmgr
 <div class="section" id="x03">
 <span id="listsl"></span><h2>0x03 列表型<a class="headerlink" href="#x03" title="永久链接至标题">¶</a></h2>
 <p>列表型变量常用来for循环遍历，但是一般是在for循环中直接使用，当然也可以通过变量进行引用</p>
-<p>代码示例如下</p>
+<p id="forlistll"><span id="forlistl"></span>代码示例如下</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1"># 生成数字列表：使用{}运算符</span>
